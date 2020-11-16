@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './Login.css'
 import { Link, useHistory } from "react-router-dom";
+import { useStateValue } from "./StateProvider";
 import { auth } from "./firebase";
 
 function Login() {
-    const history = useHistory();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [{ user }, dispatch] = useStateValue();
 
-    const signIn = e => {
-        console.log("Sign In");
-        // e.preventDefault();
+    useEffect(() => {
+        console.log(user);
+    },[user]);
 
-        // auth
-        //     .signInWithEmailAndPassword(email, password)
-        //     .then(auth => {
-        //         history.push('/')
-        //     })
-        //     .catch(error => alert(error.message))
-    }
+    const signIn = () => {
+        // dispatch the item into the data layer
+        dispatch({
+          type: "SET_USER",
+          user: {
+            id: 1,
+            name: "Binh Duong"
+          },
+        });
+    };
 
     const register = e => {
         // e.preventDefault();
@@ -44,13 +48,14 @@ function Login() {
                     <h5>Password</h5>
                     <input type='password' value={password} onChange={e => setPassword(e.target.value)} />
 
-                    <button type='submit' onClick={signIn} className='login__signInButton'>Sign In</button>
+                    <button type='submit' className='login__signInButton'>Sign In</button>
                 </form>
 
                 <Link to='/register'>
                     <button onClick={register} className='login__registerButton'>Create your Amazon Account</button>
                 </Link>
             </div>
+            <button onClick={signIn}>Test</button>
         </div>
     )
 }

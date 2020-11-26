@@ -1,4 +1,6 @@
 import React, { useState,useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from "./axios";
 import FacebookIcon from '@material-ui/icons/Facebook';
 import MailIcon from '@material-ui/icons/Mail';
 import InstagramIcon from '@material-ui/icons/Instagram';
@@ -28,6 +30,14 @@ function Profile(){
     });
 
     const [alert, setAlert] = useState(true);
+
+    const {register , handleSubmit} = useForm();
+
+    const onSubmit = async(data) => {
+        console.log("Data is"+data)
+        const dataReq = await axios.post("http://localhost:8000/products",data);
+        console.log(dataReq);
+    }
 
     const handleChange = (event) => {
         event.preventDefault();
@@ -82,15 +92,6 @@ function Profile(){
         setFormErrors(errors);
     }
 
-    const handleSubmit =  (event) => {
-        if(validateForm(formErrors)){
-            console.log("Valid form and send to backend");
-        }
-        else{
-            alert('This form is INVALID');
-        }
-    }
-
     return(
         <div className="profile">
             <h1>My Profile</h1>
@@ -133,13 +134,13 @@ function Profile(){
                 </table>
             </div>
             <div className="left_area col-md-6">
-                <form className="form-horizontal" method="get" onSubmit={handleSubmit}>
+                <form className="form-horizontal" method="post" onSubmit={handleSubmit(onSubmit)} >
                     <div>
                         <h4>Personal Information</h4>
                         <div className="form-group">
                             <label className="col-md-5 control-label" for="profileName"> Name</label>
                             <div className="col-md-7">
-                                <input type="text" className="form-control" id="profileName" name="name" onChange={handleChange}/>
+                                <input ref={register} type="text" className="form-control" id="profileName" name="name" onChange={handleChange}/>
                             </div>
                             {formErrors.name.length > 0 && 
                                 <span className='error'>{formErrors.name}</span>}
@@ -147,7 +148,7 @@ function Profile(){
                         <div className="form-group">
                             <label className="col-md-5 control-label" for="profileEmail">Email</label>
                             <div className="col-md-7">
-                                <input type="email" className="form-control" id="profileEmail" name="email" onChange={handleChange}/>
+                                <input ref={register} type="email" className="form-control" id="profileEmail" name="email" onChange={handleChange}/>
                             </div>
                             {formErrors.email.length > 0 && 
                                 <span className='error'>{formErrors.email}</span>}
@@ -155,7 +156,7 @@ function Profile(){
                         <div className="form-group">
                             <label className="col-md-5 control-label" for="profileBirth">Date Of Birth</label>
                             <div className="col-md-7">
-                                <input type="date" className="form-control" id="profileBirth" name="DOB" onChange={handleChange}/>
+                                <input ref={register} type="date" className="form-control" id="profileBirth" name="DOB" onChange={handleChange}/>
                             </div>
                             {formErrors.DOB.length > 0 && 
                                 <span className='error'>{formErrors.DOB}</span>}
@@ -163,7 +164,7 @@ function Profile(){
                         <div className="form-group">
                             <label className="col-md-5 control-label" for="profilePhone">Phone Number</label>
                             <div className="col-md-7">
-                                <input type="text" className="form-control" id="profilePhone" name="phonenumber" onChange={handleChange}/>
+                                <input ref={register} type="text" className="form-control" id="profilePhone" name="phonenumber" onChange={handleChange}/>
                             </div>
                             {formErrors.phonenumber.length > 0 && 
                                 <span className='error'>{formErrors.phonenumber}</span>}
@@ -174,7 +175,7 @@ function Profile(){
                         <div className="form-group">
                             <label className="col-md-5 control-label" for="oldPassword">Old Password</label>
                             <div className="col-md-7">
-                                <input type="text" className="form-control" id="oldPassword" name="oldPassword" onChange={handleChange}/>
+                                <input ref={register} type="text" className="form-control" id="oldPassword" name="oldPassword" onChange={handleChange}/>
                             </div>
                             {formErrors.oldPassword.length > 0 && 
                                 <span className='error'>{formErrors.oldPassword}</span>}
@@ -182,7 +183,7 @@ function Profile(){
                         <div className="form-group">
                             <label className="col-md-5 control-label" for="profileNewPassword">New Password</label>
                             <div className="col-md-7">
-                                <input type="text" className="form-control" id="profileNewPassword" name="pass" onChange={handleChange}/>
+                                <input ref={register} type="text" className="form-control" id="profileNewPassword" name="pass" onChange={handleChange}/>
                             </div>
                             {formErrors.pass.length > 0 && 
                                 <span className='error'>{formErrors.pass}</span>}
@@ -190,7 +191,7 @@ function Profile(){
                         <div className="form-group">
                             <label className="col-md-5 control-label" for="profileNewPasswordRepeat">Repeat New Password</label>
                             <div className="col-md-7">
-                                <input type="text" className="form-control" id="profileNewPasswordRepeat" name="repass" onChange={handleChange}/>
+                                <input ref={register} type="text" className="form-control" id="profileNewPasswordRepeat" name="repass" onChange={handleChange}/>
                             </div>
                             {formErrors.repass.length > 0 && 
                                 <span className='error'>{formErrors.repass}</span>}

@@ -15,7 +15,7 @@ function Home() {
 
   useEffect(() => {
     getProductsData();
-  },[products]);
+  },[]);
   
   if(products.length === 0)
     return (

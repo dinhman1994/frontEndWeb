@@ -1,6 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from "./axios";
+import { useStateValue } from "./StateProvider";
+import { withRouter } from "react-router-dom";
+
 import FacebookIcon from '@material-ui/icons/Facebook';
 import MailIcon from '@material-ui/icons/Mail';
 import InstagramIcon from '@material-ui/icons/Instagram';
@@ -18,7 +21,7 @@ const validateForm = errors => {
 };
 
 function Profile(){
-
+    const [{ user }, dispatch] = useStateValue();
     const [formErrors, setFormErrors] = useState({
         name: '',
         email: '',
@@ -98,7 +101,8 @@ function Profile(){
             <div className="right_area col-md-6">
                 <h3>UserName</h3>
                 <div className="avatar_area">
-                    <img className="avatar_image" src="avatar.jpg"/>
+                    {user ? <img className="avatar_image" src={user.avatar}/> : <img className="avatar_image" src="themeLogin.jpg"/>}
+                    
                 </div>    
                 <hr />
                 <ul className="social_list">
@@ -116,19 +120,19 @@ function Profile(){
                     <tbody>
                         <tr>
                             <td>Name </td>
-                            <td className="infor">Duong Dinh Binh</td>
+                            { (user && user.name) ? <td className="infor">{user.name}</td> : <td className="infor"></td>} 
                         </tr>
                         <tr>
                             <td>Email: </td>
-                            <td className="infor">binhbg14@gmail.com</td>
+                            {(user && user.email) ? <td className="infor">{user.email}</td> : <td className="infor"></td>}       
                         </tr>
                         <tr>
                             <td>Phone:</td>
-                            <td className="infor">(0)326621539</td>
+                            {(user && user.phonenumber) ? <td className="infor">{user.phonenumber}</td> : <td className="infor"></td>}
                         </tr>
                         <tr>
                             <td>Date Of Birth</td>
-                            <td className="infor">14-02-2000</td>
+                            {(user && user.DOB) ? <td className="infor">{user.DOB}</td> : <td className="infor"></td>}
                         </tr>
                     </tbody>
                 </table>
@@ -212,4 +216,4 @@ function Profile(){
         </div>
     );
 }
-export default Profile;
+export default withRouter(Profile);

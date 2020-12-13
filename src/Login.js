@@ -71,7 +71,6 @@ function Login() {
     }
 
     const handleChange = (event) => {
-        // event.preventDefault();
         const { name, value } = event.target;
         let errors = {
             ...formErrors
@@ -106,7 +105,6 @@ function Login() {
                 <h1>Sign-in</h1>
 
                 <form onSubmit={ 
-					// event.preventDefault();
 					handleSubmit(onSubmit)
 				}>
                     <h5>E-mail</h5>

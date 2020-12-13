@@ -23,6 +23,8 @@ import CategoryProducts from "./CategoryProducts";
 import ProductDetail from "./ProductDetail";
 import Signout from "./Signout";
 import Dashboard from "./Dashboard";
+import Checkmail from "./Checkmail";
+import SendToken from "./SendToken";
 
 
 
@@ -57,7 +59,7 @@ function App() {
             <Signout />
           </Route>
           <Route exact path="/profile">
-            {(cookies.token!=undefined) ? <Profile /> : <Redirect to="/" />}
+            {(cookies.token!='undefined') ? <Profile /> : <Redirect to="/"/>}
           </Route>
           <Route path="/checkout">
             <Checkout />
@@ -85,9 +87,16 @@ function App() {
               <Payment />
             </Elements>
           </Route>
-          <Route path="/">
+          <Route path="/checkmail">
+            <Checkmail />
+          </Route>
+          <Route path="/userToken/:token">
+            <SendToken />
+          </Route>
+          <Route exact path="/">
             <Home />
           </Route>
+          
         </Switch>
       </div>
     </Router>

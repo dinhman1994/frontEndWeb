@@ -15,6 +15,7 @@ function Home() {
 
 	useEffect(() => {
 		async function fetchData(){
+			console.log("Home is" + cookies.token);
 		}
 		fetchData();
 	},

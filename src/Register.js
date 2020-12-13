@@ -53,24 +53,25 @@ function Register() {
 			alert(result.data.message);
 			return;
 		}
-		setCookie('token',result.data.token);
-		await setCookie('token',result.data.token);
-		// get user information
-        const userData = await axios({
-            method: 'get',
-            url: 'http://localhost:8000/profile',
-            headers : {
-                token: result.data.token
-            }
-        });
-		if (userData.data.message != 'Success') return;
-        dispatch({
-            type: "SET_USER",
-            user: {
-                ...userData.data.user
-            },
-        });
-		history.push('/');
+		history.push('/checkmail');
+		// setCookie('token',result.data.token);
+		// await setCookie('token',result.data.token);
+		// // get user information
+        // const userData = await axios({
+        //     method: 'get',
+        //     url: 'http://localhost:8000/profile',
+        //     headers : {
+        //         token: result.data.token
+        //     }
+        // });
+		// if (userData.data.message != 'Success') return;
+        // dispatch({
+        //     type: "SET_USER",
+        //     user: {
+        //         ...userData.data.user
+        //     },
+        // });
+		// history.push('/');
 	}
 
 	const handleChange = (event) => {

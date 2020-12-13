@@ -17,7 +17,7 @@ function Header() {
 	const [cookies, setCookie] = useCookies(['token']);
 
 	useEffect(() => {
-    console.log(cookies.token);
+    console.log("Header token is "+ cookies.token);
     async function fetchData(){
       const userData = await axios({
         method: 'get',

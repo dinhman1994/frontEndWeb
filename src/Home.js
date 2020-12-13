@@ -6,6 +6,7 @@ import { useStateValue } from "./StateProvider";
 import "./Home.css";
 import Product from "./Product";
 import Category from "./Category";
+import CategoryHomeProduct from "./CategoryHomeProduct";
 
 
 function Home() {
@@ -86,8 +87,16 @@ function Home() {
 							image="https://images-na.ssl-images-amazon.com/images/I/6125mFrzr6L._AC_SX355_.jpg"
 						/>
 					</div>
-					<div className="CategoryProducts">
-					</div>
+					<CategoryHomeProduct name='Máy tính thiết bị VP' category_id={1} />
+					<CategoryHomeProduct name='Điện lạnh - Điện gia dụng' category_id={2} />
+					<CategoryHomeProduct name='Kỹ thuật số' category_id={3} />
+					<CategoryHomeProduct name='Mẹ và bé' category_id={4} />
+					<CategoryHomeProduct name='Mỹ phẩm' category_id={5} />
+					<CategoryHomeProduct name='Nhà cửa đời sống' category_id={6} />
+					<CategoryHomeProduct name='Sách' category_id={7} />
+					<CategoryHomeProduct name='Thực phẩm' category_id={8} />
+					<CategoryHomeProduct name='Tivi' category_id={9} />
+					<CategoryHomeProduct name='Văn phòng phẩm' category_id={10} />
 				</div>
 			</div>
 		);
@@ -152,6 +161,7 @@ function Home() {
 					</div>
 					<div className="CategoryProducts">
 					</div>
+					<CategoryHomeProduct name='đồ gia dụng' category_id={1} />
 				</div>
 			</div>
 		);

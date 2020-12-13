@@ -87,7 +87,7 @@ function Home() {
 							image="https://images-na.ssl-images-amazon.com/images/I/6125mFrzr6L._AC_SX355_.jpg"
 						/>
 					</div>
-					<CategoryHomeProduct name='Máy tính thiết bị VP' category_id={1} />
+					{/* <CategoryHomeProduct name='Máy tính thiết bị VP' category_id={1} />
 					<CategoryHomeProduct name='Điện lạnh - Điện gia dụng' category_id={2} />
 					<CategoryHomeProduct name='Kỹ thuật số' category_id={3} />
 					<CategoryHomeProduct name='Mẹ và bé' category_id={4} />
@@ -96,7 +96,7 @@ function Home() {
 					<CategoryHomeProduct name='Sách' category_id={7} />
 					<CategoryHomeProduct name='Thực phẩm' category_id={8} />
 					<CategoryHomeProduct name='Tivi' category_id={9} />
-					<CategoryHomeProduct name='Văn phòng phẩm' category_id={10} />
+					<CategoryHomeProduct name='Văn phòng phẩm' category_id={10} /> */}
 				</div>
 			</div>
 		);

@@ -73,10 +73,10 @@ function App() {
           <Route path="/editProduct">
             <EditProduct />
           </Route>
-          <Route path="/categoryProducts">
+          <Route path="/category/:category_id">
             <CategoryProducts />
           </Route>
-          <Route path="/productDetail">
+          <Route path="/products/:product_id">
             <ProductDetail />
           </Route>
           <Route path="/dashboard">

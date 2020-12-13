@@ -8,7 +8,7 @@ function Category() {
 			<h2>CATEGORY</h2>
 			<hr/>
 			<div className="category_group">
-				<Link to="/products">
+				<Link to="/category/8">
 					<div className="category_item">
 						<img src="thucpham.jpg" className="category_image mb-3" alt="hi"/>						
 						<div className="mt-3">
@@ -16,7 +16,7 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/category/10">
 					<div className="category_item">
 						<img src="vanphongpham.png" className="category_image" alt="hi"/>						
 						<div>
@@ -24,7 +24,7 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/category/7">
 					<div className="category_item">
 						<img src="sach.jpg" className="category_image" alt="hi"/>						
 						<div>
@@ -32,7 +32,7 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/category/9">
 					<div className="category_item">
 						<img src="tivi.jpg" className="category_image" alt="hi"/>						
 						<div>
@@ -40,7 +40,7 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/category/4">
 					<div className="category_item">
 						<img src="mevabe.jpg" className="category_image" alt="hi"/>						
 						<div>
@@ -48,7 +48,7 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/category/6">
 					<div className="category_item">
 						<img src="nhacuadoisong.jpg" className="category_image" alt="hi"/>						
 						<div>
@@ -56,7 +56,7 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/category/5">
 					<div className="category_item">
 						<img src="mypham.jpg" className="category_image" alt="hi"/>						
 						<div>
@@ -64,7 +64,7 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/category/1">
 					<div className="category_item">
 						<img src="maytinhthietbivanphong.jpg" className="category_image" alt="hi"/>						
 						<div>
@@ -72,7 +72,7 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/">
+				<Link to="/category/2">
 					<div className="category_item">
 						<img src="dienlanhdiengiadung.jpg" className="category_image" alt="hi"/>						
 						<div>

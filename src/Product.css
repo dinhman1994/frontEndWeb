@@ -30,6 +30,9 @@
   border-color: #a88734 #9c7e31 #846a29;
   color: #111;
 }
+.product > button :onhover{
+  
+}
 
 .product__price {
   margin-top: 5px;
@@ -38,4 +41,12 @@
 .product__info {
   height: 100px;
   margin-bottom: 15px;
+}
+.SeeDetail{
+  font-weight: lighter;
+  text-decoration: underline;
+}
+.SeeDetail:hover{
+  color: red;
+
 }

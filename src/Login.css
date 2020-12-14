@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url("./images/themeLogin.jpg");
+  background-image: url("images/themeLogin.jpg");
   object-fit: cover;
 }
 

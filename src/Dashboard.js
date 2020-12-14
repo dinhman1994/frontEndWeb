@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import axios from "axios";
 import './Dashboard.css';
+import  ChartOrders from './ChartOrders'
+import  ChartMoney from './ChartMoney'
 
 function Dashboard(){
     return(
@@ -87,7 +89,7 @@ function Dashboard(){
                                 </div>
                                 <div class="panel-body text-center">
                                     <div>
-                                        <canvas id="lineChart" height="100"></canvas>
+                                       <ChartOrders></ChartOrders>
                                     </div>
 
                                 </div>
@@ -107,7 +109,7 @@ function Dashboard(){
                                 </div>
                                 <div class="panel-body">
                                     <div>
-                                        <canvas id="barChart" height="140"></canvas>
+                                    <ChartMoney> </ChartMoney>
                                     </div>
                                 </div>
                             </div>  

@@ -93,7 +93,7 @@ function CreateProduct() {
 						</ul>
 						<ul className="navbar-nav">
 							<li className="nav-item">
-								<a className="nav-link d-block" href="login.html">
+								<a className="nav-link d-block" href="login">
 									<ExitToAppSharpIcon />
 								 	<b>LOGOUT</b>
 								</a>

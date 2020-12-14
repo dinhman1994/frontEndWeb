@@ -69,12 +69,9 @@ function Payment() {
             dispatch({
                 type: 'EMPTY_BASKET'
             })
-
             history.replace('/orders')
         })
-
     }
-
     const handleChange = event => {
         // Listen for changes in the CardElement
         // and display any errors as the customer types their card details

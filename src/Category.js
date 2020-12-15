@@ -10,7 +10,7 @@ function Category() {
 			<div className="category_group">
 				<Link to="/category/8">
 					<div className="category_item">
-						<img src="thucpham.jpg" className="category_image mb-3" alt="hi"/>						
+						<img src="/thucpham.jpg" className="category_image mb-3" alt="hi"/>						
 						<div className="mt-3">
 							Thực Phẩm
 						</div>
@@ -18,7 +18,7 @@ function Category() {
 				</Link>
 				<Link to="/category/10">
 					<div className="category_item">
-						<img src="vanphongpham.png" className="category_image" alt="hi"/>						
+						<img src="/vanphongpham.png" className="category_image" alt="hi"/>						
 						<div>
 							Văn Phòng Phẩm
 						</div>
@@ -26,7 +26,7 @@ function Category() {
 				</Link>
 				<Link to="/category/7">
 					<div className="category_item">
-						<img src="sach.jpg" className="category_image" alt="hi"/>						
+						<img src="/sach.jpg" className="category_image" alt="hi"/>						
 						<div>
 							Sách
 						</div>
@@ -34,7 +34,7 @@ function Category() {
 				</Link>
 				<Link to="/category/9">
 					<div className="category_item">
-						<img src="tivi.jpg" className="category_image" alt="hi"/>						
+						<img src="/tivi.jpg" className="category_image" alt="hi"/>						
 						<div>
 							Tivi
 						</div>
@@ -42,7 +42,7 @@ function Category() {
 				</Link>
 				<Link to="/category/4">
 					<div className="category_item">
-						<img src="mevabe.jpg" className="category_image" alt="hi"/>						
+						<img src="/mevabe.jpg" className="category_image" alt="hi"/>						
 						<div>
 							Mẹ Và Bé
 						</div>
@@ -50,7 +50,7 @@ function Category() {
 				</Link>
 				<Link to="/category/6">
 					<div className="category_item">
-						<img src="nhacuadoisong.jpg" className="category_image" alt="hi"/>						
+						<img src="/nhacuadoisong.jpg" className="category_image" alt="hi"/>						
 						<div>
 							Nhà Cửa Đời Sống
 						</div>
@@ -58,7 +58,7 @@ function Category() {
 				</Link>
 				<Link to="/category/5">
 					<div className="category_item">
-						<img src="mypham.jpg" className="category_image" alt="hi"/>						
+						<img src="/mypham.jpg" className="category_image" alt="hi"/>						
 						<div>
 							Mỹ phẩm
 						</div>
@@ -66,7 +66,7 @@ function Category() {
 				</Link>
 				<Link to="/category/1">
 					<div className="category_item">
-						<img src="maytinhthietbivanphong.jpg" className="category_image" alt="hi"/>						
+						<img src="/maytinhthietbivanphong.jpg" className="category_image" alt="hi"/>						
 						<div>
 							Máy Tính - Thiết Bị VP
 						</div>
@@ -74,7 +74,7 @@ function Category() {
 				</Link>
 				<Link to="/category/2">
 					<div className="category_item">
-						<img src="dienlanhdiengiadung.jpg" className="category_image" alt="hi"/>						
+						<img src="/dienlanhdiengiadung.jpg" className="category_image" alt="hi"/>						
 						<div>
 							Điện Lạnh - Điện Gia Dụng
 						</div>

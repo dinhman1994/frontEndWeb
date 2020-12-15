@@ -1,8 +1,12 @@
 import React, { useState,useEffect } from 'react';
-import './CreateProduct.css';
 import { Link, useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import { auth } from "./firebase";
+import { useForm } from 'react-hook-form';
+import { useCookies } from 'react-cookie';
+import axios from "./axios";
+
+import './CreateProduct.css';
 
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import DashboardSharpIcon from '@material-ui/icons/DashboardSharp';
@@ -13,31 +17,107 @@ import HistorySharpIcon from '@material-ui/icons/HistorySharp';
 import ExitToAppSharpIcon from '@material-ui/icons/ExitToAppSharp';
 import CameraAltSharpIcon from '@material-ui/icons/CameraAltSharp';
 
+const validateForm = errors => {
+	let valid = true;
+	Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+	return valid;
+};
+
 function CreateProduct() {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [{ user }, dispatch] = useStateValue();
+	const [{ shop }, dispatch] = useStateValue();
+	const [formErrors, setFormErrors] = useState({
+		product_name: '',
+		product_image: '',
+		product_price: '',
+		product_description: '',
+		quantityInStock: '',
+		category_id: 'You must choose category'
+	});
+	const [product_image , setProduct_image] = useState(null);
+	const {register , handleSubmit} = useForm();
+	const [cookies, setCookie] = useCookies(['token']);
+
 
 	useEffect(() => {
-		console.log(user);
-	},[user]);
+	},[formErrors]);
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		let errors = {
+				...formErrors
+		};
+		switch (name) {
+			case 'product_name': 
+				errors.product_name = 
+					value.length < 5
+						? 'Name must be at least 5 characters long!'
+						: '';
+				break;
+			case 'product_image': 
+				errors.product_image = 
+					(value)
+						? ''
+						: 'You must have Product Image';
+				setProduct_image(event.target.files[0]);
+				break;
+			case 'product_price': 
+				errors.product_price = 
+					(parseInt(value)>0)
+						? ''
+						: 'Price must more than 0';
+				break;
+			case 'product_description':
+				errors.product_description = 
+					value.length < 10
+					? 'Discription must be at least 10 characters long!'
+					: '';
+				break;
+			case 'quantityInStock': 
+				errors.quantityInStock = 
+					(parseInt(value)>0)
+						? ''
+						: 'Price must more than 0';
+					break;
+			case 'category_id': 
+				errors.category_id = 
+					(value==="Select Category")
+						? 'You must choose category'
+						: '';
+			default:	
+				break;
+		}
 
-	const signIn = () => {
-		// dispatch the item into the data layer
-		dispatch({
-		  type: "SET_USER",
-		  user: {
-			id: 1,
-			name: "Binh Duong"
-		  },
-		});
-	};
-
-	const register = e => {
-		// e.preventDefault();
-		console.log("Registered");
+		setFormErrors(errors);
 	}
 
+	const onSubmit = (data) => {
+		async function sendForm(data){
+			const dataForm = new FormData(); 
+			dataForm.append('product_image',product_image);
+			dataForm.append('shop_id',2);
+			const result = await axios({
+				method: 'post',
+				url: 'http://localhost:8000/profile',
+				headers : {
+					token: cookies.token
+				},
+				data: dataForm
+			});
+			if(result.data.message != 'Success'){
+				alert(result.data.message);
+				return;
+			};
+			window.location.reload(false);
+			console.log(data);
+		}
+
+		if(!validateForm(formErrors)){
+			alert("You have some errors in your form !!!");
+			return;
+		}
+
+		sendForm(data);
+	}
+	
 	return (
 		<div className="createProduct">
 			<nav className="navbar navbar-expand-xl">
@@ -111,7 +191,7 @@ function CreateProduct() {
 									<h2 className="tm-block-title d-inline-block">Add Product</h2>
 								</div>
 							</div>
-							<form action="" className="tm-edit-product-form">
+							<form  className="tm-edit-product-form" onSubmit={handleSubmit(onSubmit)} enctype="multipart/form-data">
 							<div className="row tm-edit-product-row">
 								<div className="col-xl-6 col-lg-6 col-md-12">
 										<div className="form-group mb-3">
@@ -120,45 +200,60 @@ function CreateProduct() {
 												>Product Name
 											</label>
 											<input
+												ref={register}
 												id="name"
-												name="name"
+												name="product_name"
 												type="text"
 												className="form-control validate"
+												onChange={handleChange}
 												required
 											/>
 										</div>
+										{formErrors.product_name.length > 0 && 
+																<span className='error'>{formErrors.product_name}</span>}
 										<div className="form-group mb-3">
 											<label
-												for="name"
+												for="price"
 												>Product Price
 											</label>
 											<input
-												id="name"
-												name="name"
+												ref={register}
+												id="price"
+												name="product_price"
 												type="number"
 												className="form-control validate"
+												onChange={handleChange}
 												required
 											/>
 										</div>
+										{formErrors.product_price.length > 0 && 
+																<span className='error'>{formErrors.product_price}</span>}
 										<div className="form-group mb-3">
 											<label
 												for="description"
 												>Description</label
 											>
 											<textarea
+												ref={register}
 												className="form-control validate"
 												rows="3"
-												required
+												name="product_description"
+												onChange={handleChange}
 											></textarea>
 										</div>
+										{formErrors.product_description.length > 0 && 
+																<span className='error'>{formErrors.product_description}</span>}
 										<div className="form-group mb-3">
 											<label
 												for="category"
 												>Category</label
 											>
 											<select
+												ref={register}
 												className="custom-select tm-select-accounts"
 												id="category"
+												name="category_id"
+												onChange={handleChange}
 											>
 												<option selected>Select Category</option>
 												<option value="1">Văn phòng phẩm</option>
@@ -172,33 +267,27 @@ function CreateProduct() {
 												<option value="9">Điện Lạnh - Điện gia dụng</option>
 											</select>
 										</div>
+										{formErrors.category_id.length > 0 && 
+																<span className='error'>{formErrors.category_id}</span>}
 										<div className="row">
-												<div className="form-group mb-3 col-xs-12 col-sm-6">
-														<label
-															for="expire_date"
-															>Expire Date
-														</label>
-														<input
-															id="expire_date"
-															name="expire_date"
-															type="date"
-															className="form-control validate"
-															data-large-mode="true"
-														/>
-													</div>
 													<div className="form-group mb-3 col-xs-12 col-sm-6">
 														<label
 															for="stock"
-															>Units In Stock
+															>QUANTITY IN STOCK 
 														</label>
 														<input
+															ref={register}
 															id="stock"
-															name="stock"
+															name="quantityInStock"
 															type="number"
 															className="form-control validate"
+															onChange={handleChange}
 															required
 														/>
+														{formErrors.quantityInStock.length > 0 && 
+																<span className='error'>{formErrors.quantityInStock}</span>}
 													</div>
+													
 										</div>
 								</div>
 								<div className="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
@@ -206,14 +295,16 @@ function CreateProduct() {
 										<CameraAltSharpIcon />
 									</div>
 									<div className="custom-file mt-3 mb-3">
-										<input id="fileInput" type="file" style={{display: 'none'}} />
-										<input
-											type="button"
-											className="btn btn-primary btn-block mx-auto"
-											value="UPLOAD PRODUCT IMAGE"
-											onclick="document.getElementById('fileInput').click();"
+										<input 
+											ref={register} 
+											id="fileInput" 
+											type="file"  
+											name="product_image"
+											onChange={handleChange}
 										/>
 									</div>
+									{formErrors.product_image.length > 0 && 
+											<span className='error'>{formErrors.product_image}</span>}
 								</div>
 								<div className="col-12">
 									<button type="submit" className="btn btn-primary btn-block text-uppercase">Add Product Now</button>

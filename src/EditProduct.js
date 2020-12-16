@@ -100,7 +100,7 @@ function EditProduct() {
 							</li>
 							<li className="nav-item">
 								<a className="nav-link" href="index.html">
-									<DashboardSharpIcon className="navIcon" /> DASKBOARD				 
+									<DashboardSharpIcon className="navIcon" /> DASHBOARD				 
 								</a>
 							</li>
 							<li className="nav-item">

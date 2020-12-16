@@ -25,7 +25,7 @@ function Product({ id, name, image, price, rating }) {
       <div className="product__info">
         <p>{name}</p>
         <p className="product__price">
-          <small>$</small>
+          <small>đ</small>
           <strong>{price}</strong>
         </p>
         <div className="product__rating">
@@ -40,8 +40,11 @@ function Product({ id, name, image, price, rating }) {
       <img src={image} alt="" />
 
       <button onClick={addToBasket}>Add to Basket</button>
-      <p className = "SeeDetail" > See the Detail
-      </p>
+      <Link to={`/products/${id}`}>
+        <p className = "SeeDetail" > 
+          See the Detail
+        </p>
+      </Link>
     </div>
   );
 }

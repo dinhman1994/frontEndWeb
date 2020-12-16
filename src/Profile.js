@@ -171,7 +171,7 @@ function Profile(){
 								</table>
 						</div>
 						<div className="left_area col-md-6">
-								<form className="form-horizontal" method="post" onSubmit={handleSubmit(onSubmit)} enctype="multipart/form-data">
+								<form className="form-horizontal" onSubmit={handleSubmit(onSubmit)} enctype="multipart/form-data">
 										<div>
 												<h4>Personal Information</h4>
 												<div className="form-group">

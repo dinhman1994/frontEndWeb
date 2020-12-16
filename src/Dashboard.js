@@ -11,16 +11,14 @@ function Dashboard(){
             <nav class="navbar-aside navbar-static-side" role="navigation">
                 <div class="sidebar-collapse nano">
                     <div class="nano-content">
-                        <ul class="nav metismenu" id="side-menu">
+                        <ul class="nav metisMenu" id="side-menu">
                             <li class="nav-header">
                                 <div class="dropdown side-profile text-left"> 
                                     <span style={{display: "block"}}>
-                                        <img alt="image" class="img-circle" src="images/avtar-1.jpg" width="40" />
+                                        <img alt="image" class="img-circle" src="./images/avatar-1.jpg" width="40" />
                                     </span>
-                                    
                                     <span class="clear" style={{display: "block"}}> <span class="block m-t-xs"> <strong class="font-bold">John Doe </strong>
                                     </span></span> 
-                                    
                                 </div>
                             </li>
                             <li>
@@ -31,6 +29,7 @@ function Dashboard(){
                     </div>
                 </div>
             </nav>
+        
 
             <div id="wrapper">
                 <div class="content-wrapper container">
@@ -225,6 +224,7 @@ function Dashboard(){
             </div>
         </section>
         </div>
+        
     );
 }
 

@@ -27,10 +27,8 @@ class Chart extends Component{
                             'rgb(153,159,64)',
                             'rgb(255,184,64)',
                         ]
-                        ,
-                        borderWidth:1,
-                        borderColor:'#777',
-                        hoverBorderWidth:3,
+                        
+                        
                     }
                 ]
             }

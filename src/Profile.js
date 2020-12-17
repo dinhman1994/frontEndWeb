@@ -26,7 +26,6 @@ function Profile(){
 		const [{ user }, dispatch] = useStateValue();
 		const [formErrors, setFormErrors] = useState({
 				name: '',
-				email: '',
 				DOB: '',
 				phonenumber: '',
 				oldPassword: '',
@@ -45,7 +44,13 @@ function Profile(){
 		const onSubmit = (data) => {
 			async function sendForm(data){
 				const dataForm = new FormData(); 
-   				dataForm.append('avatar', avatarImg);
+				dataForm.append('avatar', avatarImg);
+				dataForm.append('name',data.name)
+				dataForm.append('DOB', data.DOB);
+				dataForm.append('phonenumber',data.phonenumber);
+
+				console.log(dataForm);
+
 				const result = await axios({
 					method: 'post',
 					url: 'http://localhost:8000/profile',
@@ -58,7 +63,7 @@ function Profile(){
 					alert(result.data.message);
 					return;
 				};
-				// window.location.reload(false);
+				window.location.reload(false);
 			}
 
 			if(!validateForm(formErrors)){
@@ -80,12 +85,6 @@ function Profile(){
 							value.length < 5
 								? 'Name must be at least 5 characters long!'
 								: '';
-						break;
-					case 'email': 
-						errors.email = 
-							validEmailRegex.test(value)
-								? ''
-								: 'Email is not valid!';
 						break;
 					case 'DOB': 
 						errors.DOB = 
@@ -181,14 +180,6 @@ function Profile(){
 														</div>
 														{formErrors.name.length > 0 && 
 																<span className='error'>{formErrors.name}</span>}
-												</div>
-												<div className="form-group">
-														<label className="col-md-5 control-label" for="profileEmail">Email</label>
-														<div className="col-md-7">
-															<input ref={register} type="email" className="form-control" id="profileEmail" name="email" onChange={handleChange}/>
-														</div>
-														{formErrors.email.length > 0 && 
-															<span className='error'>{formErrors.email}</span>}
 												</div>
 												<div className="form-group">
 														<label className="col-md-5 control-label" for="profileBirth">Date Of Birth</label>

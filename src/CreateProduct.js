@@ -91,14 +91,26 @@ function CreateProduct() {
 
 	const onSubmit = (data) => {
 		async function sendForm(data){
+
 			const dataForm = new FormData(); 
 			dataForm.append('product_image',product_image);
 			dataForm.append('shop_id',2);
+			dataForm.append('product_name',data.product_name);
+			dataForm.append('product_price',data.product_price);
+			dataForm.append('product_description',data.product_description);
+			dataForm.append('quantityInStock',data.quantityInStock);
+			dataForm.append('category_id',data.category_id);
+
+			console.log(data);
+			console.log("Ok nhaaaaa");
+			console.log(dataForm);
+
 			const result = await axios({
 				method: 'post',
-				url: 'http://localhost:8000/profile',
+				url: `http://localhost:8000/shop/${2}/product/add`,
 				headers : {
-					token: cookies.token
+					token: cookies.token,
+					category_id: data.category_id
 				},
 				data: dataForm
 			});
@@ -256,15 +268,17 @@ function CreateProduct() {
 												onChange={handleChange}
 											>
 												<option selected>Select Category</option>
-												<option value="1">Văn phòng phẩm</option>
-												<option value="2">Tivi</option>
-												<option value="3">Thực phẩm</option>
-												<option value="4">Sách</option>
-												<option value="5">Mẹ và Bé</option>
+												<option value="1">Máy tính - Thiết bị VP</option>
+												<option value="2">Điện Lạnh - Điện gia dụng</option>
+												<option value="3">Kỹ thuật số</option>
+												<option value="4">Mẹ và bé</option>
+												<option value="5">Mỹ phẩm</option>
 												<option value="6">Nhà cửa đời sống</option>
-												<option value="7">Mỹ phẩm</option>
-												<option value="8">Máy tính - Thiết bị VP</option>
-												<option value="9">Điện Lạnh - Điện gia dụng</option>
+												<option value="7">Sách</option>
+												<option value="8">Thực phẩm</option>
+												<option value="9">Tivi</option>
+												<option value="9">Văn phòng phẩm</option>
+										 
 											</select>
 										</div>
 										{formErrors.category_id.length > 0 && 
@@ -295,8 +309,7 @@ function CreateProduct() {
 										<CameraAltSharpIcon />
 									</div>
 									<div className="custom-file mt-3 mb-3">
-										<input 
-											ref={register} 
+										<input  
 											id="fileInput" 
 											type="file"  
 											name="product_image"

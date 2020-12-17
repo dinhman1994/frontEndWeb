@@ -7,6 +7,7 @@ import { Link, useHistory, useParams} from "react-router-dom";
 function ProductDetails(){
     const [product, setProduct] = useState({});
     let { product_id } = useParams();
+    const backEndServe = 'http://localhost:8000/';
     useEffect(() => {
         async function fetchData(){
             const result = await axios({
@@ -21,7 +22,7 @@ function ProductDetails(){
         <div className="ProductDetail">
             <div className="right_content">
                 <div className="img_area">
-                    <img src="/avatar.jpg" className="product_img"/>
+                    <img src={backEndServe+product.product_image} className="product_img"/>
                 </div>
                 
                 <div className="discription_area">

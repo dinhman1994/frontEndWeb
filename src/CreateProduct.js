@@ -69,7 +69,7 @@ function CreateProduct() {
 			case 'product_description':
 				errors.product_description = 
 					value.length < 10
-					? 'Discription must be at least 10 characters long!'
+					? 'Description must be at least 10 characters long!'
 					: '';
 				break;
 			case 'quantityInStock': 
@@ -142,7 +142,7 @@ function CreateProduct() {
 							</li>
 							<li className="nav-item">
 								<a className="nav-link" href="index.html">
-									<DashboardSharpIcon className="navIcon" /> DASKBOARD				 
+									<DashboardSharpIcon className="navIcon" /> DASHBOARD				 
 								</a>
 							</li>
 							<li className="nav-item">
@@ -172,7 +172,7 @@ function CreateProduct() {
 								>
 									<SettingsApplicationsSharpIcon /> SETTINGS
 								</a>
-								<div className="dropdown-menu" aria-labelledby="navbarDropdown">
+								<div className="dropdown-menu" aria-label led by="navbarDropdown">
 									<a className="dropdown-item" href="#">Daily Report</a>
 									<a className="dropdown-item" href="#">Weekly Report</a>
 									<a className="dropdown-item" href="#">Yearly Report</a>

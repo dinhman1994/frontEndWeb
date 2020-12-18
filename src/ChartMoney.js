@@ -1,3 +1,4 @@
+import { SignalWifi1BarLockSharp } from '@material-ui/icons';
 import React, {Component} from 'react'
 import {Bar} from 'react-chartjs-2';
 
@@ -9,14 +10,14 @@ class Chart extends Component{
                 labels:['January','February' ,'March','April','May','June'],
                 datasets:[
                     {
-                        label:'Orders',
+                        label:'Money',
                         data:[
-                            600,
-                            400,
-                            650,
-                            400,
-                            300,
-                            350,
+                            6000,
+                            4000,
+                            6500,
+                            4000,
+                            3070,
+                            3570,
                         ],
                         backgroundColor: [
                             'rgb(255,255,0)',
@@ -26,6 +27,8 @@ class Chart extends Component{
                             'rgb(153,159,64)',
                             'rgb(255,184,64)',
                         ]
+                        
+                        
                     }
                 ]
             }

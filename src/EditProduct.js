@@ -1,8 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from "react-router-dom";
+import { Link,useParams,useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
-import { auth } from "./firebase";
+import { useCookies } from 'react-cookie';
+import axios from "axios";
 
 import './EditProduct.css';
 
@@ -22,67 +23,125 @@ const validateForm = errors => {
 };
 
 function EditProduct() {
-	const [{ user }, dispatch] = useStateValue();
+	let { product_id } = useParams();
+	const [product, setProduct] = useState(null);
+	const [product_image , setProduct_image] = useState(null);
+	const [cookies, setCookie] = useCookies(['token']);
 
+	const backEndServe = 'http://localhost:8000/';
+	const [formErrors, setFormErrors] = useState({
+		product_name: '',
+		product_image: '',
+		product_price: '',
+		product_description: '',
+		quantityInStock: '',
+		category_id: ''
+	});
 	const {register , handleSubmit} = useForm();
 
-	const [formErrors, setFormErrors] = useState({
-		product_name : '',
-		product_price : '',
-		quantityInStock : ''
-	});
+	useEffect(() => {
+		async function fetchData(){
+            const result = await axios({
+				method: 'get',
+				url: `http://localhost:8000/products/${product_id}`
+			});
+            setProduct(result.data);
+        }
+        fetchData();
+	},[]);
 	
-	const onSubmit = (data) => {
-		console.log("Ok");
-		console.log(JSON.stringify(data));
-	} 
-
 	const handleChange = (event) => {
-        event.preventDefault();
-        const { name, value } = event.target;
+		const { name, value } = event.target;
+		setProduct({
+			...product,
+			[name] : value
+		});
         let errors = {
             ...formErrors
         };
         switch (name) {
-          case 'product_name': 
-            errors.product_name = 
-              value.length < 5
-                ? 'Name must be at least 5 characters long!'
-                : '';
-            break;
-          case 'product_price': 
-            errors.product_price = 
-			  (+(value) < 0)
-			  	? 'Price must positive number'
-                : '';
-            break;
-          case 'quantityInStock': 
-            errors.quantityInStock = 
-              (+(value) < 0)
-                ? 'Quantity In Stock positive number'
-                : '';
-            break;
-          default:
-            break;
-        }
+			case 'product_name': 
+				errors.product_name = 
+					value.length < 5
+						? 'Name must be at least 5 characters long!'
+						: '';
+				break;
+			case 'product_image': 
+				errors.product_image = 
+					(value)
+						? ''
+						: 'You must have Product Image';
+				setProduct_image(event.target.files[0]);
+				break;
+			case 'product_price': 
+				errors.product_price = 
+					(parseInt(value)>0)
+						? ''
+						: 'Price must more than 0';
+				break;
+			case 'product_description':
+				errors.product_description = 
+					value.length < 10
+					? 'Discription must be at least 10 characters long!'
+					: '';
+				break;
+			case 'quantityInStock': 
+				errors.quantityInStock = 
+					(parseInt(value)>0)
+						? ''
+						: 'Price must more than 0';
+					break;
+			case 'category_id': 
+				errors.category_id = 
+					(value==="Select Category")
+						? 'You must choose category'
+						: '';
+			default:	
+				break;
+		}
 
         setFormErrors(errors);
-    }
+	}
+	
+	const onSubmit = (data) => {
+		async function sendForm(data){
+			console.log(data);
+			const dataForm = new FormData(); 
+			dataForm.append('product_image',product_image);
+			dataForm.append('shop_id',2);
+			dataForm.append('product_name',data.product_name);
+			dataForm.append('product_price',data.product_price);
+			dataForm.append('product_description',data.product_description);
+			dataForm.append('quantityInStock',data.quantityInStock);
+			dataForm.append('category_id',data.category_id);
 
-	useEffect(() => {
-		console.log(user);
-	},[user]);
+			const result = await axios({
+				method: 'put',
+				url: `http://localhost:8000/shop/${2}/product/change/${product_id}`,
+				headers : {
+					token: cookies.token,
+					category_id: data.category_id
+				},
+				data: dataForm
+			});
+			if(result.data.message != 'Success'){
+				alert(result.data.message);
+				return;
+			};
+			window.location.reload();
+		}
 
-	const signIn = () => {
-		// dispatch the item into the data layer
-		dispatch({
-		  type: "SET_USER",
-		  user: {
-			id: 1,
-			name: "Binh Duong"
-		  },
-		});
-	};
+		if(!validateForm(formErrors)){
+			alert("You have some errors in your form !!!");
+			return;
+		}
+
+		sendForm(data);
+	}
+
+
+	
+
 
 	return (
 		<div className="EditProduct">
@@ -157,7 +216,7 @@ function EditProduct() {
 									<h2 className="tm-block-title d-inline-block">Edit Product</h2>
 								</div>
 							</div>
-							<form action="" className="tm-edit-product-form" onSubmit={handleSubmit(onSubmit)} >
+							<form action="" className="tm-edit-product-form" onSubmit={handleSubmit(onSubmit)} enctype="multipart/form-data">
 							<div className="row tm-edit-product-row">
 								<div className="col-xl-6 col-lg-6 col-md-12">
 										<div className="form-group mb-3">
@@ -171,6 +230,7 @@ function EditProduct() {
 												name="product_name"
 												type="text"
 												className="form-control validate"
+												value={product && product.product_name}
 												onChange={handleChange}
 												required
 											/>
@@ -189,6 +249,7 @@ function EditProduct() {
 												type="number"
 												className="form-control validate"
 												onChange={handleChange}
+												value={product && product.product_price}
 												required
 											/>
 										</div>
@@ -200,10 +261,13 @@ function EditProduct() {
 												>Description</label
 											>
 											<textarea
+												ref={register}
 												className="form-control validate"
 												rows="3"
-												required
 												name = "product_description"
+												onChange={handleChange}
+												value={product && product.product_description}
+												required
 											></textarea>
 										</div>
 										<div className="form-group mb-3">
@@ -212,9 +276,12 @@ function EditProduct() {
 												>Category</label
 											>
 											<select
+												ref={register}
 												className="custom-select tm-select-accounts"
 												id="categoryId"
-												name="category"
+												name="category_id"
+												value={product && product.category_id}
+												onChange={handleChange}
 											>
 												<option selected>Select Category</option>
 												<option value="1">Văn phòng phẩm</option>
@@ -229,51 +296,40 @@ function EditProduct() {
 											</select>
 										</div>
 										<div className="row">
-												<div className="form-group mb-3 col-xs-12 col-sm-6">
-														<label
-															for="expire_date"
-															>Expire Date
-														</label>
-														<input
-															id="expire_date"
-															name="expire_date"
-															type="date"
-															className="form-control validate"
-															data-large-mode="true"
-														/>
-													</div>
-													<div className="form-group mb-3 col-xs-12 col-sm-6">
-														<label
-															for="stock"
-															>Units In Stock
-														</label>
-														<input
-															ref={register}
-															id="stock"
-															name="quantityInStock"
-															type="number"
-															className="form-control validate"
-															onChange={handleChange}
-															required
-														/>
-													</div>
-													{formErrors.quantityInStock.length > 0 && 
-                                						<span className='error'>{formErrors.quantityInStock}</span>}
+											<div className="form-group mb-3 col-xs-12 col-sm-6">
+												<label
+													for="stock"
+													>QUANTITY IN STOCK 
+												</label>
+												<input
+													ref={register}
+													id="stock"
+													name="quantityInStock"
+													type="number"
+													className="form-control validate"
+													onChange={handleChange}
+													value={product && product.quantityInStock}
+													required
+												/>
+											</div>
+											{formErrors.quantityInStock.length > 0 && 
+												<span className='error'>{formErrors.quantityInStock}</span>}
 										</div>
 								</div>
 								<div className="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
 									<div className="tm-product-img-dummy mx-auto">
-										<CameraAltSharpIcon />
+										<img src={product && backEndServe+product.product_image} className="product_img"/>
 									</div>
 									<div className="custom-file mt-3 mb-3">
-										<input id="fileInput" name="product_image" type="file" style={{display: 'none'}} />
-										<input
-											type="button"
-											className="btn btn-primary btn-block mx-auto"
-											value="UPLOAD PRODUCT IMAGE"
-											onclick="document.getElementById('fileInput').click();"
+										<input  
+											id="fileInput" 
+											type="file"  
+											name="product_image"
+											onChange={handleChange}
 										/>
 									</div>
+									{formErrors.product_image.length > 0 && 
+											<span className='error'>{formErrors.product_image}</span>}
 								</div>
 								<div className="col-12">
 									<button type="submit" className="btn btn-primary btn-block text-uppercase">Edit Product Now</button>

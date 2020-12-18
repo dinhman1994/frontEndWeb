@@ -25,7 +25,8 @@ import Signout from "./Signout";
 import Dashboard from "./Dashboard";
 import Checkmail from "./Checkmail";
 import SendToken from "./SendToken";
-
+import ShopLogin from "./ShopLogin";
+import ShopRegister from "./ShopRegister";
 
 
 const promise = loadStripe(
@@ -57,6 +58,12 @@ function App() {
           <Route path="/signout">
             <Signout />
           </Route>
+          <Route path="/shopLogin">
+            <ShopLogin />
+          </Route>
+          <Route path="/shopRegister">
+            <ShopRegister />
+          </Route>
           <Route exact path="/profile">
             {(cookies.token!='undefined') ? <Profile /> : <Redirect to="/"/>}
           </Route>
@@ -66,10 +73,10 @@ function App() {
           <Route path="/createProduct">
             <CreateProduct />
           </Route>
-          <Route exact path="/products">
+          <Route exact path="/:shop_id/products">
             <Products />
           </Route>
-          <Route path="/editProduct">
+          <Route path="/editProduct/:product_id">
             <EditProduct />
           </Route>
           <Route path="/category/:category_id">

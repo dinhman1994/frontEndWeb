@@ -80,6 +80,14 @@ function Category() {
 						</div>
 					</div>
 				</Link>
+				<Link to="/category/2">
+					<div className="category_item">
+						<img src="/dienlanhdiengiadung.jpg" className="category_image" alt="hi"/>						
+						<div>
+							Điện Lạnh - Điện Gia Dụng
+						</div>
+					</div>
+				</Link>
 				
 			</div>
 		</div>

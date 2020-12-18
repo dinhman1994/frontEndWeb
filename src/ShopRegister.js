@@ -17,14 +17,15 @@ const validateForm = errors => {
     return valid;
 };
 
-function Register() {
+function ShopRegister() {
 	let history = useHistory();
 	const [{ user }, dispatch] = useStateValue();
 	const [cookies, setCookie, removeCookie] = useCookies(['token']);
 	const [formErrors, setFormErrors] = useState({
 		email: '',
 		password: '',
-		reTypePassword: '',
+        reTypePassword: '',
+        name : ''
 	});
 	const {register , handleSubmit} = useForm();
 
@@ -46,7 +47,7 @@ function Register() {
 		// hàm gửi sever post request lên sever
 		const result = await axios({
 			method: 'post',
-			url: 'http://localhost:8000/register',
+			url: 'http://localhost:8000/shopRegister',
 			data: data
 		});
 		if(result.data.message != 'Success'){
@@ -79,6 +80,11 @@ function Register() {
 				errors.reTypePassword = 
 					value.length < 8
 						? 'Password must be at least 8 characters long!'
+                        : '';
+            case 'name': 
+				errors.name = 
+					value.length < 5
+						? 'Shop name must at least 5 characters long!'
 						: '';
 			break;
 		}
@@ -113,15 +119,19 @@ function Register() {
 						<input ref={register} type='password' name="reTypePassword" onChange={handleChange} required/>
 							{formErrors.reTypePassword.length > 0 && 
 									<span className='error'>{formErrors.reTypePassword}</span>}
+                        <h5>Shop Name</h5>
+						<input ref={register} type='text' name="name" onChange={handleChange} required/>
+							{formErrors.name.length > 0 && 
+									<span className='error'>{formErrors.password}</span>}
 						<button type='submit' className='login__signInButton'>Register</button>
 					</form>
 
-					<Link to='/login'>
-							<button className='login__registerButton'>You already have account</button>
+					<Link to='/shopLogin'>
+							<button className='login__registerButton'>You already have Shop</button>
 					</Link>
 				</div>
 			</div>
 	)
 }
 
-export default Register;
+export default ShopRegister;

@@ -3,7 +3,7 @@ import './Products.css';
 import { Link, useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import { useForm } from 'react-hook-form';
-import { auth } from "./firebase";
+import axios from "axios";
 
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import DashboardSharpIcon from '@material-ui/icons/DashboardSharp';
@@ -16,6 +16,8 @@ import CameraAltSharpIcon from '@material-ui/icons/CameraAltSharp';
 import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp';
 import EditSharpIcon from '@material-ui/icons/EditSharp';
 
+import ProductInShop from "./ProductInShop";
+
 const validateForm = errors => {
     let valid = true;
     Object.values(errors).forEach(val => val.length > 0 && (valid = false));
@@ -25,26 +27,19 @@ const validateForm = errors => {
 
 function CreateProduct() {
     const [{ user }, dispatch] = useStateValue();
+    const [shopProducts, setShopProducts] = useState([]);
+    const backEndServe = 'http://localhost:8000/';
 	useEffect(() => {
-		console.log(user);
-	},[user]);
-
-	const signIn = () => {
-		// dispatch the item into the data layer
-		dispatch({
-		  type: "SET_USER",
-		  user: {
-			id: 1,
-			name: "Binh Duong"
-		  },
-		});
-	};
-
-	const register = e => {
-		// e.preventDefault();
-		console.log("Registered");
-	}
-
+            async function fetchData(){
+                const result = await axios({
+                    method: 'get',
+                    url: `http://localhost:8000/shop/${2}/product`
+                });
+                setShopProducts(result.data);
+            }
+            fetchData();   
+	},[]);
+    if (shopProducts.length != 0)
     return (
         <div className="Products">
             <nav class="navbar navbar-expand-xl">
@@ -136,432 +131,16 @@ function CreateProduct() {
                                             <th scope="col">&nbsp;</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><img src="" alt="image" /></th>
-                                            <td class="tm-product-name">Lorem Ipsum Product 1</td>
-                                            <td>15.00 $</td>
-                                            <td>1,450</td>
-                                            <td>550</td>
-                                            <td>28 March 2019</td>
-                                            <td>
-                                                <form action="" method="post">
-                                                    <button type="submit">
-                                                        <DeleteForeverSharpIcon />
-                                                    </button>
-                                                </form>
-                                            </td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>   
+                                    <tbody>  
+                                        {shopProducts.map( shopProduct => 
+                                        <ProductInShop 
+                                            product_id = {shopProduct.product_id} 
+                                            product_name = {shopProduct.product_name}
+                                            product_image = {shopProduct.product_image}
+                                            product_price = {shopProduct.product_price}
+                                            quantityInStock = {shopProduct.quantityInStock}
+                                            createdAt = {shopProduct.createdAt}
+                                        />)}   
                                     </tbody>
                                 </table>
                             </div>
@@ -639,5 +218,9 @@ function CreateProduct() {
             </footer>
         </div>
     );
+    else return (
+        <div>
+        </div>
+    )
 }		
 export default CreateProduct

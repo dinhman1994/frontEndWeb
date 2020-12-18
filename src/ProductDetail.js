@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import "./ProductDetail.css";
 import axios from "./axios";
 import { Link, useHistory, useParams} from "react-router-dom";
+import { useStateValue } from "./StateProvider";
 
 
 function ProductDetails(){
+    let history = useHistory();
+    const [{ basket }, dispatch] = useStateValue();
     const [product, setProduct] = useState({});
     let { product_id } = useParams();
     const backEndServe = 'http://localhost:8000/';
@@ -18,6 +21,25 @@ function ProductDetails(){
         }
         fetchData();
     },[]);
+
+    const addToBasket = () => {
+        // dispatch the item into the data layer
+        dispatch({
+          type: "ADD_TO_BASKET",
+          item: {
+            id: product.product_id,
+            name: product.product_name,
+            image: backEndServe+product.product_image,
+            price: product.product_price,
+            rating: 5,
+          },
+        });
+    };
+    
+    const byNow = () => {
+        addToBasket();
+        history.push("/payment");
+    }
     return (
         <div className="ProductDetail">
             <div className="right_content">
@@ -52,8 +74,8 @@ function ProductDetails(){
                 <h3>{product.product_price} đ</h3>
                 <h3>QUANTITY IN STOCK {product.quantityInStock}</h3>
                 <div className="button_group">
-                    <button>ADD TO CART</button>
-                    <button>BUY NOW</button>
+                    <button onClick={addToBasket}>ADD TO CART</button>
+                    <button onClick={byNow}>BUY NOW</button>
                 </div>
             </div>
         </div>

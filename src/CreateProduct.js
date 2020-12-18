@@ -39,7 +39,8 @@ function CreateProduct() {
 
 
 	useEffect(() => {
-	},[formErrors]);
+	},[]);
+
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		let errors = {
@@ -101,10 +102,6 @@ function CreateProduct() {
 			dataForm.append('quantityInStock',data.quantityInStock);
 			dataForm.append('category_id',data.category_id);
 
-			console.log(data);
-			console.log("Ok nhaaaaa");
-			console.log(dataForm);
-
 			const result = await axios({
 				method: 'post',
 				url: `http://localhost:8000/shop/${2}/product/add`,
@@ -118,8 +115,7 @@ function CreateProduct() {
 				alert(result.data.message);
 				return;
 			};
-			window.location.reload(false);
-			console.log(data);
+			window.location.reload();
 		}
 
 		if(!validateForm(formErrors)){
@@ -251,6 +247,7 @@ function CreateProduct() {
 												rows="3"
 												name="product_description"
 												onChange={handleChange}
+												required
 											></textarea>
 										</div>
 										{formErrors.product_description.length > 0 && 

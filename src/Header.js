@@ -9,13 +9,14 @@ import axios from "axios";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import StorefrontSharpIcon from '@material-ui/icons/StorefrontSharp';
 
 
 
 function Header() {
-	const [{ basket, user }, dispatch] = useStateValue();
+	const [{ basket, user,shop }, dispatch] = useStateValue();
 	const [cookies, setCookie] = useCookies(['token']);
-
+	const backEndServe = 'http://localhost:8000/';
 	useEffect(() => {
 		console.log("Header token is "+ cookies.token);
 		async function fetchData(){
@@ -24,25 +25,41 @@ function Header() {
 					method: 'get',
 					url: 'http://localhost:8000/profile',
 					headers : {
-							token: cookies.token
+						token: cookies.token
 					}
 				});
-				if (userData.data.message != 'Success') return;
-				dispatch({
+				if (userData.data.message === 'Success') 
+					dispatch({
 						type: "SET_USER",
 						user: {
 								...userData.data.user
 						},
+					});
+			}
+			if(shop == null){
+				const shopData = await axios({
+					method: 'get',
+					url: 'http://localhost:8000/shopProfile',
+					headers : {
+						token: cookies.token
+					}
 				});
+				if (shopData.data.message === 'Success')
+					dispatch({
+						type: "SET_SHOP",
+						shop: {
+								...shopData.data.shop
+						},
+					});
 			}
 			return ;
 		}
 
-		if(user === null){
+		if(user === null || shop === null){
 			fetchData();
 		}
 	},
-	[user]);
+	[]);
 
 
 	return (
@@ -61,19 +78,34 @@ function Header() {
 			</div>
 
 			<div className="header__nav">
-				<Link to={user ? '/signout' : '/login'}>
+				<Link to={user || shop ? '/signout' : '/login'}>
 					<div className="header__option">
 						<span className="header__optionLineOne">Hello {user ? user.name : 'Guest' }</span>
-						<span className="header__optionLineTwo">{user ? 'Sign Out' : 'Log In'}</span>
+						<span className="header__optionLineTwo">{user || shop ? 'Sign Out' : 'Log In'}</span>
 					</div>
 				</Link>
 				<Link to='/profile'>
 					{
-						user ? <div className={classNames({hidden: (user===null)},"header__option")}>
-										<img src={user.avatar} className="header_avatar"/>
+						user ? <div className={classNames("header__option")}>
+										<img src={backEndServe+user.avatar} className="header_avatar"/>
+									 </div> : null
+					}
+				</Link>
+				<Link to='/shopProfile'>
+					{
+						shop ? <div className={classNames("header__option")}>
+										<img src={backEndServe+shop.avatar} className="header_avatar"/>
 									 </div> : null
 					}
 				</Link> 
+				<Link to={shop ? `/${shop.shop_id}/shopProducts` : `/`}>
+					{
+						shop ? <div className={classNames("header__option")}>
+									<span className="header__optionLineOne">YOUR SHOP</span>
+									<StorefrontSharpIcon />
+								</div> : null
+					}
+				</Link>
 				<Link to='/orders'>
 					<div className="header__option">
 						<span className="header__optionLineOne">Returns</span>
@@ -81,11 +113,12 @@ function Header() {
 					</div>
 				</Link>
 				
+				
 
-				<div className="header__option">
+				{/* <div className="header__option">
 					<span className="header__optionLineOne">Your</span>
 					<span className="header__optionLineTwo">Prime</span>
-				</div>
+				</div> */}
 
 				<Link to="/checkout">
 					<div className="header__optionBasket">

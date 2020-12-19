@@ -50,7 +50,11 @@ function ShopLogin() {
                 }
             });
             
-            if (shopData.data.message != 'Success') return;
+            if(result.data.message != 'Success'){
+                alert(result.data.message);
+                return;
+            }
+
             dispatch({
                 type: "SET_SHOP",
                 shop: {
@@ -59,7 +63,7 @@ function ShopLogin() {
             });
             //save token of shop in cookies of client
             setCookie('token',result.data.token);
-            history.push('/products');
+            history.push('/');
         }
 
         // xử lí những lỗi sai trong Register Input
@@ -121,6 +125,9 @@ function ShopLogin() {
 
                 <Link to='/shopRegister'>
                     <button className='login__registerButton'>Create your Shop account</button>
+                </Link>
+                <Link to='/login'>
+                    <button className='login__registerButton'>You are user ?</button>
                 </Link>
             </div>
         </div>

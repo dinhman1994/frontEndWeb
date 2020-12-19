@@ -17,6 +17,9 @@ import HistorySharpIcon from '@material-ui/icons/HistorySharp';
 import ExitToAppSharpIcon from '@material-ui/icons/ExitToAppSharp';
 import CameraAltSharpIcon from '@material-ui/icons/CameraAltSharp';
 
+
+import NavShop from "./NavShop";
+
 const validateForm = errors => {
 	let valid = true;
 	Object.values(errors).forEach(val => val.length > 0 && (valid = false));
@@ -104,7 +107,7 @@ function CreateProduct() {
 
 			const result = await axios({
 				method: 'post',
-				url: `http://localhost:8000/shop/${2}/product/add`,
+				url: `http://localhost:8000/shop/${shop.shop_id}/product/add`,
 				headers : {
 					token: cookies.token,
 					category_id: data.category_id
@@ -128,68 +131,7 @@ function CreateProduct() {
 	
 	return (
 		<div className="createProduct">
-			<nav className="navbar navbar-expand-xl">
-				<div className="h-100">
-					<a className="navbar-brand" href="index.html">
-						<h1 className="tm-site-title mb-0">WELL COME SHOPNAME</h1>
-					</a>
-					<div className="navListRef" id="navbarSupportedContent">
-						<ul className="navbar-nav mx-auto h-100">
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<HomeSharpIcon className="navIcon" /> HOME
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<DashboardSharpIcon className="navIcon" /> DASHBOARD				 
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<HistorySharpIcon className="navIcon" /> HISTORY				 
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<AccountCircleSharpIcon className="navIcon" /> PROFILE				 
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<StorefrontSharpIcon className="navIcon" /> MY STORE				 
-								</a>
-							</li>
-							<li className="nav-item dropdown">
-								<a
-									className="nav-link dropdown-toggle"
-									href="#"
-									id="navbarDropdown"
-									role="button"
-									data-toggle="dropdown"
-									aria-haspopup="false"
-									aria-expanded="true"
-								>
-									<SettingsApplicationsSharpIcon /> SETTINGS
-								</a>
-								<div className="dropdown-menu" aria-label led by="navbarDropdown">
-									<a className="dropdown-item" href="#">Daily Report</a>
-									<a className="dropdown-item" href="#">Weekly Report</a>
-									<a className="dropdown-item" href="#">Yearly Report</a>
-								</div>
-							</li>
-						</ul>
-						<ul className="navbar-nav">
-							<li className="nav-item">
-								<a className="nav-link d-block" href="login">
-									<ExitToAppSharpIcon />
-								 	<b>LOGOUT</b>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>		
+			<NavShop />		
 			<div className="container">
 				<div className="row">
 					<div className="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
@@ -239,8 +181,7 @@ function CreateProduct() {
 										<div className="form-group mb-3">
 											<label
 												for="description"
-												>Description</label
-											>
+												>Description</label>
 											<textarea
 												ref={register}
 												className="form-control validate"

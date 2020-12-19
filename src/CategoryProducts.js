@@ -75,55 +75,42 @@ function CategoryProducts() {
 				<h2>{name}</h2>
 			</div>
 			<div className="home__row">
-			<Product
-				id={products[0].product_id}
-				name={products[0].product_name}
-				price={products[0].product_price}
-				rating={5}
-				image={backEndServe+products[0].product_image}
-			/>
-			<Product
-				id={products[1].product_id}
-				name={products[1].product_name}
-				price={products[1].product_price}
-				rating={5}
-				image={backEndServe+products[1].product_image}
-			/>
-			</div>
+						{
+							products.slice(0,2).map(
+								(product) => <Product
+								id={product.product_id}
+								name={product.product_name}
+								price={product.product_price}
+								rating={5}
+								image={backEndServe+product.product_image}
+							/>)
+						}
+					</div>
+					<div className="home__row">
+						{
+							products.slice(2,5).map(
+								(product) => <Product
+								id={product.product_id}
+								name={product.product_name}
+								price={product.product_price}
+								rating={5}
+								image={backEndServe+product.product_image}
+							/>)
+						}
+					</div>
 
-			<div className="home__row">
-			<Product
-				id={products[2].product_id}
-				name={products[2].product_name}
-				price={products[2].product_price}
-				rating={5}
-				image={backEndServe+products[2].product_image}
-			/>
-			<Product
-				id={products[3].product_id}
-				name={products[3].product_name}
-				price={products[3].product_price}
-				rating={5}
-				image={backEndServe+products[3].product_image}
-			/>
-			<Product
-				id={products[4].product_id}
-				name={products[4].product_name}
-				price={products[4].product_price}
-				rating={5}
-				image={backEndServe+products[4].product_image}
-			/>
-			</div>
-
-			<div className="home__row">
-			<Product
-				id={products[5].product_id}
-				name={products[5].product_name}
-				price={products[5].product_price}
-				rating={5}
-				image={backEndServe+products[5].product_image}
-			/>
-			</div>
+					<div className="home__row">
+						{
+							products.slice(5,6).map(
+								(product) => <Product
+								id={product.product_id}
+								name={product.product_name}
+								price={product.product_price}
+								rating={5}
+								image={backEndServe+product.product_image}
+							/>)
+						}
+					</div>
 		</div>
 		</div>
 	);

@@ -8,7 +8,7 @@ import { useStateValue } from "./StateProvider";
 
 function Signout(){
     let history = useHistory();
-    const [{ user }, dispatch] = useStateValue();
+    const [{ user,shop }, dispatch] = useStateValue();
     const [cookies, removeCookie] = useCookies(['token']);
 
     useEffect(() => {
@@ -16,6 +16,10 @@ function Signout(){
             dispatch({
 				type: "SET_USER",
                 user: null
+            });
+            dispatch({
+				type: "SET_SHOP",
+                shop: null
             });
             removeCookie('token');
             history.push('/');

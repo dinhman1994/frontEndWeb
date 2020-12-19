@@ -117,7 +117,10 @@ function Register() {
 					</form>
 
 					<Link to='/login'>
-							<button className='login__registerButton'>You already have account</button>
+						<button className='login__registerButton'>You already have account</button>
+					</Link>
+					<Link to='/shopRegister'>
+						<button className='login__registerButton'>You are shop ?</button>
 					</Link>
 				</div>
 			</div>

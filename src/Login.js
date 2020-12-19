@@ -50,7 +50,10 @@ function Login() {
                 }
             });
             
-            if (userData.data.message != 'Success') return;
+            if(result.data.message != 'Success'){
+                alert(result.data.message);
+                return;
+            }
             dispatch({
                 type: "SET_USER",
                 user: {
@@ -120,7 +123,10 @@ function Login() {
                 </form>
 
                 <Link to='/register'>
-                    <button onClick={register} className='login__registerButton'>Create your Amazon Account</button>
+                    <button className='login__registerButton'>Create your Amazon Account</button>
+                </Link>
+                <Link to='/shopLogin'>
+                    <button className='login__registerButton'>You are shop ?</button>
                 </Link>
             </div>
         </div>

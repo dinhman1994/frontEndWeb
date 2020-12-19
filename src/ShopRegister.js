@@ -54,7 +54,28 @@ function ShopRegister() {
 			alert(result.data.message);
 			return;
 		}
-		history.push('/checkmail');
+
+		const shopData = await axios({
+			method: 'get',
+			url: 'http://localhost:8000/shopProfile',
+			headers : {
+				token: result.data.token
+			}
+		});
+
+		if(result.data.message != 'Success'){
+			alert(result.data.message);
+			return;
+		}
+
+		dispatch({
+			type: "SET_SHOP",
+			shop: {
+				...shopData.data.shop
+			},
+		});
+		setCookie('token',result.data.token);
+		history.push('/');
 	}
 
 	const handleChange = (event) => {
@@ -122,12 +143,15 @@ function ShopRegister() {
                         <h5>Shop Name</h5>
 						<input ref={register} type='text' name="name" onChange={handleChange} required/>
 							{formErrors.name.length > 0 && 
-									<span className='error'>{formErrors.password}</span>}
+									<span className='error'>{formErrors.name}</span>}
 						<button type='submit' className='login__signInButton'>Register</button>
 					</form>
 
 					<Link to='/shopLogin'>
 							<button className='login__registerButton'>You already have Shop</button>
+					</Link>
+					<Link to='/register'>
+							<button className='login__registerButton'>You are user ?</button>
 					</Link>
 				</div>
 			</div>

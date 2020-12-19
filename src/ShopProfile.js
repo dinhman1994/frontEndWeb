@@ -9,7 +9,9 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import MailIcon from '@material-ui/icons/Mail';
 import InstagramIcon from '@material-ui/icons/Instagram';
 
-import "./Profile.css";
+import NavShop from "./NavShop";
+
+import "./ShopProfile.css";
 
 const validEmailRegex = RegExp(
 		/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -21,17 +23,16 @@ const validateForm = errors => {
 		return valid;
 };
 
-function Profile(){
+function ShopProfile(){
 		let history = useHistory();
-		const [{ user }, dispatch] = useStateValue();
+		const [{ shop }, dispatch] = useStateValue();
 		const [formErrors, setFormErrors] = useState({
 				name: '',
-				DOB: '',
-				phonenumber: '',
-				oldPassword: '',
+				description: '',
+                avatar: '',
+                oldPassword: '',
 				pass: '',
-				repass: '',
-				avatar: ''
+				repass: ''
 		});
 		const [avatarImg , setAvatarImg] = useState(null);
 		const [cookies, setCookie] = useCookies(['token']);
@@ -46,16 +47,13 @@ function Profile(){
 		const onSubmit = (data) => {
 			async function sendForm(data){
 				const dataForm = new FormData(); 
-				dataForm.append('avatar', avatarImg);
-				dataForm.append('name',data.name);
-				dataForm.append('DOB', data.DOB);
-				dataForm.append('phonenumber',data.phonenumber);
-
-				console.log(dataForm);
+                dataForm.append('avatar', avatarImg);
+                dataForm.append('name',data.name);
+				dataForm.append('description',data.description);
 
 				const result = await axios({
 					method: 'post',
-					url: 'http://localhost:8000/profile',
+					url: 'http://localhost:8000/shopProfile',
 					headers : {
 						token: cookies.token
 					},
@@ -88,15 +86,10 @@ function Profile(){
 								? 'Name must be at least 5 characters long!'
 								: '';
 						break;
-					case 'DOB': 
-						errors.DOB = 
-							!((new Date('01-01-1930')).getTime() < (new Date(value)).getTime() && (new Date(value)).getTime() < (new Date('01-01-2015')).getTime()) ? 'Invalid Date Of Birth'
-								: '';
-						break;
-					case 'phonenumber': 
-						errors.phonenumber = 
-							(isNaN(value) || value.length != 10 )
-								? 'Invalid Phone Number'
+                    case 'textarea': 
+						errors.textarea = 
+							value.length < 10
+								? 'Description must be at least 10 characters long!'
 								: '';
 						break;
 					case 'oldPassword': 
@@ -130,12 +123,13 @@ function Profile(){
 		}
 
 		return(
-				<div className="profile">
+				<div className="shopProfile">
+						<NavShop />
 						<h1>My Profile</h1>
 						<div className="right_area col-md-6">
-								<h3>UserName</h3>
+								<h3>shopName</h3>
 								<div className="avatar_area">
-										{user ? <img className="avatar_image" src={backEndServe+user.avatar}/> : <img className="avatar_image" src="themeLogin.jpg"/>}
+										{shop ? <img className="avatar_image" src={backEndServe+shop.avatar}/> : <img className="avatar_image" src="themeLogin.jpg"/>}
 										
 								</div>    
 								<hr />
@@ -154,19 +148,15 @@ function Profile(){
 										<tbody>
 												<tr>
 														<td>Name </td>
-														{ (user && user.name) ? <td className="infor">{user.name}</td> : <td className="infor"></td>} 
+														{ (shop && shop.name) ? <td className="infor">{shop.name}</td> : <td className="infor"></td>} 
 												</tr>
 												<tr>
 														<td>Email: </td>
-														{(user && user.email) ? <td className="infor">{user.email}</td> : <td className="infor"></td>}       
+														{(shop && shop.email) ? <td className="infor">{shop.email}</td> : <td className="infor"></td>}       
 												</tr>
 												<tr>
-														<td>Phone:</td>
-														{(user && user.phonenumber) ? <td className="infor">{user.phonenumber}</td> : <td className="infor"></td>}
-												</tr>
-												<tr>
-														<td>Date Of Birth</td>
-														{(user && user.DOB) ? <td className="infor">{user.DOB}</td> : <td className="infor"></td>}
+														<td>Description </td>
+														{ (shop && shop.description) ? <td className="infor">{shop.description}</td> : <td className="infor"></td>} 
 												</tr>
 										</tbody>
 								</table>
@@ -174,7 +164,7 @@ function Profile(){
 						<div className="left_area col-md-6">
 								<form className="form-horizontal" onSubmit={handleSubmit(onSubmit)} enctype="multipart/form-data">
 										<div>
-												<h4>Personal Information</h4>
+												<h4>SHOP Information</h4>
 												<div className="form-group">
 														<label className="col-md-5 control-label" for="profileName"> Name</label>
 														<div className="col-md-7">
@@ -183,22 +173,24 @@ function Profile(){
 														{formErrors.name.length > 0 && 
 																<span className='error'>{formErrors.name}</span>}
 												</div>
-												<div className="form-group">
-														<label className="col-md-5 control-label" for="profileBirth">Date Of Birth</label>
-														<div className="col-md-7">
-															<input ref={register} type="date" className="form-control" id="profileBirth" name="DOB" onChange={handleChange}/>
-														</div>
-														{formErrors.DOB.length > 0 && 
-															<span className='error'>{formErrors.DOB}</span>}
-												</div>
-												<div className="form-group">
-														<label className="col-md-5 control-label" for="profilePhone">Phone Number</label>
-														<div className="col-md-7">
-																<input ref={register} type="text" className="form-control" id="profilePhone" name="phonenumber" onChange={handleChange}/>
-														</div>
-														{formErrors.phonenumber.length > 0 && 
-																<span className='error'>{formErrors.phonenumber}</span>}
-												</div>
+                                                <div className="form-group">
+                                                    <label
+                                                        className="col-md-5 control-label"
+                                                        for="profileDescription"
+                                                        >Description</label>
+                                                    <div className="col-md-7">
+                                                        <textarea
+                                                            id="profileDescription"
+                                                            ref={register}
+                                                            className="form-control validate"
+                                                            rows="3"
+                                                            name="description"
+                                                            onChange={handleChange}
+                                                        ></textarea>
+                                                    </div>
+                                                    {formErrors.description.length > 0 && 
+																<span className='error'>{formErrors.description}</span>}
+										        </div>
 												<div className="form-group">
 														<label className="col-md-5 control-label" for="profileAvatar">Avatar</label>
 														<div className="col-md-7">
@@ -250,4 +242,4 @@ function Profile(){
 				</div>
 		);
 }
-export default Profile;
+export default ShopProfile;

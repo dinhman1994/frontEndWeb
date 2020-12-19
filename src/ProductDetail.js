@@ -9,6 +9,7 @@ function ProductDetails(){
     let history = useHistory();
     const [{ basket }, dispatch] = useStateValue();
     const [product, setProduct] = useState({});
+    const [shop, setShop] = useState({});
     let { product_id } = useParams();
     const backEndServe = 'http://localhost:8000/';
     useEffect(() => {
@@ -18,6 +19,11 @@ function ProductDetails(){
 				url: `http://localhost:8000/products/${product_id}`
 			});
             setProduct(result.data);
+            const shopResult = await axios({
+				method: 'get',
+				url: `http://localhost:8000/shopProduct/${product_id}`
+            });
+            setShop(shopResult.data);
         }
         fetchData();
     },[]);
@@ -51,12 +57,12 @@ function ProductDetails(){
                     <h2>{product.product_name}</h2>
                     <div className="shop_description">{product.product_description}</div>
                 </div>
-                <Link to="/">
+                <Link to={`/shopProducts/${shop.shop_id}`}>
                     <div className="shop_area">
                         <div>
-                            <img src="avatar.jpg" className="shop_img"/>
+                            <img src={backEndServe+shop.avatar} className="shop_img"/>
                         </div>    
-                        <h3>Shop name</h3>
+                        <h3>SHOP {shop.name}</h3>
                     </div>
                 </Link>
                 

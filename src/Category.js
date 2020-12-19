@@ -80,11 +80,11 @@ function Category() {
 						</div>
 					</div>
 				</Link>
-				<Link to="/category/2">
+				<Link to="/category/3">
 					<div className="category_item">
-						<img src="/dienlanhdiengiadung.jpg" className="category_image" alt="hi"/>						
+						<img src="/kythuatso.jpg" className="category_image" alt="hi"/>						
 						<div>
-							Điện Lạnh - Điện Gia Dụng
+							Kỹ thuật số
 						</div>
 					</div>
 				</Link>

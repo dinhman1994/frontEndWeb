@@ -16,6 +16,7 @@ import Register from "./Register";
 import Payment from "./Payment";
 import Orders from "./Orders";
 import Profile from "./Profile";
+import ShopProfile from "./ShopProfile";
 import CreateProduct from "./CreateProduct";
 import EditProduct from "./EditProduct";
 import Products from "./Products";
@@ -27,6 +28,8 @@ import Checkmail from "./Checkmail";
 import SendToken from "./SendToken";
 import ShopLogin from "./ShopLogin";
 import ShopRegister from "./ShopRegister";
+import ProductsShop from "./ProductsShop";
+
 
 
 const promise = loadStripe(
@@ -67,14 +70,20 @@ function App() {
           <Route exact path="/profile">
             {(cookies.token!='undefined') ? <Profile /> : <Redirect to="/"/>}
           </Route>
+          <Route exact path="/shopProfile">
+            {(cookies.token!='undefined') ? <ShopProfile /> : <Redirect to="/"/>}
+          </Route>
           <Route path="/checkout">
             <Checkout />
           </Route>
-          <Route path="/createProduct">
+          <Route path="/createProduct/:shop_id">
             <CreateProduct />
           </Route>
-          <Route exact path="/:shop_id/products">
+          <Route path ="/:shop_id/shopProducts">
             <Products />
+          </Route>
+          <Route path ="/shopProducts/:shop_id">
+            <ProductsShop />
           </Route>
           <Route path="/editProduct/:product_id">
             <EditProduct />
@@ -85,7 +94,7 @@ function App() {
           <Route path="/products/:product_id">
             <ProductDetail />
           </Route>
-          <Route path="/dashboard">
+          <Route path="/dashboard/:shop_id">
             <Dashboard />
           </Route>
           <Route path="/payment">

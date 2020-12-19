@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import './Products.css';
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory,useParams } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import { useForm } from 'react-hook-form';
 import axios from "axios";
@@ -17,6 +17,7 @@ import DeleteForeverSharpIcon from '@material-ui/icons/DeleteForeverSharp';
 import EditSharpIcon from '@material-ui/icons/EditSharp';
 
 import ProductInShop from "./ProductInShop";
+import NavShop from "./NavShop";
 
 const validateForm = errors => {
     let valid = true;
@@ -26,84 +27,24 @@ const validateForm = errors => {
 
 
 function CreateProduct() {
-    const [{ user }, dispatch] = useStateValue();
-    const [shopProducts, setShopProducts] = useState([]);
+    const [{ shop }, dispatch] = useStateValue();
+    let { shop_id } = useParams();
+    const [shopProducts, setShopProducts] = useState(null);
     const backEndServe = 'http://localhost:8000/';
 	useEffect(() => {
             async function fetchData(){
                 const result = await axios({
                     method: 'get',
-                    url: `http://localhost:8000/shop/${2}/product`
+                    url: `http://localhost:8000/shop/${shop_id}/product`
                 });
                 setShopProducts(result.data);
-            }
+            };
             fetchData();   
 	},[]);
-    if (shopProducts.length != 0)
+    if (shopProducts && shop)
     return (
-        <div className="Products">
-            <nav className="navbar navbar-expand-xl">
-				<div className="h-100">
-					<a className="navbar-brand" href="index.html">
-						<h1 className="tm-site-title mb-0">WELL COME SHOPNAME</h1>
-					</a>
-					<div className="navListRef" id="navbarSupportedContent">
-						<ul className="navbar-nav mx-auto h-100">
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<HomeSharpIcon className="navIcon" /> HOME
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<DashboardSharpIcon className="navIcon" /> DASHBOARD				 
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<HistorySharpIcon className="navIcon" /> HISTORY				 
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<AccountCircleSharpIcon className="navIcon" /> PROFILE				 
-								</a>
-							</li>
-							<li className="nav-item">
-								<a className="nav-link" href="index.html">
-									<StorefrontSharpIcon className="navIcon" /> MY STORE				 
-								</a>
-							</li>
-							<li className="nav-item dropdown">
-								<a
-									className="nav-link dropdown-toggle"
-									href="#"
-									id="navbarDropdown"
-									role="button"
-									data-toggle="dropdown"
-									aria-haspopup="false"
-									aria-expanded="true"
-								>
-									<SettingsApplicationsSharpIcon /> SETTINGS
-								</a>
-								<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a className="dropdown-item" href="#">Daily Report</a>
-									<a className="dropdown-item" href="#">Weekly Report</a>
-									<a className="dropdown-item" href="#">Yearly Report</a>
-								</div>
-							</li>
-						</ul>
-						<ul className="navbar-nav">
-							<li className="nav-item">
-								<a className="nav-link d-block" href="login.html">
-									<ExitToAppSharpIcon />
-								 	<b>LOGOUT</b>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</nav>
+        <div className="ShopProducts">
+            <NavShop />
             <div class="container mt-5">
                 <div class="row tm-content-row">
                     <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
@@ -135,9 +76,11 @@ function CreateProduct() {
                                     </tbody>
                                 </table>
                             </div>
-                            <a
-                                href="add-product.html"
-                                class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
+                            <Link to ={`/createProduct/${shop.shop_id}`}
+                               
+                                class="btn btn-primary btn-block text-uppercase mb-3">
+                                Add new product
+                            </Link>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">

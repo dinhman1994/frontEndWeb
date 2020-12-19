@@ -5,7 +5,8 @@ import { useStateValue } from "./StateProvider";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
 
-import './EditProduct.css';
+import "./EditProduct.css"
+
 
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import DashboardSharpIcon from '@material-ui/icons/DashboardSharp';

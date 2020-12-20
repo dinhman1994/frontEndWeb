@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import axios from "axios";
 import { useStateValue } from "./StateProvider";
+import axios from "axios";
 
 import "./Home.css";
 import Product from "./Product";

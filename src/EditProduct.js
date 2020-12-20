@@ -18,6 +18,7 @@ import ExitToAppSharpIcon from '@material-ui/icons/ExitToAppSharp';
 import CameraAltSharpIcon from '@material-ui/icons/CameraAltSharp';
 
 import NavShop from "./NavShop";
+import LoadData from "./LoadData";
 
 const validateForm = errors => {
     let valid = true;
@@ -149,6 +150,7 @@ function EditProduct() {
 	else {
 		return (
 			<div className="EditProduct">
+				<LoadData />
 				<NavShop />		
 				<div className="container">
 					<div className="row">

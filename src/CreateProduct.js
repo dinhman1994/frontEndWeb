@@ -19,6 +19,7 @@ import CameraAltSharpIcon from '@material-ui/icons/CameraAltSharp';
 
 
 import NavShop from "./NavShop";
+import LoadData from "./LoadData";
 
 const validateForm = errors => {
 	let valid = true;
@@ -131,6 +132,7 @@ function CreateProduct() {
 	
 	return (
 		<div className="createProduct">
+			<LoadData />
 			<NavShop />		
 			<div className="container">
 				<div className="row">

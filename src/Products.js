@@ -18,6 +18,7 @@ import EditSharpIcon from '@material-ui/icons/EditSharp';
 
 import ProductInShop from "./ProductInShop";
 import NavShop from "./NavShop";
+import LoadData from "./LoadData";
 
 const validateForm = errors => {
     let valid = true;
@@ -44,6 +45,7 @@ function CreateProduct() {
     if (shopProducts && shop)
     return (
         <div className="ShopProducts">
+            <LoadData />
             <NavShop />
             <div class="container mt-5">
                 <div class="row tm-content-row">

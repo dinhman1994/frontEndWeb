@@ -52,9 +52,8 @@ function LoadData(){
 								...userData.data.user
 						},
                     }); 
-                    
+                    return ;
                 } 
-				return ;	
             }
             if(shop == null){
 				const shopData = await axios({
@@ -64,13 +63,16 @@ function LoadData(){
 						token: cookies.token
 					}
 				});
-				if (shopData.data.message === 'Success')
-					dispatch({
+                if (shopData.data.message === 'Success')
+                {
+                    dispatch({
 						type: "SET_SHOP",
 						shop: {
 								...shopData.data.shop
 						},
 					});
+                    return ;
+                }					
 			}
 			return ;
         }

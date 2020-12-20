@@ -55,7 +55,11 @@ table .infor{
 }
 .profile .form-control{
   color: black;
+  border: 1px solid #a6a6a6;
   background-color: white;
+}
+.profile .form-control:focus{
+  border: 1px solid black;
 }
 .profile .btn.btn-primary{
   background: #f0c14b;

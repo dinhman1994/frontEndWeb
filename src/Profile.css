@@ -1,30 +1,38 @@
-.avatar_area {
+.profile h1{
+  color: black;
+  font-weight: 700;
+}
+.profile .right_area.col-md-6 h3{
+  color: black;
+  font-weight: 700;
+}
+.profile .avatar_area {
   text-align: center;
 }
-.avatar_image {
-  width: 300px;
-  height: 300px;
+.profile .avatar_image {
+  width: 150px;
+  height: 150px;
   object-fit: cover;
   border: 4px solid gray;
   border-radius: 10px;
 }
 
-.social_list{
+.profile .social_list{
   display: flex;
   flex-direction: row;
   list-style: none;
   justify-content: center;
   padding: 0px;
 }
-.social_list .Icon {
+.profile .social_list .Icon {
   font-size: 30px !important;
 }
 
-.left_area h4 {
+.profile .left_area h4 {
   color: red;
   width: 100%;
 }
-.left_area form {
+.profile .left_area form {
   display: flex;
   flex-direction: column;
 }
@@ -36,4 +44,39 @@ hr {
 
 table .infor{
   color: tomato;
+}
+.profile .table.profile-detail.table-condensed.table-hover{
+  height: 270px;
+  border: 1px solid #a6a6a6;
+  
+}
+.profile .form-group label {
+  color:black;
+}
+.profile .form-control{
+  color: black;
+  border: 1px solid #a6a6a6;
+  background-color: white;
+}
+.profile .form-control:focus{
+  border: 1px solid black;
+}
+.profile .btn.btn-primary{
+  background: #f0c14b;
+  border-radius: 3px;
+  border: 1px solid;
+  margin-top: 10px;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  font-weight: 500;
+}
+.profile .btn.btn-default{
+  background: #f0c14b;
+  border-radius: 3px;
+  border: 1px solid;
+  margin-top: 10px;
+  border-color: #a88734 #9c7e31 #846a29;
+  color: #111;
+  width: 100px;
+  font-weight: 500;
 }

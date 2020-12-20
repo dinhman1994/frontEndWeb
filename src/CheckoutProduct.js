@@ -12,7 +12,16 @@ function CheckoutProduct({ id, image, name, price, rating, quantity ,hideButton 
             type: 'REMOVE_FROM_BASKET',
             id: id,
         })
-    }
+        if(user){
+            async function fetchData(){
+              const result = await axios({
+                method: 'post',
+                url: `http://localhost:8000/deleteProductInCart/${user.user_id}/${id}`
+              });
+            }
+            fetchData();
+        }
+    };
     const addToBasket = () => {
         // dispatch the item into the data layer
         dispatch({
@@ -31,7 +40,6 @@ function CheckoutProduct({ id, image, name, price, rating, quantity ,hideButton 
                 method: 'post',
                 url: `http://localhost:8000/increaseProductInCart/${user.user_id}/${id}`
               });
-              console.log(result.data);
             }
             fetchData();
         }
@@ -54,7 +62,6 @@ function CheckoutProduct({ id, image, name, price, rating, quantity ,hideButton 
                 method: 'post',
                 url: `http://localhost:8000/decreaseProductInCart/${user.user_id}/${id}`
               });
-              console.log(result.data);
             }
             fetchData();
         }
@@ -67,7 +74,7 @@ function CheckoutProduct({ id, image, name, price, rating, quantity ,hideButton 
             <div className='checkoutProduct__info'>
                 <p className='checkoutProduct__title'>{name}</p>
                 <p className="checkoutProduct__price">
-                    <small>$</small>
+                    <small>đ</small>
                     <strong>{price}</strong>
                 </p>
                 <div className="checkoutProduct__rating">

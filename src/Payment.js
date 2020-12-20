@@ -7,6 +7,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "./reducer";
 import axios from './axios';
+
+import LoadData from "./LoadData";
 import { db } from "./firebase";
 
 function Payment() {
@@ -81,6 +83,7 @@ function Payment() {
 
     return (
         <div className='payment'>
+            <LoadData />
             <div className='payment__container'>
                 <h1>
                     Checkout (
@@ -114,6 +117,7 @@ function Payment() {
                                 image={item.image}
                                 price={item.price}
                                 rating={item.rating}
+                                quantity={item.quantity}
                             />
                         ))}
                     </div>

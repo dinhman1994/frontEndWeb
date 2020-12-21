@@ -3,84 +3,153 @@ import axios from "axios";
 import './Dashboard.css';
 import  ChartOrders from './ChartOrders'
 import  ChartMoney from './ChartMoney'
+import queryString from 'query-string'
+
+import Axios from 'axios' 
 
 function Dashboard(){
+    const [totalOrder,setTotalOrder] = useState([]);
+    const [totalMoney,setTotalMoney] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [recentOrder,setRecentOrder] =useState([]);
+    const [idShop,setIdShop] =useState(['4']); 
+    useEffect(() =>{
+        
+        Axios.get(`http://localhost:8000/shop/${idShop}/recentorder`)
+        .then( res =>{
+            console.log(res);
+            setRecentOrder(res.data)
+        })
+        .catch(error =>{
+            console.log('Failed to Get Recent Order',error);
+        })
+    },[])
+
+    useEffect(() =>{
+        Axios.get(`http://localhost:8000/shop/${idShop}/totalorder`)
+        .then( resp =>{
+            console.log(resp);
+            setTotalOrder(resp.data)
+        })
+        .catch(error =>{
+            console.log('Failed to Get Total Order',error);
+        })
+    },[])
+    useEffect(() =>{
+        Axios.get(`http://localhost:8000/shop/${idShop}/totalMoney`)
+        .then( resp =>{
+            console.log(resp);
+            setTotalMoney(resp.data)
+        })
+        .catch(error =>{
+            console.log('Failed to Get Total Money',error);
+        })
+    },[])
+
+    useEffect(() =>{
+        Axios.get(`http://localhost:8000/shop/${idShop}/topsales`)
+        .then( response =>{
+            console.log(response);
+            setProducts(response.data)
+        })
+        .catch(error =>{
+            console.log('Failed to Get products',error);
+        })
+    },[])
+    
     return(
         <div className="dashboard">
         <section class="page">
-            <nav class="navbar-aside navbar-static-side" role="navigation">
-                <div class="sidebar-collapse nano">
-                    <div class="nano-content">
-                        <ul class="nav metisMenu" id="side-menu">
-                            <li class="nav-header">
-                                <div class="dropdown side-profile text-left"> 
-                                    <span style={{display: "block"}}>
-                                        <img alt="image" class="img-circle" src="./images/avatar-1.jpg" width="40" />
-                                    </span>
-                                    <span class="clear" style={{display: "block"}}> <span class="block m-t-xs"> <strong class="font-bold">John Doe </strong>
-                                    </span></span> 
-                                </div>
-                            </li>
-                            <li>
-                                <a><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard </span></a>
-                               
-                            </li>
-                        </ul>
-                    </div>
+        <nav className="navbar-aside navbar-static-side" role="navigation">
+        <div className="sidebar-collapse nano">
+          <div className="nano-content">
+            <ul className="nav metisMenu" id="side-menu">
+              <li className="nav-header">
+                <div className="dropdown side-profile text-left"> 
+                  <span style={{display: 'none'}}>
+                    <img alt="image" className="img-circle" src='/src/images/avatar-1.jpg' width={40} />
+                  </span>
+                  <span className="clear" style={{display: 'none'}}> <span className="block m-t-xs"> <strong className="font-bold">John Doe </strong>
+                    </span></span> 
                 </div>
-            </nav>
-        
-
+              </li>
+            </ul></div>
+        </div>
+      </nav>        
             <div id="wrapper">
                 <div class="content-wrapper container">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="page-title">
-                                <h1>Dashboard <small></small></h1>
-                                <ol class="breadcrumb">
-                                    <li><a href="#"><i class="fa fa-home"></i></a></li>
-                                    <li class="active">Dashboard</li>
+                    <div className="row">
+                        <div className="col-sm-12">
+                            <div className="page-title">
+                                <h1>Dashboard <small /></h1>
+                                <ol className="breadcrumb">
+                                <li><a href="#"><i className="fa fa-home" /></a></li>
+                                 <li className="active">Dashboard</li>
                                 </ol>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-3 margin-b-30">
-                            <div class="tile">
-                                <div class="tile-title clearfix">
-                                    Total orders
-                                    <span class="pull-right"><i class="fa fa-caret-up"></i> 33%</span>
-                                </div>
-                                <div class="tile-body clearfix">
-                                    <i class="fa fa-cart-plus"></i>
-                                    <h4 class="pull-right">2.5K</h4>
-                                </div>
-                                <div class="tile-footer">
-                                    <a>Welcome, ShopName</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3 margin-b-30">
-                            <div class="tile">
-                                <div class="tile-title clearfix">
+                    <div className='div_table'>
+                    <table className='dashboard__table'>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Total Order
+                                </th>                                                           
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            { totalOrder && totalOrder.map(post =>(
+                                                <td class = "list-group-item">
+                                                    
+                                                    <small> <i class ="fa fa-clock-o" key ={post.total}>{post.total} order </i> </small>
+                                                </td>
+                                        ))
+                                        }
+                            </tr>
+                           
+                            
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td> 
+                                    Welcome, Shop Name
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <table className='dashboard__table'>
+                        <thead>
+                            <tr>
+                                <th>
                                     Total Money
-                                    <span class="pull-right"><i class="fa fa-caret-up"></i> 33%</span>
-                                </div>
-                                <div class="tile-body clearfix">
-                                    <i class="fa fa-cart-plus"></i>
-                                    <h4 class="pull-right">2.5K</h4>
-                                </div>
-                                <div class="tile-footer">
-                                    <a> Welcome, ShopName</a>
-                                </div>
-                            </div>
-                        </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>{ totalMoney && totalMoney.map(post =>(
+                                                <td class = "list-group-item">
+                                                    <small> <i class ="fa fa-clock-o" key ={post.total}>{post.total} $ </i> </small>
+                                                </td>
+                                        ))
+                                        }
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td> 
+                                    Welcome, Shop Name
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="panel panel-default recent-activites">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title">Total Orders </h4>
+                                    <h4 class="panel-title"><strong>Total Orders </strong> </h4>
                                     <div class="panel-actions">
                                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
@@ -90,38 +159,34 @@ function Dashboard(){
                                     <div>
                                        <ChartOrders></ChartOrders>
                                     </div>
-
                                 </div>
                             </div> 
                         </div>
-
                     </div>
                     <div class="row">
-                        
-                            <div class="panel panel-default ">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default recent-activites">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title"> Total money</h4>
+                                    <h4 class="panel-title"> <strong>Total Money</strong> </h4>
                                     <div class="panel-actions">
                                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                                     </div>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body text-center">
                                     <div>
-                                    <ChartMoney> </ChartMoney>
+                                        <ChartMoney></ChartMoney>
                                     </div>
                                 </div>
-                            </div>  
-                        
-
+                            </div> 
+                        </div>
                     </div>
-
 
                     <div class="row">
                         <div class="col-md-4">
                             <div class="panel panel-default recent-activites">
                                 <div class="panel-heading">
-                                    <h4 class="panel-title"> Top Products </h4>
+                                    <h4 class="panel-title"> Top Product </h4>
                                     <div class="panel-actions">
                                         <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
@@ -129,22 +194,14 @@ function Dashboard(){
                                 </div>
                                 <div class="panel-body pad-0">
                                     <ul class="list-group">
-                                        <li class="list-group-item">
-                                            <a href="#"> Sản phẩm top 1</a>
-                                            <small><i class="fa fa-clock-o"></i> Số lượng người mua</small>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#">Sản phẩm top 2</a>
-                                            <small><i class="fa fa-clock-o"></i> Số lượng người mua</small>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#">Sản phẩm top 3</a>
-                                            <small><i class="fa fa-clock-o"></i> Số lượng người mua</small>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#">Sản phẩm top 4</a>
-                                            <small><i class="fa fa-clock-o"></i> Số lượng người mua</small>
-                                        </li>                            
+                                      
+                                        {   products && products .map(post =>(
+                                                <li class = "list-group-item">
+                                                    <a key ={post.product_id}> {post.product_name} </a>
+                                                    <small> <i class ="fa fa-clock-o" key ={post.product_id}>{post.nosale} order </i> </small>
+                                                </li>
+                                        ))
+                                        }                        
                                     </ul>
                                 </div>
                             </div>                      
@@ -167,52 +224,23 @@ function Dashboard(){
                                                     <th>Id</th>
                                                     <th>Customer</th>
                                                     <th>Status</th>
-                                                    <th>Date</th>
-                                                    <th>Total</th>
+                                                    <th>Create Date</th>
+                                                    <th>Required Date</th>
                                                     
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>4563</td>
-                                                    <td>David</td>
-                                                    <td><span class="text-danger">Pending</span></td>
-                                                    <td>04 / 08 / 2015</td>
-                                                    <td>$5679.99</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>8997</td>
-                                                    <td>John</td>
-                                                    <td><span class="text-success">Success</span></td>
-                                                    <td>04 / 08 / 2015</td>
-                                                    <td>$5679.99</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>2342</td>
-                                                    <td>Mohinder</td>
-                                                    <td><span class="text-danger">Pending</span></td>
-                                                    <td>04 / 08 / 2015</td>
-                                                    <td>$5679.99</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>5677</td>
-                                                    <td>Mohinder</td>
-                                                    <td><span class="text-danger">Pending</span></td>
-                                                    <td>04 / 08 / 2015</td>
-                                                    <td>$5679.99</td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <td>6756</td>
-                                                    <td>Camron</td>
-                                                    <td><span class="text-success">Success</span></td>
-                                                    <td>04 / 08 / 2015</td>
-                                                    <td>$5679.99</td>
-                                                    
-                                                </tr>
+                                                {
+                                                    recentOrder && recentOrder.map(order =>(
+                                                        <tr>
+                                                            <td key ={order.order_id}> {order.order_id}</td>
+                                                            <td key ={order.order_id}> {order.user_id}</td>
+                                                            <td key ={order.order_id}> {order.status}</td>
+                                                            <td key ={order.order_id}> {order.createdAt}</td>
+                                                            <td key ={order.order_id}> {order.requiredDate}  </td>
+                                                        </tr>
+                                                    ))
+                                                }
                                             </tbody>
                                         </table>
                                     </div>

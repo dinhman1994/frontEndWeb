@@ -3,8 +3,11 @@ import './Order.css'
 import moment from "moment";
 import CheckoutProduct from "./CheckoutProduct";
 import CurrencyFormat from "react-currency-format";
+import { useStateValue } from "./StateProvider";
 
-function Order({ order }) {
+function Order({ order, id , image ,price, rating, status, hideButton }) {
+    const [{ basket, user }, dispatch] = useStateValue();
+
     return (
         <div className='order'>
             <h2>Order</h2>
@@ -19,6 +22,7 @@ function Order({ order }) {
                     image={item.image}
                     price={item.price}
                     rating={item.rating}
+                    status ={item.status}
                     hideButton
                 />
             ))}
@@ -32,7 +36,7 @@ function Order({ order }) {
                 thousandSeparator={true}
                 prefix={"$"}
             />   
-        </div>
+        </div>  
     )
 }
 

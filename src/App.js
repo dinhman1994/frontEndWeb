@@ -94,7 +94,7 @@ function App() {
           <Route path="/products/:product_id">
             <ProductDetail />
           </Route>
-          <Route path="/dashboard/:shop_id">
+          <Route path="/dashboard">
             <Dashboard />
           </Route>
           <Route path="/payment">

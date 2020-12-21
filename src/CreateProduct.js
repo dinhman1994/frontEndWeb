@@ -40,7 +40,7 @@ function CreateProduct() {
 	const [product_image , setProduct_image] = useState(null);
 	const {register , handleSubmit} = useForm();
 	const [cookies, setCookie] = useCookies(['token']);
-
+	const history = useHistory();
 
 	useEffect(() => {
 	},[]);
@@ -119,7 +119,7 @@ function CreateProduct() {
 				alert(result.data.message);
 				return;
 			};
-			window.location.reload();
+			return history.push(`/${shop.shop_id}/shopProducts`);
 		}
 
 		if(!validateForm(formErrors)){

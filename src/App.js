@@ -29,6 +29,7 @@ import SendToken from "./SendToken";
 import ShopLogin from "./ShopLogin";
 import ShopRegister from "./ShopRegister";
 import ProductsShop from "./ProductsShop";
+import OrderDetail from "./OrderDetail";
 
 
 
@@ -80,7 +81,7 @@ function App() {
             <CreateProduct />
           </Route>
           <Route path ="/:shop_id/shopProducts">
-            <Products />
+            {(cookies.token!='undefined') ? <Products /> : <Redirect to="/"/>}
           </Route>
           <Route path ="/shopProducts/:shop_id">
             <ProductsShop />
@@ -94,8 +95,11 @@ function App() {
           <Route path="/products/:product_id">
             <ProductDetail />
           </Route>
-          <Route path="/dashboard/:shop_id">
+          <Route path="/dashboard">
             <Dashboard />
+          </Route>
+          <Route path="/orderDetail">
+            <OrderDetail />
           </Route>
           <Route path="/payment">
             <Elements stripe={promise}>

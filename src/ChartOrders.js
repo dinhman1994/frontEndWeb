@@ -1,45 +1,55 @@
-import React, {Component} from 'react'
+import { SignalWifi1BarLockSharp } from '@material-ui/icons';
+import Axios from 'axios';
+import React, {Component, useEffect, useState} from 'react'
 import {Bar} from 'react-chartjs-2';
 
-class Chart extends Component{
-    constructor(props){
-        super(props);
-        this.state ={
-            chartData:{
-                labels:['January','February' ,'March','April','May','June'],
-                datasets:[
-                    {
-                        label:'Orders',
-                        data:[
-                            100,
-                            200,
-                            300,
-                            400,
-                            500,
-                            200
-                        ],
-                        backgroundColor: [
-                            'rgb(255,255,0)',
-                            'rgb(54,162,235)',
-                            'rgb(255,206,86)',
-                            'rgb(75,102,255)',
-                            'rgb(153,159,64)',
-                            'rgb(255,184,64)',
-                        ]
-                    }
-                ]
+const ChartOrders =() =>{
+    const [chartData,setChartData] =useState({})
+    const chart =  () =>{
+        let shopMonth = [];
+        let shopMoney =[];
+        Axios.get("http://localhost:8000/shop/4/order")
+        .then(res =>{ 
+            console.log(res);
+            for( const dataObj of res.data){
+                shopMoney.push(parseInt(dataObj.total ))
+                shopMonth.push(parseInt(dataObj.order_id ))
+
             }
-        }
-    }; 
-    render(){
-        return (
-            <div className ="chart">
-                <Bar
-                    data={this.state.chartData}
-                    options={{}}
-                />
-            </div>
-        )
+        })
+        .catch(error =>{
+            console.log(error);
+        });
+
+        console.log(shopMonth, shopMoney);
+        setChartData({
+            labels : shopMonth,
+            datasets:[
+                {
+                    label : 'Total Order',
+                    data:shopMoney,
+                    backgroundColor: [
+                        'rgb(255,255,0)',
+                        'rgb(54,162,235)',
+                        'rgb(255,206,86)',
+                        'rgb(75,102,255)',
+                        'rgb(153,159,64)',
+                        'rgb(255,184,64)',
+                    ]
+
+                }
+            ]
+        })
     }
+    useEffect(() =>{
+        chart()
+    },[])
+
+    return(
+        <div className = 'chart'>
+        <Bar data={chartData}></Bar>
+        
+        </div>
+    )
 }
-export default Chart;
+export default ChartOrders;

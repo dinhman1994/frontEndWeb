@@ -156,6 +156,7 @@ function CreateProduct() {
     );
     else return (
         <div>
+            <LoadData />
         </div>
     )
 }		

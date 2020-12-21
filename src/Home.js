@@ -7,7 +7,7 @@ import "./Home.css";
 import Product from "./Product";
 import Category from "./Category";
 import CategoryHomeProduct from "./CategoryHomeProduct";
-
+import LoadData from "./LoadData";
 
 function Home() {
 	const [products, setProducts] = useState([]);
@@ -21,7 +21,6 @@ function Home() {
 				method: 'get',
 				url: `http://localhost:8000`
 			});
-			console.log(result.data);
 			setProducts(result.data);
 		}
 		fetchData();
@@ -31,10 +30,12 @@ function Home() {
 	if(products.length === 0)
 		return (
 			<div className="home">
+				<LoadData />
 			</div>
 		);
 		else return (
 			<div className="home">
+				<LoadData />
 				<div className="home__container">
 					<img
 						className="home__image"

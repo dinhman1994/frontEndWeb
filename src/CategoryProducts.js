@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams,useHistory} from "react-router-dom";
+import axios from "./axios";
+
 import "./CategoryProduct.css";
+
 import Product from "./Product";
 import Category from "./Category";
-import axios from "./axios";
+import LoadData from "./LoadData";
 
 
 function CategoryProducts() {
@@ -63,6 +66,7 @@ function CategoryProducts() {
 	);
 	else return (
 		<div className="home">
+			<LoadData />
 		<div className="home__container">
 			<img
 			className="home__image"

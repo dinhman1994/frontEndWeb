@@ -9,6 +9,8 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import MailIcon from '@material-ui/icons/Mail';
 import InstagramIcon from '@material-ui/icons/Instagram';
 
+import LoadData from "./LoadData";
+
 import "./Profile.css";
 
 const validEmailRegex = RegExp(
@@ -131,6 +133,7 @@ function Profile(){
 
 		return(
 				<div className="profile">
+					<LoadData />
 						<h1>My Profile</h1>
 						<div className="right_area col-md-6">
 								<h3>UserName</h3>

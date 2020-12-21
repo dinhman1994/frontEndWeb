@@ -80,3 +80,9 @@ table .infor{
   width: 100px;
   font-weight: 500;
 }
+.profile .btn.btn-default:hover{
+  border: 1px solid #FFA500;
+}
+.profile .btn.btn-primary:hover{
+  border: 1px solid #FFA500;
+}

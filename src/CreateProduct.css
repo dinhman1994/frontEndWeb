@@ -48,6 +48,9 @@ li {
     color: #111;
 
 }
+.createProduct .btn.btn-primary.btn-block.text-uppercase:hover{
+    border: 1px solid #FFA500;;
+}
 .createProduct .btn.btn-primary.btn-block.mx-auto{
     background: #f0c14b;
     border-radius: 3px;
@@ -55,6 +58,9 @@ li {
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
+}
+.createProduct .btn.btn-primary.btn-block.mx-auto{
+    border: 1px solid #FFA500;
 }
 .createProduct .custom-select{
     background: white;

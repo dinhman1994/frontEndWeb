@@ -25,13 +25,16 @@
 
 .product > button {
   background: #f0c14b;
-  border: 1px solid;
+  border: 1px solid black;
   margin-top: 10px;
   border-color: #a88734 #9c7e31 #846a29;
   color: #111;
+  border-radius: 3px;
+  width: 200px;
+  font-weight: 500;
 }
-.product > button :onhover{
-  
+.product > button:hover{
+  border: 1px solid #FFA500;
 }
 
 .product__price {

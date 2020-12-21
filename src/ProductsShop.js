@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams,useHistory} from "react-router-dom";
-import "./ProductsShop.css";
 import Product from "./Product";
 import Category from "./Category";
+import Patigation from "./Patigation";
+import LoadData from "./LoadData";
 import axios from "./axios";
+
+import "./ProductsShop.css";
 
 
 function ProductsShop() {
     const [products, setProducts] = useState([]);
-    const [shop, setShop] = useState({});
+	const [shop, setShop] = useState({});
+	const [page,setPage] = useState(1);
 	let { shop_id } = useParams();
 	const backEndServe = 'http://localhost:8000/';
 
@@ -16,7 +20,7 @@ function ProductsShop() {
 		async function fetchData(){
 			const result = await axios({
 				method: 'get',
-				url: `http://localhost:8000/shop/${shop_id}/product`
+				url: `http://localhost:8000/shop/${shop_id}/product?page=${page}`
 			});
             setProducts(result.data);
             const shopResult = await axios({
@@ -26,11 +30,20 @@ function ProductsShop() {
             setShop(shopResult.data);
 		}
 		fetchData();
-	},[]);
+	},[page]);
+
+	function setCurrentPage(newPage){
+		console.log(page);
+		return function(){
+			setPage(newPage);
+		}	 
+	}
 	
 	if(products.length === 0)
 	return (
 		<div className="home">
+			<LoadData />
+			<Patigation setCurrentPage={setCurrentPage}/>
 		</div>
 	);
 	else return (
@@ -49,6 +62,8 @@ function ProductsShop() {
                     <img src={shop && backEndServe+shop.avatar} className="shop_img"/>
                 </div>
 			</div>
+			<LoadData />
+			<Patigation setCurrentPage={setCurrentPage}/>
 			<div className="home__row">
 						{
 							products.slice(0,2).map(

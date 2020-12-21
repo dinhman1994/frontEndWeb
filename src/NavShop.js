@@ -21,25 +21,6 @@ function NavShop() {
     const [{ shop }, dispatch] = useStateValue();
     const [cookies, setCookie] = useCookies(['token']);
     useEffect(() => {
-        async function fetchData(){
-            if(shop === null){
-                const shopData = await axios({
-                    method: 'get',
-                    url: 'http://localhost:8000/shopProfile',
-                    headers : {
-						token: cookies.token
-					}
-				});
-				if (shopData.data.message === 'Success')
-					dispatch({
-						type: "SET_SHOP",
-						shop: {
-							...shopData.data.shop
-						},
-					});
-            }
-        }
-        fetchData();
     },[]);
 
 	if(shop == null) return (

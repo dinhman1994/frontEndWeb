@@ -10,6 +10,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import InstagramIcon from '@material-ui/icons/Instagram';
 
 import NavShop from "./NavShop";
+import LoadData from "./LoadData";
 
 import "./ShopProfile.css";
 
@@ -124,6 +125,7 @@ function ShopProfile(){
 
 		return(
 				<div className="shopProfile">
+						<LoadData />
 						<NavShop />
 						<h1>My Profile</h1>
 						<div className="right_area col-md-6">

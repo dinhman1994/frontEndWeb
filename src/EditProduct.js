@@ -5,7 +5,8 @@ import { useStateValue } from "./StateProvider";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
 
-import './EditProduct.css';
+import "./EditProduct.css"
+
 
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import DashboardSharpIcon from '@material-ui/icons/DashboardSharp';
@@ -17,6 +18,7 @@ import ExitToAppSharpIcon from '@material-ui/icons/ExitToAppSharp';
 import CameraAltSharpIcon from '@material-ui/icons/CameraAltSharp';
 
 import NavShop from "./NavShop";
+import LoadData from "./LoadData";
 
 const validateForm = errors => {
     let valid = true;
@@ -29,6 +31,7 @@ function EditProduct() {
 	const [product, setProduct] = useState(null);
 	const [product_image , setProduct_image] = useState(null);
 	const [cookies, setCookie] = useCookies(['token']);
+	const history = useHistory();
 
 	const backEndServe = 'http://localhost:8000/';
 	const [formErrors, setFormErrors] = useState({
@@ -130,7 +133,7 @@ function EditProduct() {
 				alert(result.data.message);
 				return;
 			};
-			window.location.reload();
+			return window.location.reload();
 		}
 
 		if(!validateForm(formErrors)){
@@ -143,11 +146,14 @@ function EditProduct() {
 	
 	if(product == null) 
 		return(
-			<div></div>
+			<div>
+				<LoadData />
+			</div>
 		); 
 	else {
 		return (
 			<div className="EditProduct">
+				<LoadData />
 				<NavShop />		
 				<div className="container">
 					<div className="row">

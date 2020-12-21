@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Product.css";
 import { useStateValue } from "./StateProvider";
+import axios from "axios";
 
 function Product({ id, name, image, price, rating }) {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket,user }, dispatch] = useStateValue();
   
   const addToBasket = () => {
     // dispatch the item into the data layer
@@ -18,6 +19,16 @@ function Product({ id, name, image, price, rating }) {
         rating: rating,
       },
     });
+    if(user){
+      async function fetchData(){
+        const result = await axios({
+          method: 'post',
+          url: `http://localhost:8000/increaseProductInCart/${user.user_id}/${id}`
+        });
+        console.log(result.data);
+      }
+      fetchData();
+    }
   };
 
   return (

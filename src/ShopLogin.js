@@ -54,7 +54,7 @@ function ShopLogin() {
                 alert(result.data.message);
                 return;
             }
-
+            
             dispatch({
                 type: "SET_SHOP",
                 shop: {

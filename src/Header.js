@@ -12,55 +12,13 @@ import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import StorefrontSharpIcon from '@material-ui/icons/StorefrontSharp';
 
 
-
 function Header() {
 	const [{ basket, user,shop }, dispatch] = useStateValue();
 	const [cookies, setCookie] = useCookies(['token']);
 	const backEndServe = 'http://localhost:8000/';
 	useEffect(() => {
-		console.log("Header token is "+ cookies.token);
-		async function fetchData(){
-			if(user == null){
-				const userData = await axios({
-					method: 'get',
-					url: 'http://localhost:8000/profile',
-					headers : {
-						token: cookies.token
-					}
-				});
-				if (userData.data.message === 'Success') 
-					dispatch({
-						type: "SET_USER",
-						user: {
-								...userData.data.user
-						},
-					});
-			}
-			if(shop == null){
-				const shopData = await axios({
-					method: 'get',
-					url: 'http://localhost:8000/shopProfile',
-					headers : {
-						token: cookies.token
-					}
-				});
-				if (shopData.data.message === 'Success')
-					dispatch({
-						type: "SET_SHOP",
-						shop: {
-								...shopData.data.shop
-						},
-					});
-			}
-			return ;
-		}
-
-		if(user === null || shop === null){
-			fetchData();
-		}
 	},
 	[]);
-
 
 	return (
 		<div className="header">
@@ -124,7 +82,7 @@ function Header() {
 					<div className="header__optionBasket">
 						<ShoppingBasketIcon className="shoppingIcon"/>
 						<span className="header__optionLineTwo header__basketCount">
-							{basket?.length}
+							{basket.reduce((amount,item) => item.quantity + amount,0)}
 						</span>
 					</div>
 				</Link>

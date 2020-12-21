@@ -19,6 +19,7 @@ import CameraAltSharpIcon from '@material-ui/icons/CameraAltSharp';
 
 
 import NavShop from "./NavShop";
+import LoadData from "./LoadData";
 
 const validateForm = errors => {
 	let valid = true;
@@ -39,7 +40,7 @@ function CreateProduct() {
 	const [product_image , setProduct_image] = useState(null);
 	const {register , handleSubmit} = useForm();
 	const [cookies, setCookie] = useCookies(['token']);
-
+	const history = useHistory();
 
 	useEffect(() => {
 	},[]);
@@ -118,7 +119,7 @@ function CreateProduct() {
 				alert(result.data.message);
 				return;
 			};
-			window.location.reload();
+			return history.push(`/${shop.shop_id}/shopProducts`);
 		}
 
 		if(!validateForm(formErrors)){
@@ -131,6 +132,7 @@ function CreateProduct() {
 	
 	return (
 		<div className="createProduct">
+			<LoadData />
 			<NavShop />		
 			<div className="container">
 				<div className="row">

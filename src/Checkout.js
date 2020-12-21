@@ -3,12 +3,14 @@ import "./Checkout.css";
 import Subtotal from "./Subtotal";
 import { useStateValue } from "./StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
+import LoadData from "./LoadData";
 
 function Checkout() {
-  const [{ basket, user }, dispatch] = useStateValue();
+  const [{ basket, user,shop }, dispatch] = useStateValue();
 
   return (
     <div className="checkout">
+      <LoadData/>
       <div className="checkout__left">
         <img
           className="checkout__ad"
@@ -16,17 +18,18 @@ function Checkout() {
           alt=""
         />
         <div>
-          <h3>Hello, {user?.email}</h3>
+          <h3>Hello, {user ? user.name : null}{shop ? shop.name : null}</h3>
           <h2 className="checkout__title">Your shopping Basket</h2>
 
           {basket.map(item => (
             <CheckoutProduct
               
               id={item.id}
-              title={item.title}
+              name={item.name}
               image={item.image}
               price={item.price}
               rating={item.rating}
+              quantity={item.quantity}
             />
           ))}
 

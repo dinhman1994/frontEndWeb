@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
-import axios from "axios";
 import { useStateValue } from "./StateProvider";
+import axios from "axios";
 
 import "./Home.css";
 import Product from "./Product";
 import Category from "./Category";
 import CategoryHomeProduct from "./CategoryHomeProduct";
-
+import Patigation from "./Patigation";
+import LoadData from "./LoadData";
 
 function Home() {
 	const [products, setProducts] = useState([]);
 	const [cookies, setCookie] = useCookies(['token']);
+	const [page,setPage] = useState(1);
 	const [{ user }, dispatch] = useStateValue();
 	const backEndServe = 'http://localhost:8000/';
 
@@ -19,22 +21,30 @@ function Home() {
 		async function fetchData(){
 			const result = await axios({
 				method: 'get',
-				url: `http://localhost:8000`
+				url: `http://localhost:8000?page=${page}`
 			});
-			console.log(result.data);
 			setProducts(result.data);
 		}
 		fetchData();
 	},
-	[]);
+	[page]);
+
+	function setCurrentPage(newPage){
+		return function(){
+			setPage(newPage);
+		}	 
+	}
 	
 	if(products.length === 0)
 		return (
 			<div className="home">
+				<LoadData />
+				<Patigation setCurrentPage={setCurrentPage}/>
 			</div>
 		);
 		else return (
 			<div className="home">
+				<LoadData />
 				<div className="home__container">
 					<img
 						className="home__image"
@@ -45,6 +55,7 @@ function Home() {
 					<div>
 						<h2>HOT PRODUCTS</h2>
 					</div>
+					<Patigation setCurrentPage={setCurrentPage}/>
 					<div className="home__row">
 						{
 							products.slice(0,2).map(

@@ -8,8 +8,8 @@ import { useStateValue } from "./StateProvider";
 function ProductDetails(){
     let history = useHistory();
     const [{ basket }, dispatch] = useStateValue();
-    const [product, setProduct] = useState({});
-    const [shop, setShop] = useState({});
+    const [product, setProduct] = useState(null);
+    const [shop, setShop] = useState(null);
     let { product_id } = useParams();
     const backEndServe = 'http://localhost:8000/';
     useEffect(() => {
@@ -46,6 +46,7 @@ function ProductDetails(){
         addToBasket();
         history.push("/payment");
     }
+    if(product && shop)
     return (
         <div className="ProductDetail">
             <div className="right_content">
@@ -86,6 +87,9 @@ function ProductDetails(){
             </div>
         </div>
     );
+    else return (
+        <div></div>
+    )
 } 
 
 export default ProductDetails;

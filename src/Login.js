@@ -28,6 +28,7 @@ function Login() {
         password: '',
     });
     const {register , handleSubmit} = useForm();
+    const backEndServe = 'http://localhost:8000/';
 
     const onSubmit = (data) => {
         async function fetchData(data) {
@@ -50,10 +51,31 @@ function Login() {
                 }
             });
             
-            if(result.data.message != 'Success'){
+            if(userData.data.message != 'Success'){
                 alert(result.data.message);
                 return;
             }
+            const productsData = await axios({
+                method: 'get',
+                url: `http://localhost:8000/cart/${userData.data.user.user_id}`,
+                headers : {
+                    token: cookies.token
+                }
+            });
+            productsData.data.userCart.map(product => 
+                dispatch({
+                    type: "ADD_QUANTITY_BASKET",
+                    item: {
+                        id: product.product_id,
+                        name: product.product_name,
+                        image: backEndServe+product.product_image,
+                        price: product.product_price,
+                        quantity: product.quantity,
+                        rating: 5,
+                        }
+                })
+            )
+
             dispatch({
                 type: "SET_USER",
                 user: {

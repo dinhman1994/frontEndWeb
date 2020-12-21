@@ -18,6 +18,7 @@ import EditSharpIcon from '@material-ui/icons/EditSharp';
 
 import ProductInShop from "./ProductInShop";
 import NavShop from "./NavShop";
+import Patigation from "./Patigation";
 import LoadData from "./LoadData";
 
 const validateForm = errors => {
@@ -30,18 +31,25 @@ const validateForm = errors => {
 function CreateProduct() {
     const [{ shop }, dispatch] = useStateValue();
     let { shop_id } = useParams();
+    const [page,setPage] = useState(1);
     const [shopProducts, setShopProducts] = useState(null);
     const backEndServe = 'http://localhost:8000/';
 	useEffect(() => {
             async function fetchData(){
                 const result = await axios({
                     method: 'get',
-                    url: `http://localhost:8000/shop/${shop_id}/product`
+                    url: `http://localhost:8000/shop/${shop_id}/product?page=${page}`
                 });
                 setShopProducts(result.data);
             };
             fetchData();   
-	},[]);
+    },[page]);
+    function setCurrentPage(newPage){
+		console.log(page);
+		return function(){
+			setPage(newPage);
+		}	 
+	}
     if (shopProducts && shop)
     return (
         <div className="ShopProducts">
@@ -78,6 +86,7 @@ function CreateProduct() {
                                     </tbody>
                                 </table>
                             </div>
+                            <Patigation setCurrentPage={setCurrentPage}/>
                             <Link to ={`/createProduct/${shop.shop_id}`}
                                
                                 class="btn btn-primary btn-block text-uppercase mb-3">

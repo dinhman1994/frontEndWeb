@@ -129,7 +129,7 @@ function ShopProfile(){
 						<NavShop />
 						<h1>My Profile</h1>
 						<div className="right_area col-md-6">
-								<h3>shopName</h3>
+								<h3>ShopName {shop ? shop.name : null}</h3>
 								<div className="avatar_area">
 										{shop ? <img className="avatar_image" src={backEndServe+shop.avatar}/> : <img className="avatar_image" src="themeLogin.jpg"/>}
 										

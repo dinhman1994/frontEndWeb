@@ -3,11 +3,11 @@ import "./ProductDetail.css";
 import axios from "./axios";
 import { Link, useHistory, useParams} from "react-router-dom";
 import { useStateValue } from "./StateProvider";
-
+import LoadData from "./LoadData";
 
 function ProductDetails(){
     let history = useHistory();
-    const [{ basket }, dispatch] = useStateValue();
+    const [{ basket,user }, dispatch] = useStateValue();
     const [product, setProduct] = useState(null);
     const [shop, setShop] = useState(null);
     let { product_id } = useParams();
@@ -40,6 +40,15 @@ function ProductDetails(){
             rating: 5,
           },
         });
+        if(user){
+            async function fetchData(){
+              const result = await axios({
+                method: 'post',
+                url: `http://localhost:8000/increaseProductInCart/${user.user_id}/${product_id}`
+              });
+            }
+            fetchData();
+        }
     };
     
     const byNow = () => {
@@ -49,6 +58,7 @@ function ProductDetails(){
     if(product && shop)
     return (
         <div className="ProductDetail">
+            <LoadData />
             <div className="right_content">
                 <div className="img_area">
                     <img src={backEndServe+product.product_image} className="product_img"/>
@@ -88,7 +98,9 @@ function ProductDetails(){
         </div>
     );
     else return (
-        <div></div>
+        <div>
+            <LoadData />
+        </div>
     )
 } 
 

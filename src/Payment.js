@@ -3,82 +3,87 @@ import './Payment.css';
 import { useStateValue } from "./StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
 import { Link, useHistory } from "react-router-dom";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import CurrencyFormat from "react-currency-format";
+import { useForm } from 'react-hook-form';
 import { getBasketTotal } from "./reducer";
+import CurrencyFormat from "react-currency-format";
 import axios from './axios';
 
 import LoadData from "./LoadData";
-import { db } from "./firebase";
+
+const validateForm = errors => {
+    let valid = true;
+    Object.values(errors).forEach(val => val.length > 0 && (valid = false));
+    return valid;
+};
 
 function Payment() {
     const [{ basket, user }, dispatch] = useStateValue();
     const history = useHistory();
-
-    const stripe = useStripe();
-    const elements = useElements();
-
+    const [formErrors, setFormErrors] = useState({
+        phonenumber: '',
+        items: ''
+    });
     const [succeeded, setSucceeded] = useState(false);
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(false);
-    const [clientSecret, setClientSecret] = useState(true);
-
+    const [city, setCity] = useState('Hà Nội');
+    const {register , handleSubmit} = useForm();
     useEffect(() => {
-        // generate the special stripe secret which allows us to charge a customer
-        const getClientSecret = async () => {
-            const response = await axios({
-                method: 'post',
-                // Stripe expects the total in a currencies subunits
-                url: `/payments/create?total=${getBasketTotal(basket) * 100}`
-            });
-            setClientSecret(response.data.clientSecret)
+        async function fetchData(){
+            
         }
-
-        getClientSecret();
+        // generate the special stripe secret which allows us to charge a customer
+        fetchData();
     }, [basket])
 
-    console.log('THE SECRET IS >>>', clientSecret)
-    console.log('👱', user)
-
-    const handleSubmit = async (event) => {
+    const onSubmit = async (event) => {
         // do all the fancy stripe stuff...
-        event.preventDefault();
+        async function fetchData(){
+            
+        }
+
         setProcessing(true);
-
-        const payload = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: elements.getElement(CardElement)
-            }
-        }).then(({ paymentIntent }) => {
-            // paymentIntent = payment confirmation
-
-            db
-              .collection('users')
-              .doc(user?.uid)
-              .collection('orders')
-              .doc(paymentIntent.id)
-              .set({
-                  basket: basket,
-                  amount: paymentIntent.amount,
-                  created: paymentIntent.created
-              })
-
-            setSucceeded(true);
-            setError(null)
-            setProcessing(false)
-
-            dispatch({
-                type: 'EMPTY_BASKET'
-            })
-            history.replace('/orders')
-        })
+        let errors = {
+            ...formErrors
+        };
+        if (basket?.length === 0){
+            errors.items = "You don't have any products in cart";
+            setFormErrors(errors);
+            return alert("You don't have any products in cart !!!");
+        }
+        if(!validateForm(formErrors)){
+            alert("You have some errors in your form !!!");
+            return;
+        }
+        fetchData();
+        setProcessing(false);
+        // dispatch({
+        //     type: 'EMPTY_BASKET'
+        // })
+        // history.replace('/orders')  
     }
     const handleChange = event => {
         // Listen for changes in the CardElement
         // and display any errors as the customer types their card details
-        setDisabled(event.empty);
-        setError(event.error ? event.error.message : "");
+        const { name, value } = event.target;
+        let errors = {
+            ...formErrors
+        };
+
+        switch (name) {
+            case 'phonenumber': 
+                errors.phonenumber = 
+                    (isNaN(value) || value.length != 10 )
+                    ? 'Invalid Phone Number'
+                    : '';
+                break;
+            case 'city': 
+                setCity(value);
+        }
+        if (basket?.length === 0)
+            errors.items = "You don't have any products in cart";
+        setFormErrors(errors);
     }
 
     return (
@@ -91,19 +96,58 @@ function Payment() {
                         )
                 </h1>
 
-
+            <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
                 {/* Payment section - delivery address */}
                 <div className='payment__section'>
                     <div className='payment__title'>
                         <h3>Delivery Address</h3>
                     </div>
                     <div className='payment__address'>
-                        <p>{user?.email}</p>
-                        <p>123 React Lane</p>
-                        <p>Los Angeles, CA</p>
+                        <select className="city" name="city" ref={register} onChange={handleChange}> 
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                        </select>
+                        {
+                            city === 'Hà Nội' ? 
+                                <select className="district" name="district" ref={register} onChange={handleChange}>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Hồ Chí Minh">Hà Nội</option>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Hồ Chí Minh">Hà Nội</option>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Hồ Chí Minh">Hà Nội</option>
+                                </select> :
+                                <select className="district" name="district" ref={register} onChange={handleChange}>
+                                <option value="Hà Nội">Hồ Chí Minh</option>
+                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                <option value="Hà Nội">Hồ Chí Minh</option>
+                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                <option value="Hà Nội">Hồ Chí Minh</option>
+                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                            </select>
+                                
+                        }
                     </div>
                 </div>
-
+                <div className='payment__section'>
+                    <div className='payment__title'>
+                        <h3>Your phone</h3>
+                    </div>
+                    <div>
+                        <input
+                            ref={register}
+                            id="price"
+                            name="phonenumber"
+                            value = {user?.phonenumber}
+                            type="text"
+                            className="form-control validate"
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    {formErrors.phonenumber.length > 0 && 
+						<span className='error'>{formErrors.phonenumber}</span>}
+                </div>
                 {/* Payment section - Review Items */}
                 <div className='payment__section'>
                     <div className='payment__title'>
@@ -121,6 +165,8 @@ function Payment() {
                             />
                         ))}
                     </div>
+                    {formErrors.items.length > 0 && 
+						<span className='error'>{formErrors.items}</span>}
                 </div>
             
 
@@ -130,32 +176,29 @@ function Payment() {
                         <h3>Payment Method</h3>
                     </div>
                     <div className="payment__details">
-                            {/* Stripe magic will go */}
+                            {/* Stripe magic will go */}                         
+                        <div className='payment__priceContainer'>
+                            <CurrencyFormat
+                                renderText={(value) => (
+                                    <h3>Order Total: {value}</h3>
+                                )}
+                                decimalScale={2}
+                                value={getBasketTotal(basket)}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={"$"}
+                            />
+                            <button disabled={processing || disabled }>
+                                <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
+                            </button>
+                        </div>
 
-                            <form onSubmit={handleSubmit}>
-                                <CardElement onChange={handleChange}/>
-
-                                <div className='payment__priceContainer'>
-                                    <CurrencyFormat
-                                        renderText={(value) => (
-                                            <h3>Order Total: {value}</h3>
-                                        )}
-                                        decimalScale={2}
-                                        value={getBasketTotal(basket)}
-                                        displayType={"text"}
-                                        thousandSeparator={true}
-                                        prefix={"$"}
-                                    />
-                                    <button disabled={processing || disabled || succeeded}>
-                                        <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
-                                    </button>
-                                </div>
-
-                                  {/* Errors */}
-                                {error && <div>{error}</div>}
-                            </form>
+                            {/* Errors */}
+                        {error && <div>{error}</div>}
+                                
                     </div>
                 </div>
+                </form>
             </div>
         </div>
     )

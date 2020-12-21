@@ -31,6 +31,7 @@ function EditProduct() {
 	const [product, setProduct] = useState(null);
 	const [product_image , setProduct_image] = useState(null);
 	const [cookies, setCookie] = useCookies(['token']);
+	const history = useHistory();
 
 	const backEndServe = 'http://localhost:8000/';
 	const [formErrors, setFormErrors] = useState({
@@ -132,7 +133,7 @@ function EditProduct() {
 				alert(result.data.message);
 				return;
 			};
-			window.location.reload();
+			return window.location.reload();
 		}
 
 		if(!validateForm(formErrors)){
@@ -145,7 +146,9 @@ function EditProduct() {
 	
 	if(product == null) 
 		return(
-			<div></div>
+			<div>
+				<LoadData />
+			</div>
 		); 
 	else {
 		return (

@@ -6,11 +6,13 @@ import "./CategoryProduct.css";
 
 import Product from "./Product";
 import Category from "./Category";
+import Patigation from "./Patigation";
 import LoadData from "./LoadData";
 
 
 function CategoryProducts() {
 	const [products, setProducts] = useState([]);
+	const [page,setPage] = useState(1);
 	let { category_id } = useParams();
 	let name;
 	const backEndServe = 'http://localhost:8000/';
@@ -52,16 +54,23 @@ function CategoryProducts() {
 		async function fetchData(){
 			const result = await axios({
 				method: 'get',
-				url: `http://localhost:8000/category/${category_id}`
+				url: `http://localhost:8000/category/${category_id}?page=${page}`
 			});
 			setProducts(result.data);
 		}
 		fetchData();
-	},[category_id]);
+	},[category_id,page]);
+
+	function setCurrentPage(newPage){
+		return function(){
+			setPage(newPage);
+		}	 
+	}
 	
 	if(products.length === 0)
 	return (
 		<div className="home">
+			<LoadData />
 		</div>
 	);
 	else return (
@@ -78,6 +87,7 @@ function CategoryProducts() {
 			<div className="mt-3">
 				<h2>{name}</h2>
 			</div>
+			<Patigation setCurrentPage={setCurrentPage}/>
 			<div className="home__row">
 						{
 							products.slice(0,2).map(

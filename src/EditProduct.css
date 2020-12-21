@@ -76,3 +76,6 @@ li {
     width: 100%;
     object-fit: contain;
 }
+.EditProduct .btn.btn-primary.btn-block.text-uppercase:hover{
+    border: 1px solid #FFA500;;
+}

@@ -63,7 +63,7 @@ function Home() {
 								id={product.product_id}
 								name={product.product_name}
 								price={product.product_price}
-								rating={5}
+								rating={product.product_rating}
 								image={backEndServe+product.product_image}
 							/>)
 						}
@@ -75,7 +75,7 @@ function Home() {
 								id={product.product_id}
 								name={product.product_name}
 								price={product.product_price}
-								rating={5}
+								rating={product.product_rating}
 								image={backEndServe+product.product_image}
 							/>)
 						}
@@ -88,7 +88,7 @@ function Home() {
 								id={product.product_id}
 								name={product.product_name}
 								price={product.product_price}
-								rating={5}
+								rating={product.product_rating}
 								image={backEndServe+product.product_image}
 							/>)
 						}

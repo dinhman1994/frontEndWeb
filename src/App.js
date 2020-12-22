@@ -98,7 +98,7 @@ function App() {
           <Route path="/dashboard">
             <Dashboard />
           </Route>
-          <Route path="/orderDetail">
+          <Route path="/orderDetail/:user_id">
             <OrderDetail />
           </Route>
           <Route path="/payment">

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Payment.css';
 import { useStateValue } from "./StateProvider";
-import CheckoutProduct from "./CheckoutProduct";
+import ProductInPayment from "./ProductInPayment";
 import { Link, useHistory } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { getBasketTotal } from "./reducer";
 import CurrencyFormat from "react-currency-format";
+import { useCookies } from 'react-cookie';
 import axios from './axios';
 
 import LoadData from "./LoadData";
@@ -27,6 +28,7 @@ function Payment() {
     const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
     const [disabled, setDisabled] = useState(false);
+    const [cookies, setCookie] = useCookies(['token']);
     const [city, setCity] = useState('Hà Nội');
     const {register , handleSubmit} = useForm();
     useEffect(() => {
@@ -35,12 +37,26 @@ function Payment() {
         }
         // generate the special stripe secret which allows us to charge a customer
         fetchData();
-    }, [basket])
+    }, [])
 
-    const onSubmit = async (event) => {
+    const onSubmit = async (data) => {
         // do all the fancy stripe stuff...
         async function fetchData(){
-            
+            console.log('processing');
+            const result = await axios({
+				method: 'post',
+				url: `http://localhost:8000/order/${user.user_id}`,
+				headers : {
+					token: cookies.token,
+					category_id: data.category_id
+				},
+                data: {
+                    form: data,
+                    cart: basket
+                }
+            });
+            setProcessing(false);
+            return;
         }
 
         setProcessing(true);
@@ -57,7 +73,7 @@ function Payment() {
             return;
         }
         fetchData();
-        setProcessing(false);
+        return;
         // dispatch({
         //     type: 'EMPTY_BASKET'
         // })
@@ -96,7 +112,7 @@ function Payment() {
                         )
                 </h1>
 
-            <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
+            
                 {/* Payment section - delivery address */}
                 <div className='payment__section'>
                     <div className='payment__title'>
@@ -111,14 +127,14 @@ function Payment() {
                             city === 'Hà Nội' ? 
                                 <select className="district" name="district" ref={register} onChange={handleChange}>
                                     <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hồ Chí Minh">Hà Nội</option>
                                     <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hồ Chí Minh">Hà Nội</option>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Hà Nội">Hà Nội</option>
                                     <option value="Hà Nội">Hà Nội</option>
                                     <option value="Hồ Chí Minh">Hà Nội</option>
                                 </select> :
                                 <select className="district" name="district" ref={register} onChange={handleChange}>
-                                <option value="Hà Nội">Hồ Chí Minh</option>
+                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                                 <option value="Hồ Chí Minh">Hồ Chí Minh</option>
                                 <option value="Hà Nội">Hồ Chí Minh</option>
                                 <option value="Hồ Chí Minh">Hồ Chí Minh</option>
@@ -155,7 +171,7 @@ function Payment() {
                     </div>
                     <div className='payment__items'>
                         {basket.map(item => (
-                            <CheckoutProduct
+                            <ProductInPayment
                                 id={item.id}
                                 title={item.title}
                                 image={item.image}
@@ -188,9 +204,11 @@ function Payment() {
                                 thousandSeparator={true}
                                 prefix={"$"}
                             />
-                            <button disabled={processing || disabled }>
-                                <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
-                            </button>
+                            <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
+                                <button disabled={processing} type="submit">
+                                    <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
+                                </button>
+                            </form>
                         </div>
 
                             {/* Errors */}
@@ -198,7 +216,7 @@ function Payment() {
                                 
                     </div>
                 </div>
-                </form>
+                
             </div>
         </div>
     )

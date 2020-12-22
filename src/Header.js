@@ -10,6 +10,7 @@ import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import StorefrontSharpIcon from '@material-ui/icons/StorefrontSharp';
+import HistorySharpIcon from '@material-ui/icons/HistorySharp';
 
 
 function Header() {
@@ -47,6 +48,14 @@ function Header() {
 						user ? <div className={classNames("header__option")}>
 										<img src={backEndServe+user.avatar} className="header_avatar"/>
 									 </div> : null
+					}
+				</Link>
+				<Link to={user ? `/orderDetail/${user.user_id}` : `/`}>
+					{
+						user ? <div className={classNames("header__option")}>
+									<span className="header__optionLineOne">YOUR HISTORY ORDER</span>
+									<HistorySharpIcon />
+								</div> : null
 					}
 				</Link>
 				<Link to='/shopProfile'>

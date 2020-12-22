@@ -45,7 +45,7 @@ function CreateProduct() {
     if (shopProducts && shop)
     return (
         <div className="ShopProducts">
-            <LoadData />
+            <LoadData/>
             <NavShop />
             <div class="container mt-5">
                 <div class="row tm-content-row">

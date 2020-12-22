@@ -7,8 +7,8 @@ import Axios from 'axios'
 function Orders() {
     const [{ basket, user }, dispatch] = useStateValue();
     const [orders, setOrders] = useState([]);
-    const [Posts, SetPosts] = useState([]);
-    const[idUser,setIdUser] =useState(['4']); 
+  
+    const[idUser,setIdUser] =useState(['1']); 
     useEffect(() => {
         Axios.get(`http://localhost:8000/user/${idUser}/purchase`)
             .then(response => {
@@ -27,30 +27,28 @@ function Orders() {
                 <thead>
                     <tr>
                     <th className="Order_para"> ID order </th>
-                    
+                    <th className="Order_para"> Created At </th>
                     <th className="Order_para"> requiredDate </th>
                     <th className="Order_para"> status </th>
                     <th className="Order_para"> Total </th>
                     </tr>
-
                 </thead>
                 <tbody className ="tbody_order">
                 {
-                orders && orders.map(post =>
+                orders && orders.map(your_orders =>
                     (
                         <tr>
-                        <td className ="tbody_td_order" key ={post.order_id}> {post.order_id}</td>
-                        <td className ="tbody_td_order" key ={post.order_id}> {post.requiredDate} </td>
-                        <td className ="tbody_td_order" key ={post.order_id}> {post.status}</td>
-                        <td className ="tbody_td_order" key ={post.order_id}> {post.total}</td>
+                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.order_id}</td>
+                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.orderDate} </td>
+                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.requiredDate} </td>
+                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.status}</td>
+                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.total}</td>
                         </tr>
                     )
             )
             }
                 </tbody>
             </table>
-            <button> Pre Page</button>
-            <button> Next Page</button>
         </div>
     )
 }

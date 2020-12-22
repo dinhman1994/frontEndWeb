@@ -50,8 +50,8 @@ function App() {
       <div className="app">
         <Header/>
         <Switch>
-          <Route path="/orders">
-            <Orders />
+          <Route path="/orders/:user_id">
+            {(cookies.token!='undefined') ? <Orders /> : <Redirect to="/"/>}
           </Route>
           <Route path="/login">
             <Login />
@@ -95,8 +95,8 @@ function App() {
           <Route path="/products/:product_id">
             <ProductDetail />
           </Route>
-          <Route path="/dashboard">
-            <Dashboard />
+          <Route path="/dashboard/:shop_id">
+            {(cookies.token!='undefined') ? <Dashboard /> : <Redirect to="/"/>}
           </Route>
           <Route path="/orderDetail/:user_id">
             <OrderDetail />

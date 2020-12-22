@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams,useHistory} from "react-router-dom";
 import './Orders.css'
 import { useStateValue } from "./StateProvider";
 import Order from './Order'
@@ -7,10 +8,11 @@ import Axios from 'axios'
 function Orders() {
     const [{ basket, user }, dispatch] = useStateValue();
     const [orders, setOrders] = useState([]);
-  
+    let { user_id } = useParams();
+
     const[idUser,setIdUser] =useState(['1']); 
     useEffect(() => {
-        Axios.get(`http://localhost:8000/user/${idUser}/purchase`)
+        Axios.get(`http://localhost:8000/user/${user_id}/purchase`)
             .then(response => {
                 console.log(response);
                 setOrders(response.data)

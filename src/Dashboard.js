@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams,useHistory} from "react-router-dom";
 import './Dashboard.css';
 import ChartOrders from './ChartOrders'
 import ChartMoney from './ChartMoney'
@@ -8,11 +9,11 @@ import NavShop from './NavShop';
 import LoadData from './LoadData';
 
 function Dashboard() {
+    let { shop_id } = useParams();
     const [totalOrder, setTotalOrder] = useState([]);
     const [totalMoney, setTotalMoney] = useState([]);
     const [topProduct, setTopProduct] = useState([]);
     const [recentOrder, setRecentOrder] = useState([]);
-    const [shop_id, setShop_id] = useState(['4']);
     let year = moment().year();
     let month = moment().month() +1;
 

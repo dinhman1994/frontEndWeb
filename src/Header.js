@@ -53,6 +53,14 @@ function Header() {
 				<Link to={user ? `/orderDetail/${user.user_id}` : `/`}>
 					{
 						user ? <div className={classNames("header__option")}>
+									<span className="header__optionLineOne">YOUR HISTORY PRODUCT</span>
+									<HistorySharpIcon />
+								</div> : null
+					}
+				</Link>
+				<Link to={user ? `/orders/${user.user_id}` : `/`}>
+					{
+						user ? <div className={classNames("header__option")}>
 									<span className="header__optionLineOne">YOUR HISTORY ORDER</span>
 									<HistorySharpIcon />
 								</div> : null

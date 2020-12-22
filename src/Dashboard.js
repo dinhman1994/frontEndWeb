@@ -10,58 +10,44 @@ import LoadData from './LoadData';
 function Dashboard() {
     const [totalOrder, setTotalOrder] = useState([]);
     const [totalMoney, setTotalMoney] = useState([]);
-    const [products, setProducts] = useState([]);
+    const [topProduct, setTopProduct] = useState([]);
     const [recentOrder, setRecentOrder] = useState([]);
-    const [shop_id, setShop_id] = useState(['3']);
+    const [shop_id, setShop_id] = useState(['4']);
     let year = moment().year();
     let month = moment().month() +1;
-    useEffect(() => {
-        Axios.get(`http://localhost:8000/shop/${shop_id}/recentorder`)
-            .then(res => {
-                console.log(res);
-                setRecentOrder(res.data)
-            })
-            .catch(error => {
-                console.log('Failed to Get Recent Order', error);
-            })
-    }, [])
 
-    useEffect(() => {
-        Axios.get(`http://localhost:8000/shop/${shop_id}/totalorder/${year}/${month}`)
-            .then(resp => {
-                console.log(resp);
-                setTotalOrder(resp.data)
+    useEffect(() =>{
+        async function fetchData() {
+            // get recentorder
+            const RecentOrder = await Axios({
+                method: 'get',
+                url:`http://localhost:8000/shop/${shop_id}/recentorder`,
             })
-            .catch(error => {
-                console.log('Failed to Get Total Order', error);
+            
+            const TotalOrder = await Axios({
+                method:'get',
+                url:`http://localhost:8000/shop/${shop_id}/totalorder/${year}/${month}`
             })
-    }, [])
-    useEffect(() => {
-        Axios.get(`http://localhost:8000/shop/${shop_id}/totalMoney/${year}/${month}`)
-            .then(resp => {
-                console.log(resp);
-                setTotalMoney(resp.data)
+            
+            const TotalMoney = await Axios({
+                method:'get',
+                url:`http://localhost:8000/shop/${shop_id}/totalMoney/${year}/${month}`
             })
-            .catch(error => {
-                console.log('Failed to Get Total Money', error);
+    
+            const TopSale =await Axios({
+                method:'get',
+                url:`http://localhost:8000/shop/${shop_id}/topsales`
             })
-    }, [])
-
-    useEffect(() => {
-        Axios.get(`http://localhost:8000/shop/${shop_id}/topsales`)
-            .then(response => {
-                console.log(response);
-                setProducts(response.data)
-            })
-            .catch(error => {
-                console.log('Failed to Get products', error);
-            })
-    }, [])
+            setRecentOrder(RecentOrder.data);
+            setTopProduct(TopSale.data)
+            setTotalMoney(TotalMoney.data)
+            setTotalOrder(TotalOrder.data)
+        }
+        fetchData();
+    },[])
 
     return (
-
         <div className="dashboard">
-            
             <div>
             <NavShop/>
                 <div class="content-wrapper container" >
@@ -177,10 +163,10 @@ function Dashboard() {
                                 <div class="panel-body pad-0">
                                     <ul class="list-group">
 
-                                        {products && products.map(post => (
+                                        {topProduct && topProduct.map(post => (
                                             <li class="list-group-item">
                                                 <a key={post.product_id}> {post.product_name} </a>
-                                                <small> <i class="fa fa-clock-o" key={post.product_id}>{post.nosale} order </i> </small>
+                                                <small> <i class="fa fa-clock-o" key={post.product_id}>{post.nosale} sale </i> </small>
                                             </li>
                                         ))
                                         }

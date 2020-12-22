@@ -5,7 +5,7 @@ import { Bar } from 'react-chartjs-2';
 import moment from 'moment'
 const ChartOrder = () => {
     const [chartData, setChartData] = useState({})
-    const [idShop, setIdShop] = useState('3')
+    const [shop_id, setShop_id] = useState('3')
     const chart = () => {
         let Month = moment().month()+1;
         let month;
@@ -24,7 +24,7 @@ const ChartOrder = () => {
                 Year = year;
             }
             monthlabel[5-i]= month; 
-            Axios.get(`http://localhost:8000/shop/${idShop}/totalOrder/${Year}/${month}`)
+            Axios.get(`http://localhost:8000/shop/${shop_id}/totalOrder/${Year}/${month}`)
                 .then(res => {
                     console.log(res);
                     for (const dataObj of res.data) {

@@ -2,55 +2,61 @@ import React, { useState, useEffect } from 'react';
 import { useParams,useHistory} from "react-router-dom";
 import './Orders.css'
 import { useStateValue } from "./StateProvider";
-import Order from './Order'
+import UserDetail from './UserDetail'
 import Axios from 'axios'
+import paginationFactory from 'react-bootstrap-table2-paginator'
+import BootstrapTable  from 'react-bootstrap-table-next'
 
 function Orders() {
     const [{ basket, user }, dispatch] = useStateValue();
     const [orders, setOrders] = useState([]);
-    let { user_id } = useParams();
+    const [show,setShow] = useState(false);
+    const handleClose = () =>setShow(false);
+    const handleShow  = () =>setShow(true);
+    let   { user_id } = useParams();
+    const [showModal,SetShowModal] =useState(false);
 
     const[idUser,setIdUser] =useState(['1']); 
-    useEffect(() => {
-        Axios.get(`http://localhost:8000/user/${user_id}/purchase`)
-            .then(response => {
-                console.log(response);
-                setOrders(response.data)
+    useEffect(() =>{
+        async function fetchData() {
+           
+            const Order = await Axios({
+                method: 'get',
+                url:`http://localhost:8000/user/${user_id}/purchase`,
             })
-            .catch(error => {
-                console.log('Failed to Get response', error);
-            })
-    }, [])
+            setOrders(Order.data)    
+        }
+        fetchData();
+    },[])
+    const columns =[
+        {dataField :"order_id" ,     text :"Order ID" },
+        {dataField :"status" ,       text :"Status" },
+        {dataField :"total" ,        text :"Total money " },
+        {dataField :"orderDate" ,    text :"Created At" },
+        {dataField :"requiredDate" , text :"Require Date" },
+        {dataField :"shippedDate"  , text :"Ship Date" },
+    ];
+    const rowEvents = {
+        onClick : (row) =>{
+        toggleTrueFalse()  ;   
+    },
+    };
+    const toggleTrueFalse = () =>{
+        SetShowModal(handleShow);
+    };
 
     return (
         <div className='orders'>
             <h1>Your Orders</h1>
-            <table>
-                <thead>
-                    <tr>
-                    <th className="Order_para"> ID order </th>
-                    <th className="Order_para"> Created At </th>
-                    <th className="Order_para"> requiredDate </th>
-                    <th className="Order_para"> status </th>
-                    <th className="Order_para"> Total </th>
-                    </tr>
-                </thead>
-                <tbody className ="tbody_order">
-                {
-                orders && orders.map(your_orders =>
-                    (
-                        <tr>
-                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.order_id}</td>
-                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.orderDate} </td>
-                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.requiredDate} </td>
-                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.status}</td>
-                        <td className ="tbody_td_order" key ={your_orders.order_id}> {your_orders.total}</td>
-                        </tr>
-                    )
-            )
-            }
-                </tbody>
-            </table>
+            <h1> Your Order </h1>
+            <BootstrapTable
+            keyField ="product_id"
+            data ={orders}
+            columns ={columns}
+            pagination ={paginationFactory()}
+            rowEvents = {rowEvents}
+            />
+            {show?  <UserDetail/> :null}
         </div>
     )
 }

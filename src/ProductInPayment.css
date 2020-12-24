@@ -14,8 +14,12 @@
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
+    height: 40px;
+    font-weight: 500;
 }
-
+.ProductInPayment__info > button:hover{
+    border: 1px solid #FFA500;
+}
 .ProductInPayment__image {
     object-fit: contain;
     width: 180px;

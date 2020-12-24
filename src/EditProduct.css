@@ -46,15 +46,6 @@ li {
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
-
-}
-.EditProduct .btn.btn-primary.btn-block.mx-auto{
-    background: #f0c14b;
-    border-radius: 3px;
-    border: 1px solid;
-    margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
-    color: #111;
 }
 .EditProduct .custom-select{
     background: white;
@@ -69,6 +60,7 @@ li {
     color: black;
     border:1px solid #a6a6a6;
     border-radius: 3px;
+    background-color: white;
 }
 
 .EditProduct .product_img{
@@ -77,5 +69,5 @@ li {
     object-fit: contain;
 }
 .EditProduct .btn.btn-primary.btn-block.text-uppercase:hover{
-    border: 1px solid #FFA500;;
+    border: 1px solid #FFA500;
 }

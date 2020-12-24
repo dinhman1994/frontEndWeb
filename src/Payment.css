@@ -49,3 +49,25 @@
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
   }
+.payment .form-control{
+    color: black;
+    background-color: white;
+    border: 1px solid #a6a6a6;
+    border-radius: 3px;
+}
+.payment .form-control:focus{
+  border: 1px solid black;
+}
+.payment .form-horizontal button{
+    background: #f0c14b;
+    border-radius: 3px;
+    border: 1px solid;
+    margin-top: 10px;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: #111;
+    height: 40px;
+    font-weight: 500;
+}
+.payment .form-horizontal button:hover{
+  border: 1px solid #FFA500;
+}

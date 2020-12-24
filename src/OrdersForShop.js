@@ -7,8 +7,8 @@ import Axios from 'axios'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import BootstrapTable  from 'react-bootstrap-table-next'
 import LoadData from './LoadData'
-function Orders() {
-    const [{ basket, user }, dispatch] = useStateValue();
+function OrdersForShop() {
+    const [{ basket, shop }, dispatch] = useStateValue();
     const [orders, setOrders] = useState([]);
     const [show,setShow] = useState(false);
     const handleClose = () =>setShow(false);
@@ -16,14 +16,14 @@ function Orders() {
     const [rowInfo,setRowInfo] =useState();
     
     const [showModal,SetShowModal] =useState(false);
-    let { user_id } = useParams();
+    let { shop_id } = useParams();
  
     useEffect(() =>{
         async function fetchData() {
            
             const Order = await Axios({
                 method: 'get',
-                url:`http://localhost:8000/user/${user_id}/purchase`,
+                url:`http://localhost:8000/user/${shop_id}/order`,
             })
             setOrders(Order.data)    
         }
@@ -36,19 +36,17 @@ function Orders() {
         {dataField :"orderDate" ,    text :"Created At" },
         {dataField :"requiredDate" , text :"Require Date" },
         {dataField :"shippedDate"  , text :"Ship Date" },
-        
     ];
     const rowEvents = {
         onClick : (e,row) =>{
         setRowInfo(row) ;
+        console.log(rowInfo)
         toggleTrueFalse();
     },
     };
     const toggleTrueFalse = () =>{
         SetShowModal(handleShow);
     };
-    const lastRow = false;
-    const newRow =false;
 
     return (
         
@@ -62,9 +60,9 @@ function Orders() {
             pagination ={paginationFactory()}
             rowEvents = {rowEvents}
             />
-            {show? <UserDetail user_id ={user_id} order_id ={rowInfo.order_id}  /> :null}
+            {show? <UserDetail user_id ={user_id} order_id ={rowInfo.order_id} /> :null}
         </div>
     )
 }
 
-export default Orders
+export default OrdersForShop

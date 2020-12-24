@@ -11,7 +11,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import StorefrontSharpIcon from '@material-ui/icons/StorefrontSharp';
 import HistorySharpIcon from '@material-ui/icons/HistorySharp';
-
+import StarIcon from '@material-ui/icons/Star';
 
 function Header() {
 	const [{ basket, user,shop }, dispatch] = useStateValue();
@@ -53,8 +53,8 @@ function Header() {
 				<Link to={user ? `/orderDetail/${user.user_id}` : `/`}>
 					{
 						user ? <div className={classNames("header__option")}>
-									<span className="header__optionLineOne">YOUR HISTORY PRODUCT</span>
-									<HistorySharpIcon />
+									<span className="header__optionLineOne">RATING PRODUCT</span>
+									<StarIcon />
 								</div> : null
 					}
 				</Link>
@@ -81,19 +81,7 @@ function Header() {
 								</div> : null
 					}
 				</Link>
-				<Link to='/orders'>
-					<div className="header__option">
-						<span className="header__optionLineOne">Returns</span>
-						<span className="header__optionLineTwo">& Orders</span>
-					</div>
-				</Link>
 				
-				
-
-				{/* <div className="header__option">
-					<span className="header__optionLineOne">Your</span>
-					<span className="header__optionLineTwo">Prime</span>
-				</div> */}
 
 				<Link to="/checkout">
 					<div className="header__optionBasket">

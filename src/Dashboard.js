@@ -50,6 +50,7 @@ function Dashboard() {
     return (
         <div className="dashboard">
             <div>
+            <LoadData />
             <NavShop/>
                 <div class="content-wrapper container" >
                     <div className="row">

@@ -38,7 +38,8 @@ function Orders() {
     ];
     const rowEvents = {
         onClick : (row) =>{
-        toggleTrueFalse()  ;   
+        toggleTrueFalse() ; 
+        console.log(row) 
     },
     };
     const toggleTrueFalse = () =>{
@@ -50,7 +51,7 @@ function Orders() {
             <h1>Your Orders</h1>
             <h1> Your Order </h1>
             <BootstrapTable
-            keyField ="product_id"
+            keyField ="order_id"
             data ={orders}
             columns ={columns}
             pagination ={paginationFactory()}

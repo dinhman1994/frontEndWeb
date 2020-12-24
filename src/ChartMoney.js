@@ -3,7 +3,7 @@ import Axios from 'axios';
 import React, { Component, useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2';
 import moment from 'moment'
-const ChartMoney = () => {
+function ChartMoney() {
     const [chartData, setChartData] = useState({})
     const [shop_id, setShop_id] = useState('3')
     const chart = () => {

@@ -42,21 +42,32 @@ function Payment() {
     const onSubmit = async (data) => {
         // do all the fancy stripe stuff...
         async function fetchData(){
-            console.log('processing');
-            const result = await axios({
-				method: 'post',
-				url: `http://localhost:8000/order/${user.user_id}`,
-				headers : {
-					token: cookies.token,
-					category_id: data.category_id
-				},
-                data: {
-                    form: data,
-                    cart: basket
-                }
+            dispatch({
+                type: 'EMPTY_BASKET'
             });
-            setProcessing(false);
-            return;
+            const [result1,result2] = await Promise.all(
+                [axios({
+                    method: 'post',
+                    url: `http://localhost:8000/order/${user.user_id}`,
+                    headers : {
+                        token: cookies.token
+                    },
+                    data: {
+                        form: data,
+                        cart: basket
+                    }
+                }),
+                axios({
+                    method: 'post',
+                    url: `http://localhost:8000/deleteAllProductInCart/${user.user_id}`,
+                    headers : {
+                        token: cookies.token
+                    }
+                })]   
+            )
+            if (result1.data.message != 'Success' || result2.data.message != 'Success')
+                return alert("Some thing wrong !!!");
+            return setProcessing(false);
         }
 
         setProcessing(true);
@@ -73,10 +84,8 @@ function Payment() {
             return;
         }
         fetchData();
-        return;
-        // dispatch({
-        //     type: 'EMPTY_BASKET'
-        // })
+        return history.push(`/orderDetail/${user.user_id}`);
+        
         // history.replace('/orders')  
     }
     const handleChange = event => {
@@ -175,6 +184,7 @@ function Payment() {
                                 id={item.id}
                                 title={item.title}
                                 image={item.image}
+                                name={item.name}
                                 price={item.price}
                                 rating={item.rating}
                                 quantity={item.quantity}

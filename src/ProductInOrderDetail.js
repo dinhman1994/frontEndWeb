@@ -3,7 +3,7 @@ import axios from "./axios";
 
 import "./ProductInOrderDetail.css";
 
-function ProductInOrderDeTail({ product_id, product_image,product_name,product_price,quantity,sum,product_rating}) {
+function ProductInOrderDeTail({ product_id, product_image,product_name,product_price,quantity,sum,status,product_rating}) {
     const backEndServe = 'http://localhost:8000/';
     const [rating,setRating] = useState(4);
     function increaseRating(){
@@ -32,28 +32,31 @@ function ProductInOrderDeTail({ product_id, product_image,product_name,product_p
     }
 
     return(
-        <tr>
-            <th scope="row">{product_image}</th>
+        <tr className="ProductInOrderDeTail">
+            <th scope="row"><img src={backEndServe+product_image} className="product_img"/></th>
             <td class="tm-product-name">{product_name}</td>
             <td>{product_price}</td>
             <td>{quantity}</td>
             <td>{sum}</td>
+            <td>{status}</td>
             <td>{product_rating}</td>
             <td>
-                <button onClick={decreaseRating}>-</button>
-                <span>
-                    <div>
-                    {Array(rating)
-                    .fill()
-                    .map((_, i) => (
-                    <span>🌟</span>
-                    ))}
-                    </div>
-                </span>
-                <button onClick={increaseRating}>+</button>
+                <div hidden={status!='shipped'}> 
+                    <button onClick={decreaseRating}>-</button>
+                    <span>
+                        <div>
+                        {Array(rating)
+                        .fill()
+                        .map((_, i) => (
+                        <span>🌟</span>
+                        ))}
+                        </div>
+                    <button onClick={increaseRating}>+</button>
+                    </span>
+                </div>
             </td>
             <td> 
-                <button onClick={updateRaing}>SUBMIT</button>
+                <button onClick={updateRaing} hidden={status!='shipped'}>SUBMIT</button>
             </td>
         </tr>
     )

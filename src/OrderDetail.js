@@ -17,7 +17,7 @@ function OrderDetail() {
         async function fetchData(){
             const ordersResult = await axios({
 				method: 'get',
-				url: `http://localhost:8000/order/${user_id}`,
+				url: `http://localhost:8000/orderDetailProduct/${user_id}`,
 				headers : {
 					token: cookies.token
 				}
@@ -42,25 +42,13 @@ function OrderDetail() {
                         <th scope="col">PRODUCT PRICE</th>
                         <th scope="col">QUANTITY</th>
                         <th scope="col">SUM</th>
+                        <th scope="col">STATUS</th>
                         <th scope="col">STARS</th>
                         <th scope="col">YOURSTARS</th>
                         <th scope="col">&nbsp;</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">IMAGE</th>
-                        <td class="tm-product-name">NAME</td>
-                        <td>PRICE</td>
-                        <td>QUANTITY</td>
-                        <td>SUM</td>
-                        <td>RATING</td>
-                        <td>
-                            YOURSTARS
-                        </td>
-                        <td> 
-                        </td>
-                    </tr> 
+                <tbody> 
                     {
                         orders.map(product => <ProductInOrderDetail
                             product_id = {product.product_id}
@@ -69,6 +57,7 @@ function OrderDetail() {
                             product_price = {product.product_price}
                             quantity = {product.quantity}
                             sum = {product.quantity*product.product_price}
+                            status = {product.status}
                             product_rating = {product.product_rating}
                         /> )
                     }

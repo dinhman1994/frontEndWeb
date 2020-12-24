@@ -57,10 +57,11 @@ function EditProduct() {
 	
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		setProduct({
-			...product,
-			[name] : value
-		});
+		if(name!=`product_image`)
+			setProduct({
+				...product,
+				[name] : value
+			});
         let errors = {
             ...formErrors
         };

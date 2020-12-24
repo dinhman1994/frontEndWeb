@@ -37,7 +37,7 @@ function ProductDetails(){
             name: product.product_name,
             image: backEndServe+product.product_image,
             price: product.product_price,
-            rating: 5,
+            rating: product.product_rating
           },
         });
         if(user){
@@ -80,13 +80,13 @@ function ProductDetails(){
             </div>
             <div className="left_content">
                 <h2>{product.product_name}</h2>
-                <p>Number of people buy</p>
+                <p>Number of people buy<h2>{product.nosale}</h2></p>
                 <div className="product_rating">
+                    {Array(product.product_rating)
+                    .fill()
+                    .map((_, i) => (
                     <p>🌟</p>
-                    <p>🌟</p>
-                    <p>🌟</p>
-                    <p>🌟</p>
-                    <p>🌟</p>
+                    ))}
                 </div>
                 <h3>{product.product_price} đ</h3>
                 <h3>QUANTITY IN STOCK {product.quantityInStock}</h3>

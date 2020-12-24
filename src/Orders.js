@@ -7,6 +7,7 @@ import Axios from 'axios'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import BootstrapTable  from 'react-bootstrap-table-next'
 import LoadData from './LoadData'
+import{Modal,Button, Input ,ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
 
 
 function Orders() {
@@ -19,7 +20,8 @@ function Orders() {
     
     const [showModal,SetShowModal] =useState(false);
     let { user_id } = useParams();
- 
+    const[orderDetail,setOrderDetail] =useState(null);
+    const[order_id,setOrder_id] =useState(); 
     useEffect(() =>{
         async function fetchData() {
            
@@ -27,6 +29,11 @@ function Orders() {
                 method: 'get',
                 url:`http://localhost:8000/user/${user_id}/purchase`,
             })
+            const OrderDetail = await Axios({
+                method:'get',
+                url:`http://localhost:8000/user/${user_id}/order/${order_id}/detail`
+            })
+            setOrderDetail(OrderDetail.data) 
             setOrders(Order.data)    
         }
         fetchData();
@@ -38,21 +45,39 @@ function Orders() {
         {dataField :"orderDate" ,    text :"Created At" },
         {dataField :"requiredDate" , text :"Require Date" },
         {dataField :"shippedDate"  , text :"Shipped Date" },
+        
      
         
     ];
     const rowEvents = {
         onClick : (e,row) =>{
         setRowInfo(row) ;
+        setOrder_id(row.order_id)
         toggleTrueFalse();
+        
     },
     };
     const toggleTrueFalse = () =>{
         SetShowModal(handleShow);
     };
-    const lastRow = false;
-    const newRow =false;
-
+    
+    const UserOrderDetail =() =>{
+        return(
+            <Modal isOpen backdrop={false} fade={false} >
+                <ModalHeader>
+                Hello
+                </ModalHeader>
+                <ModalBody>
+                    <UserDetail order_id={rowInfo.order_id} user_id={user_id} />
+                </ModalBody>
+                <ModalFooter>
+                    <Button variant ="secondary" onClick = {handleClose}>
+                        Close
+                    </Button>
+                </ModalFooter>
+            </Modal> 
+        );
+    };
     return (
         
         <div className='orders'>
@@ -66,7 +91,8 @@ function Orders() {
             rowEvents = {rowEvents}
             
             />
-            {show? <UserDetail user_id ={user_id} order_id ={rowInfo.order_id}  /> :null}
+            {show? <UserOrderDetail  /> :null}
+            
         </div>
     )
 }

@@ -7,6 +7,8 @@ import Axios from 'axios'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import BootstrapTable  from 'react-bootstrap-table-next'
 import LoadData from './LoadData'
+
+
 function Orders() {
     const [{ basket, user }, dispatch] = useStateValue();
     const [orders, setOrders] = useState([]);
@@ -35,7 +37,8 @@ function Orders() {
         {dataField :"total" ,        text :"Total money " },
         {dataField :"orderDate" ,    text :"Created At" },
         {dataField :"requiredDate" , text :"Require Date" },
-        {dataField :"shippedDate"  , text :"Ship Date" },
+        {dataField :"shippedDate"  , text :"Shipped Date" },
+     
         
     ];
     const rowEvents = {
@@ -61,6 +64,7 @@ function Orders() {
             columns ={columns}
             pagination ={paginationFactory()}
             rowEvents = {rowEvents}
+            
             />
             {show? <UserDetail user_id ={user_id} order_id ={rowInfo.order_id}  /> :null}
         </div>

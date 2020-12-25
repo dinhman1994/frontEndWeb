@@ -38,18 +38,19 @@
     margin-left: 150px;
 }
 .ProductDetail .left_content .button_group button{
-    background: #f0c14b;
+    background: white;
     border-radius: 3px;
     border: 1px solid;
     margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
     color: #111;
     width: 200px;
     font-weight: 500;
     height: 40px;
 }
 .ProductDetail .left_content .button_group button:hover{
-    border: 1px solid #FFA500;
+    background: #f0c14b;
+    color: white;
+    border-color:#f0c14b ;
 }
 .product_rating{
     display: flex;

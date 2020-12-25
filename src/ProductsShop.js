@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useStateValue } from "./StateProvider";
 import { useParams,useHistory} from "react-router-dom";
 import Product from "./Product";
 import Category from "./Category";
@@ -10,6 +11,7 @@ import "./ProductsShop.css";
 
 
 function ProductsShop() {
+	const [{ user,queryString }, dispatch] = useStateValue();
     const [products, setProducts] = useState([]);
 	const [shop, setShop] = useState({});
 	const [page,setPage] = useState(1);
@@ -20,9 +22,10 @@ function ProductsShop() {
 		async function fetchData(){
 			const result = await axios({
 				method: 'get',
-				url: `http://localhost:8000/shop/${shop_id}/product?page=${page}`
+				url: `http://localhost:8000/shop/${shop_id}/product?page=${page}&name=${queryString}`
 			});
-            setProducts(result.data);
+			setProducts(result.data);
+			setPage(1);
             const shopResult = await axios({
 				method: 'get',
 				url: `http://localhost:8000/shopProduct/${result.data[0].product_id}`
@@ -30,7 +33,7 @@ function ProductsShop() {
             setShop(shopResult.data);
 		}
 		fetchData();
-	},[page]);
+	},[page,queryString]);
 
 	function setCurrentPage(newPage){
 		console.log(page);

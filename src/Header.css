@@ -61,7 +61,10 @@
   display: flex;
   justify-content: space-evenly;
 }
-
+.header .header__nav div:hover{
+  border: 1px solid white;
+  border-radius: 3px;
+}
 .header__option {
   display: flex;
   flex-direction: column;

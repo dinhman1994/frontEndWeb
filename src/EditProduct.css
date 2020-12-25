@@ -37,15 +37,17 @@ li {
     border-radius: 3px;
 }
 .EditProduct .form-control:focus{
-    border: 1px solid black;
+    border: 2px solid orange;
+    box-shadow: 1px 1px 5px 1px orange;
 }
 .EditProduct .btn.btn-primary.btn-block.text-uppercase{
-    background: #f0c14b;
+    background:linear-gradient(to bottom ,white,#ffc266, #ffa31a);
     border-radius: 3px;
     border: 1px solid;
     margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
-    color: #111;
+    border-color: 1px solid black;
+    color:black;
+    font-weight: 500;
 }
 .EditProduct .custom-select{
     background: white;
@@ -54,7 +56,8 @@ li {
     color: black;
 }
 .EditProduct .custom-select:focus{
-    border: 1px solid black;
+    border: 2px solid orange;
+    box-shadow: 1px 1px 5px 1px orange;
 }
 .EditProduct .tm-product-img-dummy{
     color: black;
@@ -69,5 +72,5 @@ li {
     object-fit: contain;
 }
 .EditProduct .btn.btn-primary.btn-block.text-uppercase:hover{
-    border: 1px solid #FFA500;
+    background:linear-gradient(to bottom ,white, #ff9900,#e68a00);
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams,useHistory} from "react-router-dom";
+import { useStateValue } from "./StateProvider";
 import axios from "./axios";
 
 import "./CategoryProduct.css";
@@ -11,6 +12,7 @@ import LoadData from "./LoadData";
 
 
 function CategoryProducts() {
+	const [{ queryString }, dispatch] = useStateValue();
 	const [products, setProducts] = useState([]);
 	const [page,setPage] = useState(1);
 	let { category_id } = useParams();
@@ -54,12 +56,13 @@ function CategoryProducts() {
 		async function fetchData(){
 			const result = await axios({
 				method: 'get',
-				url: `http://localhost:8000/category/${category_id}?page=${page}`
+				url: `http://localhost:8000/category/${category_id}?page=${page}&name=${queryString}`
 			});
 			setProducts(result.data);
+			setPage(1);
 		}
 		fetchData();
-	},[category_id,page]);
+	},[category_id,page,queryString]);
 
 	function setCurrentPage(newPage){
 		return function(){

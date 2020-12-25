@@ -78,7 +78,7 @@ function Login() {
 
             dispatch({
                 type: "SET_USER",
-                user: {
+                query: {
                     ...userData.data.user
                 },
             });

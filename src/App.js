@@ -30,6 +30,7 @@ import ShopLogin from "./ShopLogin";
 import ShopRegister from "./ShopRegister";
 import ProductsShop from "./ProductsShop";
 import OrderDetail from "./OrderDetail";
+import OrdersForShop from "./OrdersForShop";
 
 
 
@@ -97,6 +98,9 @@ function App() {
           </Route>
           <Route path="/dashboard/:shop_id">
             {(cookies.token!='undefined') ? <Dashboard /> : <Redirect to="/"/>}
+          </Route>
+          <Route path="/ordersForShop/:shop_id">
+            <OrdersForShop />
           </Route>
           <Route path="/orderDetail/:user_id">
             <OrderDetail />

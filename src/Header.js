@@ -14,9 +14,24 @@ import HistorySharpIcon from '@material-ui/icons/HistorySharp';
 import StarIcon from '@material-ui/icons/Star';
 
 function Header() {
-	const [{ basket, user,shop }, dispatch] = useStateValue();
+	const [{ basket, user,shop,queryString }, dispatch] = useStateValue();
 	const [cookies, setCookie] = useCookies(['token']);
 	const backEndServe = 'http://localhost:8000/';
+	const [nowQuery,setNowQuery] = useState('');
+
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		if(name === 'query')
+			setNowQuery(value);
+	}
+
+	const setQuery = () => {
+		dispatch({
+			type: "SET_QUERY",
+			queryString: nowQuery,
+		});
+	}
+
 	useEffect(() => {
 	},
 	[]);
@@ -32,8 +47,10 @@ function Header() {
 			</Link>
 
 			<div className="header__search">
-				<input className="header__searchInput" type="text" />
-				<SearchIcon className="header__searchIcon" />
+				<input className="header__searchInput" type="text" name="query" onChange={handleChange}/>
+				<button onClick={setQuery}>
+					<SearchIcon className="header__searchIcon" />
+				</button>
 			</div>
 
 			<div className="header__nav">

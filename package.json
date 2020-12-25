@@ -20,6 +20,9 @@
     "moment": "^2.27.0",
     "query-string": "^6.13.7",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.4.0",
+    "react-bootstrap-table-next": "^4.0.3",
+    "react-bootstrap-table2-paginator": "^2.1.2",
     "react-chartjs-2": "^2.11.1",
     "react-cookie": "^4.0.3",
     "react-currency-format": "^1.0.0",
@@ -30,6 +33,7 @@
     "react-slick": "^0.27.13",
     "react-spinners": "^0.9.0",
     "reactjs-localstorage": "^1.0.1",
+    "reactstrap": "^8.8.0",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {

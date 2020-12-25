@@ -2,12 +2,11 @@ import React, { useEffect,useState } from 'react'
 import Axios from 'axios'
 import BootstrapTable  from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
+import './UserDetail.css'
+export const UserDetail =({order_id,user_id} ) => {
 
-function UserDetail() {
-
-    const[orderDetail,setOrderDetail] =useState([]);
-    const[user_id,setUser_id] = useState([1]);
-    const[order_id,setOrder_id] =useState([1]);
+    const[orderDetail,setOrderDetail] =useState(null);
+    
     useEffect(() =>{
         async function fetchData() {
             const OrderDetail = await Axios({
@@ -17,7 +16,10 @@ function UserDetail() {
             setOrderDetail(OrderDetail.data)     
         }
         fetchData();
-    },[])
+        console.log(orderDetail);
+    },[order_id])
+    
+    
     return(
         <table>
             <thead>

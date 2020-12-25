@@ -5,9 +5,10 @@ import CheckoutProduct from "./CheckoutProduct";
 import CurrencyFormat from "react-currency-format";
 import { useStateValue } from "./StateProvider";
 
+
 function Order({ order, id , image ,price, rating, status, hideButton }) {
     const [{ basket, user }, dispatch] = useStateValue();
-
+    
     return (
         <div className='order'>
             <h2> Order </h2>

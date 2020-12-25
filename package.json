@@ -33,7 +33,7 @@
     "react-slick": "^0.27.13",
     "react-spinners": "^0.9.0",
     "reactjs-localstorage": "^1.0.1",
-    "reactstrap": "^8.7.1",
+    "reactstrap": "^8.8.0",
     "slick-carousel": "^1.8.1"
   },
   "scripts": {

@@ -14,20 +14,21 @@ function Home() {
 	const [products, setProducts] = useState([]);
 	const [cookies, setCookie] = useCookies(['token']);
 	const [page,setPage] = useState(1);
-	const [{ user }, dispatch] = useStateValue();
+	const [{ user,queryString }, dispatch] = useStateValue();
 	const backEndServe = 'http://localhost:8000/';
 
 	useEffect(() => {
 		async function fetchData(){
 			const result = await axios({
 				method: 'get',
-				url: `http://localhost:8000?page=${page}`
+				url: `http://localhost:8000?page=${page}&name=${queryString}`
 			});
 			setProducts(result.data);
+			setPage(1);
 		}
 		fetchData();
 	},
-	[page]);
+	[page,queryString]);
 
 	function setCurrentPage(newPage){
 		return function(){
@@ -39,7 +40,18 @@ function Home() {
 		return (
 			<div className="home">
 				<LoadData />
-				<Patigation setCurrentPage={setCurrentPage}/>
+				<div className="home__container">
+					<img
+						className="home__image"
+						src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg"
+						alt="VCC"
+					/>
+					<Category />
+					<div>
+						<h2>HOT PRODUCTS</h2>
+					</div>
+					<Patigation setCurrentPage={setCurrentPage}/>
+				</div>
 			</div>
 		);
 		else return (

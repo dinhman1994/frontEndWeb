@@ -1,10 +1,11 @@
 import React, { useEffect,useState } from 'react'
 import Axios from 'axios'
 import BootstrapTable  from 'react-bootstrap-table-next'
+import { Link, useHistory, useParams} from "react-router-dom";
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import './UserDetail.css'
 export const UserDetail =({order_id,user_id} ) => {
-
+    const backEndServe = 'http://localhost:8000/';
     const[orderDetail,setOrderDetail] =useState(null);
     
     useEffect(() =>{
@@ -21,9 +22,10 @@ export const UserDetail =({order_id,user_id} ) => {
     
     
     return(
-        <table>
+        <table className="userDetail">
             <thead>
                 <tr>
+                    <th>&nbsp;</th>
                     <th> Product ID</th>
                     <th> Product name</th>
                     <th> Quantity</th>
@@ -36,6 +38,11 @@ export const UserDetail =({order_id,user_id} ) => {
                 {
                 orderDetail && orderDetail.map(post =>(
                     <tr > 
+                        <td key ={post.product_id}> 
+                            <Link to={`/products/${post.product_id}`}>
+                                <img src={backEndServe + post.product_image} className="orderdetail_img"/>
+                            </Link>
+                        </td>
                         <td key ={post.product_id}> {post.product_id}   </td>
                         <td key ={post.product_id}> {post.product_name} </td>
                         <td key ={post.product_id}> {post.quantity}     </td>

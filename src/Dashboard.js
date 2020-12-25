@@ -96,7 +96,8 @@ function Dashboard() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className ="tienanhTotal">{totalMoney && totalMoney.map(post => (
+                                <tr className ="tienanhTotal">
+                                    {totalMoney && totalMoney.map(post => (
                                     <td class="list-group-item">
                                         <small> <i class="fa fa-clock-o" key={post.total}>{post.total} đ </i> </small>
                                     </td>

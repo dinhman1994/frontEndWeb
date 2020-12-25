@@ -78,8 +78,6 @@ function Dashboard() {
                                     ))
                                     }
                                 </tr>
-
-
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -98,9 +96,9 @@ function Dashboard() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>{totalMoney && totalMoney.map(post => (
+                                <tr className ="tienanhTotal">{totalMoney && totalMoney.map(post => (
                                     <td class="list-group-item">
-                                        <small> <i class="fa fa-clock-o" key={post.total}>{post.total} $ </i> </small>
+                                        <small> <i class="fa fa-clock-o" key={post.total}>{post.total} đ </i> </small>
                                     </td>
                                 ))
                                 }
@@ -127,7 +125,7 @@ function Dashboard() {
                                 </div>
                                 <div class="panel-body text-center">
                                     <div>
-                                        <ChartOrders></ChartOrders>
+                                        <ChartOrders shop_id ={shop_id}></ChartOrders>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +143,7 @@ function Dashboard() {
                                 </div>
                                 <div class="panel-body text-center">
                                     <div>
-                                        <ChartMoney></ChartMoney>
+                                        <ChartMoney shop_id ={shop_id}></ChartMoney>
                                     </div>
                                 </div>
                             </div>

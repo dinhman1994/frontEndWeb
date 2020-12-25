@@ -3,9 +3,9 @@ import Axios from 'axios';
 import React, { Component, useEffect, useState } from 'react'
 import { Bar } from 'react-chartjs-2';
 import moment from 'moment'
-const ChartMoney = () => {
+function ChartMoney ({shop_id}) {
     const [chartData, setChartData] = useState({})
-    const [shop_id, setShop_id] = useState('3')
+    
     const chart = () => {
         let Month = moment().month()+1;
         let month;

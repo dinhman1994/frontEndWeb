@@ -60,7 +60,7 @@ function OrdersForShop() {
             pagination ={paginationFactory()}
             rowEvents = {rowEvents}
             />
-            {show? <UserDetail user_id ={user_id} order_id ={rowInfo.order_id} /> :null}
+            {/* {show? <UserDetail user_id ={user_id} order_id ={rowInfo.order_id} /> :null} */}
         </div>
     )
 }

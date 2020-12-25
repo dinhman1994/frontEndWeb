@@ -47,7 +47,7 @@ function NavShop() {
 									</Link>
 								</li>
 								<li className="nav-item">
-									<Link to ="" className="nav-link">
+									<Link to ={`/ordersForShop/${shop.shop_id}`} className="nav-link">
 										<HistorySharpIcon className="navIcon" /> HISTORY				 
 									</Link>
 								</li>

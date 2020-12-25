@@ -24,11 +24,12 @@
     
 }
 .dashboard__table tbody tr td{
-    
-    height: 50px;
+    height: 90px;
     text-align: center;
     padding: 15px;
     font-size: 40px;
+    width: inherit;
+    
 }
 .dashboard__table tfoot tr td{
 text-align: center;

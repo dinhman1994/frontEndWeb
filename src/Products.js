@@ -29,7 +29,7 @@ const validateForm = errors => {
 
 
 function CreateProduct() {
-    const [{ shop }, dispatch] = useStateValue();
+    const [{ user,queryString,shop }, dispatch] = useStateValue();
     let { shop_id } = useParams();
     const [page,setPage] = useState(1);
     const [shopProducts, setShopProducts] = useState(null);
@@ -38,7 +38,7 @@ function CreateProduct() {
             async function fetchData(){
                 const result = await axios({
                     method: 'get',
-                    url: `http://localhost:8000/shop/${shop_id}/product?page=${page}`
+                    url: `http://localhost:8000/shop/${shop_id}/product?page=${page}&name=${queryString}`
                 });
                 setShopProducts(result.data);
             };

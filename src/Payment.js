@@ -206,13 +206,13 @@ function Payment() {
                         <div className='payment__priceContainer'>
                             <CurrencyFormat
                                 renderText={(value) => (
-                                    <h3>Order Total: {value}</h3>
+                                    <h3>Order Total: <strong>{value}</strong></h3>
                                 )}
                                 decimalScale={2}
                                 value={getBasketTotal(basket)}
                                 displayType={"text"}
                                 thousandSeparator={true}
-                                prefix={"$"}
+                                suffix={" đ"}
                             />
                             <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
                                 <button disabled={processing} type="submit">

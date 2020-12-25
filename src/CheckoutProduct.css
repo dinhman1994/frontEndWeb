@@ -5,8 +5,12 @@
     border: 1px solid #a6a6a6;
     border-radius: 3px;
 }
+.checkoutProduct strong{
+    color: rgb(214, 7, 7);
+}
 .checkoutProduct:hover{
-    border: 1px solid black;
+    border: 1px solid orange;
+    box-shadow: 1px 1px 5px 1px orange;
 }
 
 .checkoutProduct__info {
@@ -21,8 +25,6 @@
     width: 185px;
     font-weight: 500;
     height: 40px;
-    display: flex;
-    flex-direction: row;
     align-items: center;
     text-align: center;
     transition: ease-out 0.3s;

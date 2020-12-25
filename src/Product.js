@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Product.css";
 import { useStateValue } from "./StateProvider";
 import axios from "axios";
+import CurrencyFormat from "react-currency-format";
 
 function Product({ id, name, image, price, rating }) {
   const [{ basket,user }, dispatch] = useStateValue();
@@ -36,8 +37,16 @@ function Product({ id, name, image, price, rating }) {
       <div className="product__info">
         <p>{name}</p>
         <p className="product__price">
-          <small>đ</small>
-          <strong>{price}</strong>
+          <CurrencyFormat
+            renderText={(value) => (
+              <strong>{value}</strong>
+            )}
+            decimalScale={2}
+            value={price}
+            displayType={"text"}
+            thousandSeparator={true}
+            suffix={" đ"}
+          />
         </p>
         <div className="product__rating">
           {Array(rating)

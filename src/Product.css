@@ -10,9 +10,11 @@
   min-width: 100px;
   background-color: white;
   z-index: 1;
+  border: 1px solid #a6a6a6;
 }
 .product:hover{
-  border: 1px solid #FFA500;
+  border: 1px solid orange;
+  box-shadow: 1px 1px 5px 1px orange;
 }
 
 .product__rating {
@@ -41,8 +43,6 @@
   width: 130px;
   font-weight: 500;
   height: 40px;
-  display: flex;
-  flex-direction: row;
   align-items: center;
   text-align: center;
   transition: ease-out 0.3s;
@@ -74,16 +74,11 @@
   text-transform: none;
   text-decoration: none;
 }
-.product__info .product__price small{
-  top: -.5em;
-  font-size: 12px;
-  position: relative;
-  color: #0F1111;
-  line-height: normal;
-}
+
 .product__info .product__price strong{
   font-size: 17px;
   line-height: normal;
+  color: rgb(214, 7, 7);
 }
 .SeeDetail{
   font-weight: lighter;

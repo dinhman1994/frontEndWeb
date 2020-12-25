@@ -9,7 +9,9 @@
   border: 1px solid #dddddd;
   border-radius: 3px;
 }
-
+.subtotal strong{
+  color: rgb(214, 7, 7);
+}
 .subtotal__gift {
   display: flex;
   align-items: center;
@@ -27,8 +29,6 @@
   margin-top: 10px;
   color: #111;
   font-weight: 500;
-  display: flex;
-  flex-direction: row;
   align-items: center;
   text-align: center;
   transition: ease-out 0.3s;

@@ -4,6 +4,7 @@ import axios from "./axios";
 import { Link, useHistory, useParams} from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import LoadData from "./LoadData";
+import CurrencyFormat from "react-currency-format";
 
 function ProductDetails(){
     let history = useHistory();
@@ -80,7 +81,7 @@ function ProductDetails(){
             </div>
             <div className="left_content">
                 <h2>{product.product_name}</h2>
-                <p>Number of people buy<h2>{product.nosale}</h2></p>
+                <p>Number of people buy <strong>{product.nosale}</strong></p>
                 <div className="product_rating">
                     {Array(product.product_rating)
                     .fill()
@@ -88,8 +89,29 @@ function ProductDetails(){
                     <p>🌟</p>
                     ))}
                 </div>
-                <h3>{product.product_price} đ</h3>
-                <h3>QUANTITY IN STOCK {product.quantityInStock}</h3>
+                <h3>
+                <CurrencyFormat
+                                renderText={(value) => (
+                                    <p>Price: <strong class="price">{value}</strong></p>
+                                )}
+                                decimalScale={2}
+                                value={product.product_price}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={" đ"}
+                            />
+                </h3>
+                <h3>
+                <CurrencyFormat
+                                renderText={(value) => (
+                                    <p>Quantity in stock: <strong class="quantity">{value}</strong></p>
+                                )}
+                                decimalScale={2}
+                                value={product.quantityInStock}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                prefix={""}/>
+                </h3>
                 <div className="button_group">
                     <button onClick={addToBasket}>ADD TO CART</button>
                     <button onClick={byNow}>BUY NOW</button>

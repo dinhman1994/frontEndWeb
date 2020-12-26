@@ -25,9 +25,7 @@ function Payment() {
         items: ''
     });
     const [succeeded, setSucceeded] = useState(false);
-    const [processing, setProcessing] = useState(false);
     const [error, setError] = useState(null);
-    const [disabled, setDisabled] = useState(false);
     const [cookies, setCookie] = useCookies(['token']);
     const [city, setCity] = useState('Hà Nội');
     const {register , handleSubmit} = useForm();
@@ -67,13 +65,19 @@ function Payment() {
             )
             if (result1.data.message != 'Success' || result2.data.message != 'Success')
                 return alert("Some thing wrong !!!");
-            return setProcessing(false);
+            return alert("Success to create order !!!");
         }
 
-        setProcessing(true);
         let errors = {
             ...formErrors
         };
+        if(!user){
+            return alert("You must login to buy the products !");
+        }
+        if(data.phonenumber === '')
+        {
+            return alert("Please enter your phone !");
+        }
         if (basket?.length === 0){
             errors.items = "You don't have any products in cart";
             setFormErrors(errors);
@@ -84,9 +88,7 @@ function Payment() {
             return;
         }
         fetchData();
-        return history.push(`/orderDetail/${user.user_id}`);
-        
-        // history.replace('/orders')  
+          
     }
     const handleChange = event => {
         // Listen for changes in the CardElement
@@ -215,8 +217,8 @@ function Payment() {
                                 prefix={"$"}
                             />
                             <form className="form-horizontal" onSubmit={handleSubmit(onSubmit)}>
-                                <button disabled={processing} type="submit">
-                                    <span>{processing ? <p>Processing</p> : "Buy Now"}</span>
+                                <button type="submit">
+                                    <span>Buy Now</span>
                                 </button>
                             </form>
                         </div>

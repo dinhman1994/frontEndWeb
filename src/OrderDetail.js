@@ -9,7 +9,7 @@ import "./OrderDetail.css";
 
 function OrderDetail() {
     let { user_id } = useParams();
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState(null);
     const [{ user }, dispatch] = useStateValue();
     const [cookies, setCookie] = useCookies(['token']);
 
@@ -30,7 +30,7 @@ function OrderDetail() {
         return;
     }, [])
 
-    if (user!=null)
+    if (user && orders)
     return(
         <div className="orderDetail">
             <LoadData/>
@@ -59,6 +59,7 @@ function OrderDetail() {
                             sum = {product.quantity*product.product_price}
                             status = {product.status}
                             product_rating = {product.product_rating}
+                            orderDetail_id = {product.orderDetail_id}
                         /> )
                     }
                 </tbody>

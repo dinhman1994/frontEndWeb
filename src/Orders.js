@@ -68,7 +68,7 @@ function Orders() {
                 Hello
                 </ModalHeader>
                 <ModalBody>
-                    <UserDetail order_id={rowInfo.order_id} user_id={user_id} />
+                    <UserDetail order_id={rowInfo.order_id} user_id={user_id} status={rowInfo.status}/>
                 </ModalBody>
                 <ModalFooter>
                     <Button variant ="secondary" onClick = {handleClose}>

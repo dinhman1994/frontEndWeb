@@ -4,9 +4,41 @@ import BootstrapTable  from 'react-bootstrap-table-next'
 import { Link, useHistory, useParams} from "react-router-dom";
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import './UserDetail.css'
-export const UserDetail =({order_id,user_id} ) => {
+export const UserDetail =({order_id,user_id,status} ) => {
     const backEndServe = 'http://localhost:8000/';
     const[orderDetail,setOrderDetail] =useState(null);
+
+    const changReceived = () => {
+        async function fetchData(){
+            const result = await Axios({
+                method: 'post',
+                url: `http://localhost:8000/changeOrder/${order_id}`,
+                data: {
+                    status: "received"       
+                }
+            });
+            if (result.data.message != "Success")
+                return alert(result.data.message);
+            return window.location.reload();
+        }
+        fetchData();
+    }
+
+    const changDeleted = () => {
+        async function fetchData(){
+            const result = await Axios({
+                method: 'post',
+                url: `http://localhost:8000/changeOrder/${order_id}`,
+                data: {
+                    status: "deleted"       
+                }
+            });
+            if (result.data.message != "Success")
+                return alert(result.data.message);
+            return window.location.reload();
+        }
+        fetchData();
+    }
     
     useEffect(() =>{
         async function fetchData() {
@@ -51,6 +83,8 @@ export const UserDetail =({order_id,user_id} ) => {
                         <td key ={post.product_id}> {post.status}       </td>
                     </tr>  
                 ))}
+                {status=='shipped' ? <button onClick={changReceived}>Received</button> : null}
+                {status=='processing' ? <button onClick={changDeleted}>Delete Order</button> : null}
             </tbody>
         </table>
     );

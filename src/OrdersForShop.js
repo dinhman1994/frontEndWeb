@@ -71,7 +71,7 @@ function OrdersForShop() {
                     Hello
                 </ModalHeader>
                 <ModalBody>
-                    <ShopDetail order_id={rowInfo.order_id} shop_id={shop_id} />
+                    <ShopDetail order_id={rowInfo.order_id} shop_id={shop_id} status={rowInfo.status}/>
                 </ModalBody>
                 <ModalFooter>
                     <Button variant="secondary" onClick={handleClose}>

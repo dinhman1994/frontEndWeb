@@ -33,6 +33,7 @@ function CreateProduct() {
     let { shop_id } = useParams();
     const [page,setPage] = useState(1);
     const [shopProducts, setShopProducts] = useState(null);
+    const [topProducts, setTopProducts] = useState(null);
     const backEndServe = 'http://localhost:8000/';
 	useEffect(() => {
             async function fetchData(){
@@ -41,6 +42,11 @@ function CreateProduct() {
                     url: `http://localhost:8000/shop/${shop_id}/product?page=${page}&name=${queryString}`
                 });
                 setShopProducts(result.data);
+                const topProductsData = await axios({
+                    method: 'get',
+                    url: `http://localhost:8000/shop/${shop_id}/topsales`
+                });
+                setTopProducts(topProductsData.data);
             };
             fetchData();   
     },[page]);
@@ -50,7 +56,7 @@ function CreateProduct() {
 			setPage(newPage);
 		}	 
 	}
-    if (shopProducts && shop)
+    if (shopProducts && shop && topProducts)
     return (
         <div className="ShopProducts">
             <LoadData/>
@@ -96,51 +102,30 @@ function CreateProduct() {
                     </div>
                     <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
                         <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
-                            <h2 class="tm-block-title">Product Sold In Week</h2>
+                            <h2 class="tm-block-title">Top Sale</h2>
                             <div class="tm-product-table-container">
                                 <table class="table tm-table-small tm-product-table">
                                     <tbody>
                                         <tr>
+                                            <th scope="col">&nbsp;</th>
                                             <th scope="col">PRODUCT NAME</th>
                                             <th scope="col">QUANLITY</th>
                                             <th scope="col">&nbsp;</th>
                                         </tr>
-                                        <tr>
-                                            <td class="tm-product-name">Product Category 1</td>
-                                            <td class="tm-product-name">15</td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tm-product-name">Product Category 1</td>
-                                            <td class="tm-product-name">15</td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tm-product-name">Product Category 1</td>
-                                            <td class="tm-product-name">15</td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="tm-product-name">Product Category 1</td>
-                                            <td class="tm-product-name">15</td>
-                                            <td> 
-                                                <Link to="/editProduct">
-                                                    <EditSharpIcon />
-                                                </Link>
-                                            </td>
-                                        </tr>
+                                        {
+                                            topProducts.map(topProduct => 
+                                            <tr>
+                                                <td scope="col"><img src={backEndServe + topProduct.product_image} alt="image" className="productInShop_img"/></td>
+                                                <td scope="col">{topProduct.product_name}</td>
+                                                <td scope="col">{topProduct.nosale}</td>
+                                                <td scope="col">
+                                                    <Link to={`/editProduct/${topProduct.product_id}`}>
+                                                        <EditSharpIcon />
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                            )
+                                        }
                                         
                                     </tbody>
                                 </table>

@@ -18,11 +18,7 @@ function ProductInShop({ product_id, product_name, product_image, product_price,
             <td>{quantityInStock}</td>
             <td>{createdAt}</td>
             <td>
-                <form action="" method="post">
-                    <button type="submit">
-                        <DeleteForeverSharpIcon />
-                    </button>
-                </form>
+            &nbsp;
             </td>
             <td> 
                 <Link to={`/editProduct/${product_id}`}>

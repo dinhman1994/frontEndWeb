@@ -3,7 +3,7 @@ import axios from "./axios";
 
 import "./ProductInOrderDetail.css";
 
-function ProductInOrderDeTail({ product_id, product_image,product_name,product_price,quantity,sum,status,product_rating}) {
+function ProductInOrderDeTail({ product_id, product_image,product_name,product_price,quantity,sum,status,product_rating,orderDetail_id}) {
     const backEndServe = 'http://localhost:8000/';
     const [rating,setRating] = useState(4);
     function increaseRating(){
@@ -19,7 +19,7 @@ function ProductInOrderDeTail({ product_id, product_image,product_name,product_p
         async function fetchData(){
             const ordersResult = await axios({
 				method: 'post',
-				url: `http://localhost:8000/rating/${product_id}`,
+				url: `http://localhost:8000/rating/${product_id}/${orderDetail_id}`,
 				data: {
                     rating: rating,
                     quantity: quantity 

@@ -190,10 +190,10 @@ function Dashboard() {
                                         <table class="table table-hover table-recent-orders">
                                             <thead>
                                                 <tr>
-                                                    <th>Id</th>
-                                                    <th>Customer</th>
+                                                    <th>ID order</th>
+                                                    <th>ID Customer</th>
                                                     <th>Status</th>
-                                                    <th>Create Date</th>
+                                                    <th>Create At</th>
                                                     <th>Required Date</th>
 
                                                 </tr>
@@ -202,11 +202,11 @@ function Dashboard() {
                                                 {
                                                     recentOrder && recentOrder.map(order => (
                                                         <tr>
-                                                            <td key={order.order_id}> {order.order_id}</td>
-                                                            <td key={order.order_id}> {order.user_id}</td>
-                                                            <a key={order.order_id}> {order.status}   </a>
-                                                            <td key={order.order_id}> {order.orderDate}</td>
-                                                            <td key={order.order_id}> {order.requiredDate}  </td>
+                                                            <td > {order.order_id}</td>
+                                                            <td > {order.user_id}</td>
+                                                            <td > {order.status}   </td>
+                                                            <td > {order.orderDate}</td>
+                                                            <td> {order.requiredDate}  </td>
                                                         </tr>
                                                     ))
                                                 }

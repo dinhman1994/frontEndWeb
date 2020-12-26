@@ -129,19 +129,19 @@ function ShopRegister() {
 							handleSubmit(onSubmit)
 					}>
 						<h5>E-mail</h5>
-						<input ref={register} type='text' name="email" onChange={handleChange} required/>
+						<input ref={register} type='text' name="email" placeholder="Type your email" onChange={handleChange} required/>
 							{formErrors.email.length > 0 && 
 								<span className='error'>{formErrors.email}</span>}
 						<h5>Password</h5>
-						<input ref={register} type='password' name="password" onChange={handleChange} required/>
+						<input ref={register} type='password' name="password" placeholder="Type your password"onChange={handleChange} required/>
 							{formErrors.password.length > 0 && 
 									<span className='error'>{formErrors.password}</span>}
 						<h5>ReTypePassword</h5>
-						<input ref={register} type='password' name="reTypePassword" onChange={handleChange} required/>
+						<input ref={register} type='password' name="reTypePassword" placeholder="Retype your password"onChange={handleChange} required/>
 							{formErrors.reTypePassword.length > 0 && 
 									<span className='error'>{formErrors.reTypePassword}</span>}
                         <h5>Shop Name</h5>
-						<input ref={register} type='text' name="name" onChange={handleChange} required/>
+						<input ref={register} type='text' name="name" placeholder="Type your shop name" onChange={handleChange} required/>
 							{formErrors.name.length > 0 && 
 									<span className='error'>{formErrors.name}</span>}
 						<button type='submit' className='login__signInButton'>Register</button>

@@ -59,7 +59,8 @@ table .infor{
   background-color: white;
 }
 .profile .form-control:focus{
-  border: 1px solid black;
+  border: 2px solid orange;
+  box-shadow: 1px 1px 5px 1px orange;
 }
 .profile .btn.btn-primary{
   background: #f0c14b;

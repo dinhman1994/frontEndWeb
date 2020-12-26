@@ -2,6 +2,7 @@ import React from 'react';
 import './CheckoutProduct.css'
 import { useStateValue } from "./StateProvider";
 import axios from "axios";
+import CurrencyFormat from "react-currency-format";
 
 function CheckoutProduct({ id, image, name, price, rating, quantity ,hideButton }) {
     const [{ basket,user }, dispatch] = useStateValue();
@@ -73,8 +74,16 @@ function CheckoutProduct({ id, image, name, price, rating, quantity ,hideButton 
             <div className='checkoutProduct__info'>
                 <p className='checkoutProduct__title'>{name}</p>
                 <p className="checkoutProduct__price">
-                    <small>đ</small>
-                    <strong>{price}</strong>
+                <CurrencyFormat
+                                renderText={(value) => (
+                                    <p><strong>{value}</strong></p>
+                                )}
+                                decimalScale={2}
+                                value={price}
+                                displayType={"text"}
+                                thousandSeparator={true}
+                                suffix={" đ"}
+                            />
                 </p>
                 <div className="checkoutProduct__rating">
                     {Array(rating)

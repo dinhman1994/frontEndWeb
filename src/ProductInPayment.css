@@ -2,8 +2,12 @@
     display: flex;
     margin-top: 20px;
     margin-bottom: 20px;
+    border: 1px solid #a6a6a6;
 }
-
+.ProductInPayment:hover{
+    border: 1px solid orange;
+    box-shadow: 1px 1px 5px 1px orange;
+}
 .ProductInPayment__info {
     padding-left: 20px
 }
@@ -16,8 +20,6 @@
     width: 185px;
     font-weight: 500;
     height: 40px;
-    display: flex;
-    flex-direction: row;
     align-items: center;
     text-align: center;
     transition: ease-out 0.3s;
@@ -32,8 +34,8 @@
 }
 .ProductInPayment__image {
     object-fit: contain;
-    width: 180px;
-    height: 180px;
+    width: 350px;
+    height: 200px;
   }
 
 .ProductInPayment__rating {

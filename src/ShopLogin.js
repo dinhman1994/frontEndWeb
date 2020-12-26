@@ -112,11 +112,11 @@ function ShopLogin() {
 					handleSubmit(onSubmit)
 				}>
                     <h5>E-mail</h5>
-                    <input ref={register} type='text' name='email' onChange={handleChange} required/>
+                    <input ref={register} type='text' name='email' placeholder="Type your email" onChange={handleChange} required/>
                     {formErrors.email.length > 0 && 
 									<span className='error'>{formErrors.email}</span>}
                     <h5>Password</h5>
-                    <input ref={register} type='password' name="password" onChange={handleChange} required/>
+                    <input ref={register} type='password' name="password" placeholder="Type your password" onChange={handleChange} required/>
 					{formErrors.password.length > 0 && 
 					<span className='error'>{formErrors.password}</span>}
 

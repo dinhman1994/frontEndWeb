@@ -3,6 +3,7 @@ import Axios from 'axios'
 import BootstrapTable  from 'react-bootstrap-table-next'
 import { Link, useHistory, useParams} from "react-router-dom";
 import paginationFactory from 'react-bootstrap-table2-paginator'
+import CurrencyFormat from "react-currency-format";
 import './UserDetail.css'
 export const UserDetail =({order_id,user_id,status} ) => {
     const backEndServe = 'http://localhost:8000/';
@@ -59,10 +60,10 @@ export const UserDetail =({order_id,user_id,status} ) => {
                 <tr>
                     <th>&nbsp;</th>
                     <th> Product ID</th>
-                    <th> Product name</th>
+                    <th> Product Name</th>
                     <th> Quantity</th>
                     <th> Price Each</th>
-                    <th> Created At</th>
+                    <th> Order Date</th>
                     <th> Status</th>
                 </tr>
             </thead>
@@ -75,12 +76,21 @@ export const UserDetail =({order_id,user_id,status} ) => {
                                 <img src={backEndServe + post.product_image} className="orderdetail_img"/>
                             </Link>
                         </td>
-                        <td key ={post.product_id}> {post.product_id}   </td>
-                        <td key ={post.product_id}> {post.product_name} </td>
-                        <td key ={post.product_id}> {post.quantity}     </td>
-                        <td key ={post.product_id}> {post.priceEach}    </td>
-                        <td key ={post.product_id}> {post.orderDate}    </td>
-                        <td key ={post.product_id}> {post.status}       </td>
+                        <td class ="id" key ={post.product_id}> {post.product_id}   </td>
+                        <td class ="name" key ={post.product_id}> {post.product_name} </td>
+                        <td class ="quantity" key ={post.product_id}> {post.quantity}     </td>
+                        <td class ="price" key ={post.product_id}><CurrencyFormat
+                                                                        renderText={(value) => (
+                                                                        <strong>{value}</strong>
+                                                                        )}
+                                                                        decimalScale={2}
+                                                                        value={post.priceEach}
+                                                                        displayType={"text"}
+                                                                        thousandSeparator={true}
+                                                                        suffix={" đ"}
+                                                                /></td>
+                        <td class ="date" key ={post.product_id}> {post.orderDate}    </td>
+                        <td class ="status" key ={post.product_id}> {post.status}       </td>
                     </tr>  
                 ))}
                 {status=='shipped' ? <button onClick={changReceived}>Received</button> : null}

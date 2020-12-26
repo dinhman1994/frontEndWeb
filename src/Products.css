@@ -37,3 +37,20 @@
 .tm-bg-primary-dark {
     background-color: #fff;
 }
+.ShopProducts .tm-block-title{
+    color:black;
+}
+.ShopProducts .tm-block-product-categories{
+    width: 450px;
+}
+.ShopProducts .productInShop_img{
+    max-width: 150px;
+    max-height: 100px;
+}
+.ShopProducts .tm-block-product-categories th{
+    text-align: center;
+    background-color: #486177;
+    color: #fff;
+    vertical-align: bottom;
+}
+

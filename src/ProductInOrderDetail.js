@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "./axios";
-
+import CurrencyFormat from "react-currency-format";
 import "./ProductInOrderDetail.css";
 
 function ProductInOrderDeTail({ product_id, product_image,product_name,product_price,quantity,sum,status,product_rating,orderDetail_id}) {
@@ -35,14 +35,32 @@ function ProductInOrderDeTail({ product_id, product_image,product_name,product_p
         <tr className="ProductInOrderDeTail">
             <th scope="row"><img src={backEndServe+product_image} className="product_img"/></th>
             <td class="tm-product-name">{product_name}</td>
-            <td>{product_price}</td>
-            <td>{quantity}</td>
-            <td>{sum}</td>
-            <td>{status}</td>
-            <td>{product_rating}</td>
-            <td>
+            <td class="price">
+            <CurrencyFormat
+                    renderText={(value) => (
+                    <strong>{value}</strong>
+                    )}
+                    decimalScale={2}
+                    value={product_price}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    suffix={" đ"}
+            /></td>
+            <td class="quantity">{quantity}</td>
+            <td class="price"><CurrencyFormat
+                    renderText={(value) => (
+                    <strong>{value}</strong>
+                    )}
+                    decimalScale={2}
+                    value={sum}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    suffix={" đ"}
+            /></td>
+            <td class="status">{status}</td>
+            <td class="rating">{product_rating}</td>
+            <td class="my-rate">
                 <div hidden={status!='shipped'}> 
-                    <button onClick={decreaseRating}>-</button>
                     <span>
                         <div>
                         {Array(rating)
@@ -51,11 +69,12 @@ function ProductInOrderDeTail({ product_id, product_image,product_name,product_p
                         <span>🌟</span>
                         ))}
                         </div>
+                    <button onClick={decreaseRating}>-</button>
                     <button onClick={increaseRating}>+</button>
                     </span>
                 </div>
             </td>
-            <td> 
+            <td class="submit"> 
                 <button onClick={updateRaing} hidden={status!='shipped'}>SUBMIT</button>
             </td>
         </tr>

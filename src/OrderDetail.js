@@ -34,7 +34,7 @@ function OrderDetail() {
     return(
         <div className="orderDetail">
             <LoadData/>
-            <table class="table table-hover tm-table-small tm-product-table">
+            <table class="table tm-table-small tm-product-table">
                 <thead>
                     <tr>
                         <th scope="col">&nbsp;</th>

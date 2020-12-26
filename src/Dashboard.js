@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams,useHistory} from "react-router-dom";
+import CurrencyFormat from "react-currency-format";
 import './Dashboard.css';
 import ChartOrders from './ChartOrders'
 import ChartMoney from './ChartMoney'
@@ -73,18 +74,13 @@ function Dashboard() {
                                 <tr>
                                     {totalOrder && totalOrder.map(post => (
                                         <td class="list-group-item">
-                                            <small> <i class="fa fa-clock-o" key={post.total}>{post.total} order </i> </small>
+                                            <small> <i class="fa fa-clock-o" key={post.total}>{post.total} orders </i> </small>
                                         </td>
                                     ))
                                     }
                                 </tr>
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <td>
-                                        Welcome
-                                </td>
-                                </tr>
                             </tfoot>
                         </table>
                         <table className='dashboard__table'>
@@ -99,18 +95,22 @@ function Dashboard() {
                                 <tr className ="tienanhTotal">
                                     {totalMoney && totalMoney.map(post => (
                                     <td class="list-group-item">
-                                        <small> <i class="fa fa-clock-o" key={post.total}>{post.total} đ </i> </small>
+                                        <small> <i class="fa fa-clock-o" key={post.total}><CurrencyFormat
+                                                                    renderText={(value) => (
+                                                                    <strong>{value}</strong>
+                                                                    )}
+                                                                    decimalScale={2}
+                                                                    value={post.total}
+                                                                    displayType={"text"}
+                                                                    thousandSeparator={true}
+                                                                    suffix={" đ"}
+                                    /> </i> </small>
                                     </td>
                                 ))
                                 }
                                 </tr>
                             </tbody>
                             <tfoot>
-                                <tr>
-                                    <td>
-                                        Welcome
-                                </td>
-                                </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -167,7 +167,7 @@ function Dashboard() {
                                         {topProduct && topProduct.map(post => (
                                             <li class="list-group-item">
                                                 <a key={post.product_id}> {post.product_name} </a>
-                                                <small> <i class="fa fa-clock-o" key={post.product_id}>{post.nosale} sale </i> </small>
+                                                <small> <i class="fa fa-clock-o" key={post.product_id}>{post.nosale} sales </i> </small>
                                             </li>
                                         ))
                                         }

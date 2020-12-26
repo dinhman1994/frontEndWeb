@@ -41,3 +41,9 @@ text-align: center;
 .table > thead{
     width: 100px;
 }
+.dashboard .table-responsive a{
+    text-transform: capitalize;
+}
+.dashboard .tienanhTotal{
+    color: rgb(214, 7, 7);
+}

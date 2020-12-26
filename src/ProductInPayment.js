@@ -2,7 +2,7 @@ import React from 'react';
 import './ProductInPayment.css'
 import { useStateValue } from "./StateProvider";
 import axios from "axios";
-
+import CurrencyFormat from "react-currency-format";
 function ProductInPayment({ id, image, name, price, rating, quantity ,hideButton }) {
     const [{ basket,user }, dispatch] = useStateValue();
 
@@ -29,8 +29,16 @@ function ProductInPayment({ id, image, name, price, rating, quantity ,hideButton
             <div className='ProductInPayment__info'>
                 <p className='ProductInPayment__title'>{name}</p>
                 <p className="ProductInPayment__price">
-                    <small>đ</small>
-                    <strong>{price}</strong>
+                <CurrencyFormat
+                    renderText={(value) => (
+                    <strong>{value}</strong>
+                    )}
+                    decimalScale={2}
+                    value={price}
+                    displayType={"text"}
+                    thousandSeparator={true}
+                    suffix={" đ"}
+                />
                 </p>
                 <div className="ProductInPayment__rating">
                     {Array(rating)
@@ -40,7 +48,7 @@ function ProductInPayment({ id, image, name, price, rating, quantity ,hideButton
                     ))}
                 </div>
                 <div>
-                    <span><h2>QUANTITY {quantity}</h2></span>
+                    <span><h2>Quantity: {quantity}</h2></span>
                 </div>
                 {!hideButton && (
                     <button onClick={removeFromBasket}>Remove from Basket</button>

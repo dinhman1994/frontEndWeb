@@ -68,7 +68,7 @@ function OrdersForShop() {
         return (
             <Modal isOpen backdrop={false} fade={false} >
                 <ModalHeader>
-                    Hello
+                    Order Detail
                 </ModalHeader>
                 <ModalBody>
                     <ShopDetail order_id={rowInfo.order_id} shop_id={shop_id} status={rowInfo.status}/>

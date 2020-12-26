@@ -70,11 +70,11 @@ function CreateProduct() {
                                     <thead>
                                         <tr>
                                             <th scope="col">&nbsp;</th>
-                                            <th scope="col">PRODUCT NAME</th>
-                                            <th scope="col">PRODUCT PRICE</th>
-                                            <th scope="col">UNIT SOLD</th>
-                                            <th scope="col">IN STOCK</th>
-                                            <th scope="col">EXPIRE DATE</th>
+                                            <th scope="col" >PRODUCT NAME</th>
+                                            <th scope="col" >PRODUCT PRICE</th>
+                                            <th scope="col" >UNIT SOLD</th>
+                                            <th scope="col" >IN STOCK</th>
+                                            <th scope="col" >EXPIRE DATE</th>
                                             <th scope="col">&nbsp;</th>
                                             <th scope="col">&nbsp;</th>
                                         </tr>
@@ -82,10 +82,10 @@ function CreateProduct() {
                                     <tbody>  
                                         {shopProducts.map( shopProduct => 
                                         <ProductInShop 
-                                            product_id = {shopProduct.product_id} 
+                                            product_id = {shopProduct.product_id}
                                             product_name = {shopProduct.product_name}
                                             product_image = {shopProduct.product_image}
-                                            product_price = {shopProduct.product_price}
+                                            product_price = {shopProduct.product_price}                
                                             quantityInStock = {shopProduct.quantityInStock}
                                             createdAt = {shopProduct.createdAt}
                                         />)}   
@@ -108,8 +108,8 @@ function CreateProduct() {
                                     <tbody>
                                         <tr>
                                             <th scope="col">&nbsp;</th>
-                                            <th scope="col">PRODUCT NAME</th>
-                                            <th scope="col">QUANLITY</th>
+                                            <th scope="col">Product Name</th>
+                                            <th scope="col">Quantity</th>
                                             <th scope="col">&nbsp;</th>
                                         </tr>
                                         {

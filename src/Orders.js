@@ -41,8 +41,8 @@ function Orders() {
     const columns =[
         {dataField :"order_id" ,     text :"Order ID" },
         {dataField :"status" ,       text :"Status" },
-        {dataField :"total" ,        text :"Total money " },
-        {dataField :"orderDate" ,    text :"Created At" },
+        {dataField :"total" ,        text :"Total Money " },
+        {dataField :"orderDate" ,    text :"Order Date" },
         {dataField :"requiredDate" , text :"Require Date" },
         {dataField :"shippedDate"  , text :"Shipped Date" },
         
@@ -65,7 +65,7 @@ function Orders() {
         return(
             <Modal isOpen backdrop={false} fade={false} >
                 <ModalHeader>
-                Hello
+                Order Details
                 </ModalHeader>
                 <ModalBody>
                     <UserDetail order_id={rowInfo.order_id} user_id={user_id} status={rowInfo.status}/>

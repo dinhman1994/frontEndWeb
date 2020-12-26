@@ -55,7 +55,11 @@
   box-shadow: inset 130px 0 0 0 #ff4655;
   color: white;
 }
-
+.product > button:active{
+  background-color: #ff4655;
+  box-shadow: 0 2px rgb(151, 149, 149);
+  transform: translateY(3px);
+}
 .product__price {
   margin-top: 5px;
 }

@@ -41,8 +41,16 @@
 .ProductInPayment__rating {
     display: flex;
   }
-
+.ProductInPayment h2{
+    font-size: 18px;
+}
 .ProductInPayment__title {
-    font-size: 17px;
-    font-weight: 800;
+    color: #0F1111;
+    text-rendering: optimizeLegibility;
+    font-size: 15px;
+    line-height: 24px;
+    font-weight: 500;
+    font-style: normal;
+    text-transform: none;
+    text-decoration: none;
 }

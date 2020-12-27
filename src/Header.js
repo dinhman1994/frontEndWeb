@@ -48,9 +48,7 @@ function Header() {
 
 			<div className="header__search">
 				<input className="header__searchInput" type="text" name="query" onChange={handleChange}/>
-				<button onClick={setQuery}>
-					<SearchIcon className="header__searchIcon" />
-				</button>
+				<button onClick={setQuery}><SearchIcon className="header__searchIcon"/></button>
 			</div>
 
 			<div className="header__nav">

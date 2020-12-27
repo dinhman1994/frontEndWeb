@@ -9,7 +9,6 @@ import BootstrapTable from 'react-bootstrap-table-next'
 import LoadData from './LoadData'
 import NavShop from './NavShop'
 import { Modal, Button, Input, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
-import filterFactory,{textFilter} from 'react-bootstrap-table2-filter'
 
 function OrdersForShop() {
     const [{ basket, shop }, dispatch] = useStateValue();
@@ -53,7 +52,7 @@ function OrdersForShop() {
         { dataField: "orderDate", text: "Created At" },
         { dataField: "requiredDate", text: "Require Date" },
         { dataField: "shippedDate", text: "Shipped Date" },
-        { dataField: "status", text: "Status" , filter: textFilter() },
+        { dataField: "status", text: "Status" },
     ];
     const rowEvents = {
         onClick: (e, row) => {
@@ -95,8 +94,6 @@ function OrdersForShop() {
                 columns={columns}
                 pagination={paginationFactory()}
                 rowEvents={rowEvents}
-                filter ={filterFactory()}
-
             />
             {show ? <ShopOrderDetail /> : null}
 

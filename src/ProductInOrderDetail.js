@@ -60,7 +60,7 @@ function ProductInOrderDeTail({ product_id, product_image,product_name,product_p
             <td class="status">{status}</td>
             <td class="rating">{product_rating}</td>
             <td class="my-rate">
-                <div hidden={status!='shipped'}> 
+                <div hidden={status==='processing'}> 
                     <span>
                         <div>
                         {Array(rating)
@@ -75,7 +75,7 @@ function ProductInOrderDeTail({ product_id, product_image,product_name,product_p
                 </div>
             </td>
             <td class="submit"> 
-                <button onClick={updateRaing} hidden={status!='shipped'}>SUBMIT</button>
+                <button onClick={updateRaing} hidden={status==='processing'}>SUBMIT</button>
             </td>
         </tr>
     )

@@ -56,19 +56,6 @@ function NavShop() {
 										<AccountCircleSharpIcon className="navIcon" /> PROFILE				 
 									</Link>
 								</li>
-								<li className="nav-item">
-									<Link to ="" className="nav-link">
-										<StorefrontSharpIcon className="navIcon" /> MY STORE				 
-									</Link>
-								</li>
-							</ul>
-							<ul className="navbar-nav">
-								<li className="nav-item">
-									<Link to ="" className="nav-link">
-										<ExitToAppSharpIcon />
-										<b>LOGOUT</b>
-									</Link>
-								</li>
 							</ul>
 						</div>
 					</div>

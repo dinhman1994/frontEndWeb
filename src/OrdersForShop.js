@@ -9,7 +9,7 @@ import BootstrapTable from 'react-bootstrap-table-next'
 import LoadData from './LoadData'
 import NavShop from './NavShop'
 import { Modal, Button, Input, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
-
+import filterFactory, {textFilter} from 'react-bootstrap-table2-filter'
 function OrdersForShop() {
     const [{ basket, shop }, dispatch] = useStateValue();
     const [orders, setOrders] = useState([]);
@@ -37,11 +37,6 @@ function OrdersForShop() {
                 method: 'get',
                 url: `http://localhost:8000/shop/${shop_id}/order`,
             })
-            const OrderDetail = await Axios({
-                method: 'get',
-                url: `http://localhost:8000/shop/${shop_id}/order/${order_id}/detail`
-            })
-            setOrderDetail(OrderDetail.data)
             setOrders(Order.data)
         }
         fetchData();
@@ -52,7 +47,7 @@ function OrdersForShop() {
         { dataField: "orderDate", text: "Created At" },
         { dataField: "requiredDate", text: "Require Date" },
         { dataField: "shippedDate", text: "Shipped Date" },
-        { dataField: "status", text: "Status" },
+        { dataField: "status", text: "Status" , filter :textFilter()},
     ];
     const rowEvents = {
         onClick: (e, row) => {
@@ -94,6 +89,7 @@ function OrdersForShop() {
                 columns={columns}
                 pagination={paginationFactory()}
                 rowEvents={rowEvents}
+                filter ={filterFactory()}
             />
             {show ? <ShopOrderDetail /> : null}
 

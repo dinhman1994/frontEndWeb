@@ -39,7 +39,7 @@ function Orders() {
         {dataField :"status" ,       text :"Status" },
         {dataField :"total" ,        text :"Total Money " } , 
         {dataField :"orderDate" ,    text :"Order Date" },
-        {dataField :"requiredDate" , text :"Require Date" },
+        {dataField :"receivedDate" , text :"Received Date" },
         {dataField :"shippedDate"  , text :"Shipped Date" },
         
      

@@ -29,11 +29,7 @@ function Orders() {
                 method: 'get',
                 url:`http://localhost:8000/user/${user_id}/purchase`,
             })
-            const OrderDetail = await Axios({
-                method:'get',
-                url:`http://localhost:8000/user/${user_id}/order/${order_id}/detail`
-            })
-            setOrderDetail(OrderDetail.data) 
+            
             setOrders(Order.data)    
         }
         fetchData();

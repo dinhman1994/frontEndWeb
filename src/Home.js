@@ -67,7 +67,6 @@ function Home() {
 					<div>
 						<h2>HOT PRODUCTS</h2>
 					</div>
-					<Patigation setCurrentPage={setCurrentPage}/>
 					<div className="home__row">
 						{
 							products.slice(0,2).map(
@@ -105,6 +104,7 @@ function Home() {
 							/>)
 						}
 					</div>
+					<Patigation setCurrentPage={setCurrentPage}/>
 				</div>
 				
 			</div>

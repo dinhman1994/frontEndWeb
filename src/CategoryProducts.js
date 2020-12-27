@@ -102,7 +102,6 @@ function CategoryProducts() {
 			<div className="mt-3">
 				<h2>{name}</h2>
 			</div>
-			<Patigation setCurrentPage={setCurrentPage}/>
 			<div className="home__row">
 						{
 							products.slice(0,2).map(
@@ -140,6 +139,7 @@ function CategoryProducts() {
 							/>)
 						}
 					</div>
+				<Patigation setCurrentPage={setCurrentPage}/>
 		</div>
 		</div>
 	);

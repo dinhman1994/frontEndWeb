@@ -83,6 +83,7 @@ function CreateProduct() {
                                             product_id = {shopProduct.product_id}
                                             product_name = {shopProduct.product_name}
                                             product_image = {shopProduct.product_image}
+                                            nosale = {shopProduct.nosale}
                                             product_price = {shopProduct.product_price}                
                                             quantityInStock = {shopProduct.quantityInStock}
                                             createdAt = {shopProduct.createdAt}

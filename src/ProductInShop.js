@@ -7,7 +7,7 @@ import EditSharpIcon from '@material-ui/icons/EditSharp';
 import CurrencyFormat from "react-currency-format";
 import axios from "axios";
 
-function ProductInShop({ product_id, product_name, product_image, product_price, quantityInStock , sold, createdAt }) {
+function ProductInShop({ product_id, product_name, product_image, product_price, quantityInStock , nosale, createdAt }) {
     const backEndServe = 'http://localhost:8000/';
 
     return (
@@ -24,7 +24,7 @@ function ProductInShop({ product_id, product_name, product_image, product_price,
                     thousandSeparator={true}
                     suffix={" đ"}
             /></td>
-            <td class="sold-quantity">1,450</td>
+            <td class="sold-quantity">{nosale}</td>
             <td class="stock-quantity">{quantityInStock}</td>
             <td class="date">{createdAt}</td>
             <td>

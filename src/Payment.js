@@ -25,17 +25,19 @@ function Payment() {
         items: ''
     });
     const [succeeded, setSucceeded] = useState(false);
+    const [phonenumber, setPhonenumber] = useState('');
     const [error, setError] = useState(null);
     const [cookies, setCookie] = useCookies(['token']);
     const [city, setCity] = useState('Hà Nội');
     const {register , handleSubmit} = useForm();
     useEffect(() => {
-        async function fetchData(){
-            
+        async function fetchData(){     
         }
         // generate the special stripe secret which allows us to charge a customer
         fetchData();
-    }, [])
+        if(user)
+            setPhonenumber(user.phonenumber);
+    }, [user]);
 
     const onSubmit = async (data) => {
         // do all the fancy stripe stuff...
@@ -104,6 +106,7 @@ function Payment() {
                     (isNaN(value) || value.length != 10 )
                     ? 'Invalid Phone Number'
                     : '';
+                setPhonenumber(value);
                 break;
             case 'city': 
                 setCity(value);
@@ -137,20 +140,20 @@ function Payment() {
                         {
                             city === 'Hà Nội' ? 
                                 <select className="district" name="district" ref={register} onChange={handleChange}>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Hồ Chí Minh">Hà Nội</option>
+                                    <option value="Hà Đông">Hà Đông</option>
+                                    <option value="Đống Đa">Đống Đa</option>
+                                    <option value="Cầu Giấy">Cầu Giấy</option>
+                                    <option value="Hai Bà Trưng">Hai Bà Trưng</option>
+                                    <option value="Hoàn Kiếm">Hoàn Kiếm</option>
+                                    <option value="Tây Hồ">Tây Hồ</option>
                                 </select> :
                                 <select className="district" name="district" ref={register} onChange={handleChange}>
-                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                                <option value="Hà Nội">Hồ Chí Minh</option>
-                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                                <option value="Hà Nội">Hồ Chí Minh</option>
-                                <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                <option value="Quận 1">Quận 1</option>
+                                <option value="Quận Thủ Đức">Quận Thủ Đức</option>
+                                <option value="Quận 2">Quận 2</option>
+                                <option value="Quận Tân Bình">Quận Tân Bình</option>
+                                <option value="Quận Bình Thạnh">Quận Bình Thạnh</option>
+                                <option value="Quận 3">Quận 3</option>
                             </select>
                                 
                         }
@@ -165,7 +168,7 @@ function Payment() {
                             ref={register}
                             id="price"
                             name="phonenumber"
-                            value = {user?.phonenumber}
+                            value = {phonenumber}
                             type="text"
                             className="form-control validate"
                             onChange={handleChange}

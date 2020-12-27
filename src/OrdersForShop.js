@@ -45,9 +45,9 @@ function OrdersForShop() {
         { dataField: "order_id", text: "Order ID" },
         { dataField: "total", text: "Total money " },
         { dataField: "orderDate", text: "Created At" },
-        { dataField: "requiredDate", text: "Require Date" },
+        { dataField: "receivedDate", text: "Received Date" },
         { dataField: "shippedDate", text: "Shipped Date" },
-        { dataField: "status", text: "Status" , filter :textFilter()},
+        { dataField: "status", text: "Status" },
     ];
     const rowEvents = {
         onClick: (e, row) => {
@@ -89,7 +89,6 @@ function OrdersForShop() {
                 columns={columns}
                 pagination={paginationFactory()}
                 rowEvents={rowEvents}
-                filter ={filterFactory()}
             />
             {show ? <ShopOrderDetail /> : null}
 

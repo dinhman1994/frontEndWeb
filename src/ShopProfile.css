@@ -1,6 +1,5 @@
 .shopProfile .navbar{
   border-radius: 0px;
-  opacity: 0.5;
 }
 .shopProfile h1{
   color: black;
@@ -89,6 +88,11 @@ table .infor {
   box-shadow: inset 120px 0 0 0 #ff4655;
   color: white;
 }
+.shopProfile .btn.btn-primary:active{
+  background-color: #ff4655;
+  box-shadow: 0 2px rgb(151, 149, 149);
+  transform: translateY(3px);
+}
 .shopProfile .btn.btn-default{
   background: #f0c14b;
   border-radius: 3px;
@@ -109,5 +113,10 @@ table .infor {
 .shopProfile .btn.btn-default:hover{
   box-shadow: inset 120px 0 0 0 #ff4655;
   color: white;
+}
+.shopProfile .btn.btn-default:active{
+  background-color: #ff4655;
+  box-shadow: 0 2px rgb(151, 149, 149);
+  transform: translateY(3px);
 }
 

@@ -4,7 +4,6 @@ import { Link, useHistory,useParams } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import { useForm } from 'react-hook-form';
 import axios from "axios";
-
 import HomeSharpIcon from '@material-ui/icons/HomeSharp';
 import DashboardSharpIcon from '@material-ui/icons/DashboardSharp';
 import SettingsApplicationsSharpIcon from '@material-ui/icons/SettingsApplicationsSharp';
@@ -133,15 +132,6 @@ function CreateProduct() {
                     </div>
                 </div>
             </div>
-            <footer class="tm-footer row tm-mt-small">
-                <div class="col-12 font-weight-light">
-                    <p class="text-center text-white mb-0 px-4 small">
-                        Copyright &copy; <b>2018</b> All rights reserved. 
-                        
-                        Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
-                    </p>
-                </div>
-            </footer>
         </div>
     );
     else return (

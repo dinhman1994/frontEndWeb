@@ -31,7 +31,7 @@ import ShopRegister from "./ShopRegister";
 import ProductsShop from "./ProductsShop";
 import OrderDetail from "./OrderDetail";
 import OrdersForShop from "./OrdersForShop";
-
+import Footer from './Footer'
 
 
 const promise = loadStripe(
@@ -122,6 +122,7 @@ function App() {
           
         </Switch>
       </div>
+      <Footer />
     </Router>
   );
 }

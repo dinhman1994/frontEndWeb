@@ -8,6 +8,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator'
 import BootstrapTable  from 'react-bootstrap-table-next'
 import LoadData from './LoadData'
 import{Modal,Button, Input ,ModalBody, ModalFooter, ModalHeader} from 'reactstrap'
+import filterFactory ,{ textFilter } from 'react-bootstrap-table2-filter';
 
 
 function Orders() {
@@ -36,6 +37,7 @@ function Orders() {
     },[])
     const columns =[
         {dataField :"order_id" ,     text :"Order ID" },
+        {dataField :"name"    ,text:"Shop Name", filter : textFilter()},
         {dataField :"status" ,       text :"Status" },
         {dataField :"total" ,        text :"Total Money " } , 
         {dataField :"orderDate" ,    text :"Order Date" },
@@ -85,6 +87,7 @@ function Orders() {
             columns ={columns}
             pagination ={paginationFactory()}
             rowEvents = {rowEvents}
+            filter ={filterFactory()}
             />
             {show? <UserOrderDetail  /> :null}
             

@@ -9,6 +9,7 @@ import Category from "./Category";
 import CategoryHomeProduct from "./CategoryHomeProduct";
 import Patigation from "./Patigation";
 import LoadData from "./LoadData";
+import Footer from './Footer'
 
 function Home() {
 	const [products, setProducts] = useState([]);
@@ -105,7 +106,9 @@ function Home() {
 						}
 					</div>
 				</div>
+				
 			</div>
+			
 		);
 }
 

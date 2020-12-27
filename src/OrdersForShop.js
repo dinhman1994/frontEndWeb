@@ -38,16 +38,20 @@ function OrdersForShop() {
                 url: `http://localhost:8000/shop/${shop_id}/order`,
             })
             setOrders(Order.data)
+            console.log(Order.data)
         }
         fetchData();
     }, [])
     const columns = [
         { dataField: "order_id", text: "Order ID" },
+        {dataField :"name" , text :"Name" },
+        { dataField: "comment" ,text :"Address"},
+        { dataField: "phone_number",text:"Phone Order"},
         { dataField: "total", text: "Total money " },
         { dataField: "orderDate", text: "Created At" },
         { dataField: "receivedDate", text: "Received Date" },
         { dataField: "shippedDate", text: "Shipped Date" },
-        { dataField: "status", text: "Status" },
+        { dataField: "status", text: "Status" ,filter:textFilter() },
     ];
     const rowEvents = {
         onClick: (e, row) => {
@@ -89,6 +93,7 @@ function OrdersForShop() {
                 columns={columns}
                 pagination={paginationFactory()}
                 rowEvents={rowEvents}
+                filter ={filterFactory()}
             />
             {show ? <ShopOrderDetail /> : null}
 

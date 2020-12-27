@@ -9,7 +9,6 @@ function CategoryHomeProduct(props) {
     const [categoryHomeProducts,setCategoryHomeProducts] = useState([]);
 
     useEffect(()=>{
-        console.log("Name of Category is" + props.name);
         async function fetchData(){
             const products = await axios({
                 method: 'get',

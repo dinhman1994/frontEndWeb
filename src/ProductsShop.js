@@ -25,18 +25,19 @@ function ProductsShop() {
 				url: `http://localhost:8000/shop/${shop_id}/product?page=${page}&name=${queryString}`
 			});
 			setProducts(result.data);
-			setPage(1);
-            const shopResult = await axios({
-				method: 'get',
-				url: `http://localhost:8000/shopProduct/${result.data[0].product_id}`
-            });
-            setShop(shopResult.data);
+			if(result.data.length > 0)
+			{
+				const shopResult = await axios({
+					method: 'get',
+					url: `http://localhost:8000/shopProduct/${result.data[0].product_id}`
+				});
+            	setShop(shopResult.data);
+			}		
 		}
 		fetchData();
 	},[page,queryString]);
 
 	function setCurrentPage(newPage){
-		console.log(page);
 		return function(){
 			setPage(newPage);
 		}	 
@@ -45,8 +46,23 @@ function ProductsShop() {
 	if(products.length === 0)
 	return (
 		<div className="home">
-			<LoadData />
-			<Patigation setCurrentPage={setCurrentPage}/>
+			<div className="home__container">
+				<img
+				className="home__image"
+				src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg"
+				alt="VCCCC"
+				/>
+
+				<Category />
+				<div className="mt-3">
+					<h2>SHOP {shop && shop.name}</h2>
+					<div>
+						<img src={shop && backEndServe+shop.avatar} className="shop_img"/>
+					</div>
+				</div>
+				<LoadData />
+				<Patigation setCurrentPage={setCurrentPage}/>
+			</div>
 		</div>
 	);
 	else return (

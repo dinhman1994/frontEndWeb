@@ -49,9 +49,8 @@ function CreateProduct() {
                 setTopProducts(topProductsData.data);
             };
             fetchData();   
-    },[page]);
+    },[page,queryString]);
     function setCurrentPage(newPage){
-		console.log(page);
 		return function(){
 			setPage(newPage);
 		}	 

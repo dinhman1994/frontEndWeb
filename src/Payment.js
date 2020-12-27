@@ -72,7 +72,7 @@ function Payment() {
             ...formErrors
         };
         if(!user){
-            return alert("You must login to buy the products !");
+            return alert("You must login as User to buy the products !");
         }
         if(data.phonenumber === '')
         {

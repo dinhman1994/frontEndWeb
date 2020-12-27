@@ -52,7 +52,8 @@ function Profile(){
 				dataForm.append('name',data.name);
 				dataForm.append('DOB', data.DOB);
 				dataForm.append('phonenumber',data.phonenumber);
-
+				dataForm.append('pass',data.pass);
+				dataForm.append('oldPassword',data.oldPassword);
 				console.log(dataForm);
 
 				const result = await axios({
@@ -72,6 +73,10 @@ function Profile(){
 
 			if(!validateForm(formErrors)){
 				alert("You have some errors in your form !!!");
+				return;
+			}
+			if(data.pass != data.repass){
+				alert("You have to type New Password and Repass same !!!");
 				return;
 			}
 
@@ -216,7 +221,7 @@ function Profile(){
 												<div className="form-group">
 														<label className="col-md-5 control-label" for="oldPassword">Old Password</label>
 														<div className="col-md-7">
-																<input ref={register} type="text" className="form-control" id="oldPassword" name="oldPassword" onChange={handleChange}/>
+																<input ref={register} type="password" className="form-control" id="oldPassword" name="oldPassword" onChange={handleChange}/>
 														</div>
 														{formErrors.oldPassword.length > 0 && 
 																<span className='error'>{formErrors.oldPassword}</span>}
@@ -224,7 +229,7 @@ function Profile(){
 												<div className="form-group">
 														<label className="col-md-5 control-label" for="profileNewPassword">New Password</label>
 														<div className="col-md-7">
-																<input ref={register} type="text" className="form-control" id="profileNewPassword" name="pass" onChange={handleChange}/>
+																<input ref={register} type="password" className="form-control" id="profileNewPassword" name="pass" onChange={handleChange}/>
 														</div>
 														{formErrors.pass.length > 0 && 
 																<span className='error'>{formErrors.pass}</span>}
@@ -232,7 +237,7 @@ function Profile(){
 												<div className="form-group">
 														<label className="col-md-5 control-label" for="profileNewPasswordRepeat">Repeat New Password</label>
 														<div className="col-md-7">
-																<input ref={register} type="text" className="form-control" id="profileNewPasswordRepeat" name="repass" onChange={handleChange}/>
+																<input ref={register} type="password" className="form-control" id="profileNewPasswordRepeat" name="repass" onChange={handleChange}/>
 														</div>
 														{formErrors.repass.length > 0 && 
 																<span className='error'>{formErrors.repass}</span>}

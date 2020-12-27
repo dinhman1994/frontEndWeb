@@ -24,7 +24,6 @@ function Home() {
 				url: `http://localhost:8000?page=${page}&name=${queryString}`
 			});
 			setProducts(result.data);
-			setPage(1);
 		}
 		fetchData();
 	},

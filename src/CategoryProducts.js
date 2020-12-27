@@ -59,7 +59,6 @@ function CategoryProducts() {
 				url: `http://localhost:8000/category/${category_id}?page=${page}&name=${queryString}`
 			});
 			setProducts(result.data);
-			setPage(1);
 		}
 		fetchData();
 	},[category_id,page,queryString]);
@@ -74,6 +73,19 @@ function CategoryProducts() {
 	return (
 		<div className="home">
 			<LoadData />
+			<div className="home__container">
+				<img
+				className="home__image"
+				src="https://images-eu.ssl-images-amazon.com/images/G/02/digital/video/merch2016/Hero/Covid19/Generic/GWBleedingHero_ENG_COVIDUPDATE__XSite_1500x600_PV_en-GB._CB428684220_.jpg"
+				alt="VCCCC"
+				/>
+
+				<Category />
+				<div className="mt-3">
+					<h2>{name}</h2>
+				</div>
+				<Patigation setCurrentPage={setCurrentPage}/>
+			</div>
 		</div>
 	);
 	else return (
